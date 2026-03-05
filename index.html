@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOFMANN'S PHARMACOPOEIA — The Living Catalogue of Consciousness</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Fira+Code:wght@300;400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --lsd-violet: #7B2FBE;
+  --lsd-magenta: #FF00FF;
+  --lsd-cyan: #00FFFF;
+  --lsd-gold: #FFD700;
+  --lsd-orange: #FF6600;
+  --lsd-green: #39FF14;
+  --lsd-pink: #FF1493;
+  --lsd-blue: #4169E1;
+  --dmt-deep: #0D001A;
+  --mushroom-earth: #8B4513;
+  --peyote-desert: #DEB887;
+  --iboga-root: #2F4F2F;
+  --cannabis-leaf: #228B22;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--lsd-violet) var(--dmt-deep);
+}
+
+body {
+  background: var(--dmt-deep);
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ═══════════════════════════════════════
+   CUSTOM CURSOR — The Third Eye
+   ═══════════════════════════════════════ */
+.cursor-outer {
+  width: 40px; height: 40px;
+  border: 2px solid var(--lsd-magenta);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.15s, border-color 0.3s;
+  mix-blend-mode: difference;
+}
+.cursor-inner {
+  width: 8px; height: 8px;
+  background: var(--lsd-cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.08s;
+}
+.cursor-trail {
+  position: fixed;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* ═══════════════════════════════════════
+   LOADING SCREEN — The Blotter
+   ═══════════════════════════════════════ */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.5s ease, visibility 1.5s;
+}
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.loading-molecule {
+  width: 200px; height: 200px;
+  position: relative;
+  animation: moleculeSpin 4s linear infinite;
+}
+@keyframes moleculeSpin {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  to { transform: rotate(360deg) scale(1); }
+}
+.loading-text {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.2rem;
+  letter-spacing: 8px;
+  margin-top: 30px;
+  background: linear-gradient(90deg, var(--lsd-violet), var(--lsd-magenta), var(--lsd-cyan), var(--lsd-gold));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 2s linear infinite;
+}
+@keyframes textShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+.loading-bar {
+  width: 300px; height: 2px;
+  background: rgba(255,255,255,0.1);
+  margin-top: 20px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lsd-violet), var(--lsd-magenta), var(--lsd-cyan));
+  width: 0%;
+  transition: width 0.3s;
+  border-radius: 1px;
+}
+
+/* ═══════════════════════════════════════
+   HERO — Bicycle Day
+   ═══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+canvas#heroCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-subtitle {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  color: var(--lsd-cyan);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1.1;
+  background: linear-gradient(
+    135deg,
+    var(--lsd-violet) 0%,
+    var(--lsd-magenta) 20%,
+    var(--lsd-pink) 40%,
+    var(--lsd-orange) 55%,
+    var(--lsd-gold) 70%,
+    var(--lsd-green) 85%,
+    var(--lsd-cyan) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heroGradient 6s ease infinite;
+  filter: drop-shadow(0 0 30px rgba(123, 47, 190, 0.5));
+  margin-bottom: 1.5rem;
+}
+@keyframes heroGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-quote {
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  max-width: 700px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  margin: 0 auto 2rem;
+}
+.hero-quote span {
+  color: var(--lsd-gold);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: floatUp 2s ease-in-out infinite;
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+.scroll-indicator span {
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+.scroll-arrow {
+  width: 24px; height: 24px;
+  border-right: 2px solid var(--lsd-magenta);
+  border-bottom: 2px solid var(--lsd-magenta);
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════
+   MOLECULE NAV — The Periodic Table of Consciousness
+   ═══════════════════════════════════════ */
+.molecule-nav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mol-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+.mol-dot:hover, .mol-dot.active {
+  transform: scale(1.8);
+  border-color: var(--lsd-magenta);
+  box-shadow: 0 0 20px currentColor;
+}
+.mol-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  color: rgba(255,255,255,0.7);
+}
+.mol-dot:hover::after { opacity: 1; }
+
+/* ═══════════════════════════════════════
+   SECTION STYLES — The Sacraments
+   ═══════════════════════════════════════ */
+.substance-section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.section-bg-gradient {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.section-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .section-content { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.substance-visual {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.substance-glyph {
+  width: 300px; height: 300px;
+  position: relative;
+}
+
+.substance-info {
+  padding: 2rem 0;
+}
+
+.substance-number {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
+.substance-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.substance-latin {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.substance-description {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 2rem;
+  max-width: 550px;
+}
+
+.substance-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.meta-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s;
+}
+.meta-card:hover {
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(123, 47, 190, 0.2);
+}
+.meta-label {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+.meta-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   LSD SECTION — Special Treatment
+   ═══════════════════════════════════════ */
+#lsd .substance-name {
+  background: linear-gradient(135deg, #FF00FF, #00FFFF, #FFD700, #FF6600, #39FF14, #FF1493);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lsdTitle 3s ease infinite;
+}
+@keyframes lsdTitle {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+/* ═══════════════════════════════════════
+   DMT SECTION
+   ═══════════════════════════════════════ */
+#dmt .substance-name {
+  color: #E040FB;
+  text-shadow: 0 0 40px rgba(224, 64, 251, 0.6);
+}
+
+/* ═══════════════════════════════════════
+   PSILOCYBIN SECTION
+   ═══════════════════════════════════════ */
+#psilocybin .substance-name {
+  background: linear-gradient(135deg, #8B4513, #DEB887, #FF8C00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ═══════════════════════════════════════
+   CANNABIS SECTION
+   ═══════════════════════════════════════ */
+#cannabis .substance-name {
+  background: linear-gradient(135deg, #228B22, #39FF14, #90EE90);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ═══════════════════════════════════════
+   MESCALINE SECTION
+   ═══════════════════════════════════════ */
+#mescaline .substance-name {
+  background: linear-gradient(135deg, #DEB887, #FF6347, #FF4500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ═══════════════════════════════════════
+   IBOGAINE SECTION
+   ═══════════════════════════════════════ */
+#ibogaine .substance-name {
+  background: linear-gradient(135deg, #2F4F2F, #00CED1, #20B2AA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ═══════════════════════════════════════
+   HOFMANN TRIBUTE SECTION
+   ═══════════════════════════════════════ */
+.hofmann-tribute {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.tribute-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.tribute-years {
+  font-family: 'Fira Code', monospace;
+  font-size: 1rem;
+  letter-spacing: 8px;
+  color: var(--lsd-violet);
+  margin-bottom: 1rem;
+}
+
+.tribute-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #fff 0%, var(--lsd-gold) 50%, #fff 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heroGradient 4s ease infinite;
+}
+
+.tribute-text {
+  font-size: 1.2rem;
+  line-height: 2;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 3rem;
+}
+
+.bicycle-day {
+  display: inline-block;
+  padding: 1rem 3rem;
+  border: 1px solid var(--lsd-violet);
+  border-radius: 999px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1rem;
+  letter-spacing: 4px;
+  color: var(--lsd-violet);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+.bicycle-day:hover {
+  border-color: var(--lsd-magenta);
+  color: #fff;
+  box-shadow: 0 0 40px rgba(123, 47, 190, 0.4);
+}
+
+/* ═══════════════════════════════════════
+   FOOTER — The Comedown
+   ═══════════════════════════════════════ */
+footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+footer p {
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+footer .disclaimer {
+  margin-top: 1rem;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.15);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATED BACKGROUNDS PER SECTION
+   ═══════════════════════════════════════ */
+.fractal-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.06;
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS
+   ═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ═══════════════════════════════════════
+   AUDIO VISUALIZER BAR
+   ═══════════════════════════════════════ */
+.audio-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+.audio-toggle:hover {
+  background: rgba(123, 47, 190, 0.2);
+  border-color: var(--lsd-violet);
+}
+.audio-bar {
+  width: 3px;
+  background: var(--lsd-magenta);
+  border-radius: 2px;
+  transition: height 0.2s;
+}
+.audio-toggle.playing .audio-bar:nth-child(1) { animation: audioBar 0.8s ease-in-out infinite; }
+.audio-toggle.playing .audio-bar:nth-child(2) { animation: audioBar 0.6s ease-in-out infinite 0.1s; }
+.audio-toggle.playing .audio-bar:nth-child(3) { animation: audioBar 0.9s ease-in-out infinite 0.2s; }
+.audio-toggle.playing .audio-bar:nth-child(4) { animation: audioBar 0.7s ease-in-out infinite 0.15s; }
+
+@keyframes audioBar {
+  0%, 100% { height: 8px; }
+  50% { height: 20px; }
+}
+.audio-toggle:not(.playing) .audio-bar { height: 3px; }
+
+/* ═══════════════════════════════════════
+   PARTICLE CANVAS OVERLAYS
+   ═══════════════════════════════════════ */
+canvas.section-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   GLITCH EFFECT
+   ═══════════════════════════════════════ */
+@keyframes glitch1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(30% 0 50% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(60% 0 20% 0); transform: translate(-1px, 1px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(1px, -2px); }
+  80% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 0); }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .molecule-nav { display: none; }
+  .substance-meta { grid-template-columns: 1fr; }
+  .hero-title { font-size: 2.5rem; }
+  .substance-section { padding: 3rem 1rem; }
+}
+
+/* ═══════════════════════════════════════
+   KALEIDOSCOPE ANIMATION
+   ═══════════════════════════════════════ */
+.kaleidoscope {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.kaleidoscope-layer {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg,
+    transparent,
+    var(--lsd-violet) 30deg,
+    transparent 60deg,
+    var(--lsd-magenta) 120deg,
+    transparent 150deg,
+    var(--lsd-cyan) 210deg,
+    transparent 240deg,
+    var(--lsd-gold) 300deg,
+    transparent 330deg
+  );
+  opacity: 0.04;
+  animation: kaleidoRotate 30s linear infinite;
+}
+.kaleidoscope-layer:nth-child(2) {
+  animation-direction: reverse;
+  animation-duration: 25s;
+  opacity: 0.03;
+}
+@keyframes kaleidoRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-screen" id="loadingScreen">
+  <svg class="loading-molecule" viewBox="0 0 200 200">
+    <defs>
+      <linearGradient id="molGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#FF00FF"/>
+        <stop offset="33%" style="stop-color:#00FFFF"/>
+        <stop offset="66%" style="stop-color:#FFD700"/>
+        <stop offset="100%" style="stop-color:#FF00FF"/>
+      </linearGradient>
+    </defs>
+    <!-- LSD-25 molecular structure (simplified) -->
+    <g stroke="url(#molGrad)" stroke-width="2" fill="none">
+      <polygon points="100,30 140,55 140,95 100,120 60,95 60,55" />
+      <line x1="100" y1="30" x2="100" y2="10" />
+      <line x1="140" y1="55" x2="165" y2="45" />
+      <line x1="140" y1="95" x2="165" y2="105" />
+      <line x1="100" y1="120" x2="100" y2="145" />
+      <line x1="60" y1="95" x2="35" y2="105" />
+      <line x1="60" y1="55" x2="35" y2="45" />
+      <circle cx="100" cy="30" r="6" fill="#FF00FF" opacity="0.8"/>
+      <circle cx="140" cy="55" r="4" fill="#00FFFF" opacity="0.8"/>
+      <circle cx="140" cy="95" r="5" fill="#FFD700" opacity="0.8"/>
+      <circle cx="100" cy="120" r="6" fill="#39FF14" opacity="0.8"/>
+      <circle cx="60" cy="95" r="4" fill="#FF6600" opacity="0.8"/>
+      <circle cx="60" cy="55" r="5" fill="#FF1493" opacity="0.8"/>
+      <!-- Nitrogen bridge -->
+      <path d="M 100 145 Q 130 170 160 155" />
+      <circle cx="160" cy="155" r="5" fill="#4169E1" opacity="0.8"/>
+      <text x="158" y="180" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Fira Code">N</text>
+    </g>
+  </svg>
+  <div class="loading-text">SYNTHESIZING CONSCIOUSNESS</div>
+  <div class="loading-bar"><div class="loading-bar-fill" id="loadingBar"></div></div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-outer" id="cursorOuter"></div>
+<div class="cursor-inner" id="cursorInner"></div>
+
+<!-- MOLECULE NAV -->
+<nav class="molecule-nav" id="moleculeNav">
+  <div class="mol-dot" data-target="lsd" data-label="LSD-25" style="color: var(--lsd-magenta)"></div>
+  <div class="mol-dot" data-target="dmt" data-label="DMT" style="color: #E040FB"></div>
+  <div class="mol-dot" data-target="psilocybin" data-label="PSILOCYBIN" style="color: #DEB887"></div>
+  <div class="mol-dot" data-target="cannabis" data-label="CANNABIS" style="color: var(--cannabis-leaf)"></div>
+  <div class="mol-dot" data-target="mescaline" data-label="MESCALINE" style="color: #FF4500"></div>
+  <div class="mol-dot" data-target="ibogaine" data-label="IBOGAINE" style="color: #00CED1"></div>
+  <div class="mol-dot" data-target="hofmann" data-label="HOFMANN" style="color: var(--lsd-gold)"></div>
+</nav>
+
+<!-- AUDIO TOGGLE -->
+<div class="audio-toggle" id="audioToggle" title="Toggle ambient sound">
+  <div class="audio-bar" style="height:8px"></div>
+  <div class="audio-bar" style="height:14px"></div>
+  <div class="audio-bar" style="height:10px"></div>
+  <div class="audio-bar" style="height:12px"></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="kaleidoscope">
+    <div class="kaleidoscope-layer"></div>
+    <div class="kaleidoscope-layer"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-subtitle reveal">Hofmann's Pharmacopoeia</div>
+    <h1 class="hero-title reveal reveal-delay-1">The Living<br>Catalogue of<br>Consciousness</h1>
+    <p class="hero-quote reveal reveal-delay-2">
+      "I share the belief of many of my contemporaries that the spiritual crisis pervading all spheres of
+      Western industrial society can be remedied only by a change in our world view."<br>
+      <span>— Dr. Albert Hofmann, 1906–2008</span>
+    </p>
+  </div>
+  <div class="scroll-indicator">
+    <span>Enter the experience</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     LSD-25 — The Problem Child
+     ═══════════════════════════════════════ -->
+<section class="substance-section" id="lsd">
+  <div class="section-bg-gradient" style="background: radial-gradient(ellipse at 30% 50%, rgba(123,47,190,0.3), transparent 70%)"></div>
+  <canvas class="section-particles" data-color="#FF00FF" data-count="80"></canvas>
+  <div class="section-content">
+    <div class="substance-visual">
+      <canvas class="substance-glyph-canvas" data-substance="lsd" width="400" height="400"></canvas>
+    </div>
+    <div class="substance-info">
+      <div class="substance-number reveal">001 — THE PROBLEM CHILD</div>
+      <h2 class="substance-name reveal reveal-delay-1">LSD-25</h2>
+      <div class="substance-latin reveal reveal-delay-2">Lysergic acid diethylamide · C₂₀H₂₅N₃O</div>
+      <p class="substance-description reveal reveal-delay-2">
+        Synthesized from ergot alkaloids by Albert Hofmann on November 16, 1938, at Sandoz Laboratories in Basel.
+        Its profound psychoactive properties were discovered accidentally on April 16, 1943 — and confirmed three
+        days later on the legendary Bicycle Day, April 19, when Hofmann intentionally ingested 250μg and rode his
+        bicycle home through the dissolving streets of Basel, becoming the first human to experience a full LSD journey.
+      </p>
+      <div class="substance-meta reveal reveal-delay-3">
+        <div class="meta-card">
+          <div class="meta-label">Threshold</div>
+          <div class="meta-value" style="color: var(--lsd-cyan)">25 μg</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value" style="color: var(--lsd-magenta)">8–14 h</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Discovered</div>
+          <div class="meta-value" style="color: var(--lsd-gold)">1943</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     DMT — The Spirit Molecule
+     ═══════════════════════════════════════ -->
+<section class="substance-section" id="dmt">
+  <div class="section-bg-gradient" style="background: radial-gradient(ellipse at 70% 50%, rgba(224,64,251,0.25), transparent 70%)"></div>
+  <canvas class="section-particles" data-color="#E040FB" data-count="100"></canvas>
+  <div class="section-content" style="direction: rtl">
+    <div class="substance-info" style="direction: ltr">
+      <div class="substance-number reveal">002 — THE SPIRIT MOLECULE</div>
+      <h2 class="substance-name reveal reveal-delay-1">DMT</h2>
+      <div class="substance-latin reveal reveal-delay-2">N,N-Dimethyltryptamine · C₁₂H₁₆N₂</div>
+      <p class="substance-description reveal reveal-delay-2">
+        The most powerful naturally occurring psychedelic known to science. Found endogenously in the human brain,
+        in hundreds of plant species, and in the venomous secretions of the Bufo alvarius toad. The Amazonian brew
+        Ayahuasca combines DMT-containing plants with MAO inhibitors, creating a 4-6 hour oral journey through
+        what many describe as contact with non-human intelligence, geometric cathedrals of light, and the
+        fundamental architecture of reality itself.
+      </p>
+      <div class="substance-meta reveal reveal-delay-3">
+        <div class="meta-card">
+          <div class="meta-label">Onset</div>
+          <div class="meta-value" style="color: #E040FB">30 sec</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value" style="color: #CE93D8">5–20 min</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Endogenous</div>
+          <div class="meta-value" style="color: #AB47BC">Yes</div>
+        </div>
+      </div>
+    </div>
+    <div class="substance-visual" style="direction: ltr">
+      <canvas class="substance-glyph-canvas" data-substance="dmt" width="400" height="400"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PSILOCYBIN — The Flesh of the Gods
+     ═══════════════════════════════════════ -->
+<section class="substance-section" id="psilocybin">
+  <div class="section-bg-gradient" style="background: radial-gradient(ellipse at 30% 50%, rgba(139,69,19,0.25), transparent 70%)"></div>
+  <canvas class="section-particles" data-color="#DEB887" data-count="60"></canvas>
+  <div class="section-content">
+    <div class="substance-visual">
+      <canvas class="substance-glyph-canvas" data-substance="psilocybin" width="400" height="400"></canvas>
+    </div>
+    <div class="substance-info">
+      <div class="substance-number reveal">003 — TEONANÁCATL</div>
+      <h2 class="substance-name reveal reveal-delay-1">Psilocybin</h2>
+      <div class="substance-latin reveal reveal-delay-2">4-Phosphoryloxy-N,N-dimethyltryptamine · C₁₂H₁₇N₂O₄P</div>
+      <p class="substance-description reveal reveal-delay-2">
+        Sacred mushrooms have been used for at least 7,000 years — depicted in Tassili cave paintings and
+        Mesoamerican codices. Mazatec curandera María Sabina shared the velada ceremony with R. Gordon Wasson in 1955.
+        Albert Hofmann himself isolated and synthesized psilocybin in 1958. Today, clinical trials at Johns Hopkins,
+        Imperial College, and NYU show remarkable efficacy for treatment-resistant depression, end-of-life anxiety,
+        and addiction — with a single dose producing lasting personality changes toward openness.
+      </p>
+      <div class="substance-meta reveal reveal-delay-3">
+        <div class="meta-card">
+          <div class="meta-label">Species</div>
+          <div class="meta-value" style="color: #DEB887">200+</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value" style="color: #CD853F">4–6 h</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Isolated</div>
+          <div class="meta-value" style="color: #D2691E">1958</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CANNABIS — The Ancient Healer
+     ═══════════════════════════════════════ -->
+<section class="substance-section" id="cannabis">
+  <div class="section-bg-gradient" style="background: radial-gradient(ellipse at 70% 50%, rgba(34,139,34,0.2), transparent 70%)"></div>
+  <canvas class="section-particles" data-color="#39FF14" data-count="50"></canvas>
+  <div class="section-content" style="direction: rtl">
+    <div class="substance-info" style="direction: ltr">
+      <div class="substance-number reveal">004 — THE ANCIENT HEALER</div>
+      <h2 class="substance-name reveal reveal-delay-1">Cannabis</h2>
+      <div class="substance-latin reveal reveal-delay-2">Δ⁹-Tetrahydrocannabinol · C₂₁H₃₀O₂</div>
+      <p class="substance-description reveal reveal-delay-2">
+        Humanity's oldest cultivated psychoactive plant, with archaeological evidence dating to 12,000 years ago
+        in Central Asia. The Scythians burned it in ritual tents. Chinese Emperor Shen Nung documented its medicine
+        in 2737 BCE. THC and CBD interact with the endocannabinoid system — a network of receptors that regulate
+        pain, mood, appetite, and neuroplasticity. Over 140 cannabinoids work in an entourage effect,
+        creating a pharmacological symphony unique in all of nature.
+      </p>
+      <div class="substance-meta reveal reveal-delay-3">
+        <div class="meta-card">
+          <div class="meta-label">Cannabinoids</div>
+          <div class="meta-value" style="color: #39FF14">140+</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value" style="color: #90EE90">2–4 h</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">First Use</div>
+          <div class="meta-value" style="color: #228B22">~10000 BC</div>
+        </div>
+      </div>
+    </div>
+    <div class="substance-visual" style="direction: ltr">
+      <canvas class="substance-glyph-canvas" data-substance="cannabis" width="400" height="400"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     MESCALINE — The Desert Teacher
+     ═══════════════════════════════════════ -->
+<section class="substance-section" id="mescaline">
+  <div class="section-bg-gradient" style="background: radial-gradient(ellipse at 30% 50%, rgba(255,69,0,0.2), transparent 70%)"></div>
+  <canvas class="section-particles" data-color="#FF4500" data-count="40"></canvas>
+  <div class="section-content">
+    <div class="substance-visual">
+      <canvas class="substance-glyph-canvas" data-substance="mescaline" width="400" height="400"></canvas>
+    </div>
+    <div class="substance-info">
+      <div class="substance-number reveal">005 — THE DESERT TEACHER</div>
+      <h2 class="substance-name reveal reveal-delay-1">Mescaline</h2>
+      <div class="substance-latin reveal reveal-delay-2">3,4,5-Trimethoxyphenethylamine · C₁₁H₁₇NO₃</div>
+      <p class="substance-description reveal reveal-delay-2">
+        The sacred medicine of the peyote cactus (Lophophora williamsii) and San Pedro (Echinopsis pachanoi),
+        used by indigenous peoples for over 5,700 years. The first psychedelic to be isolated (Arthur Heffter, 1897)
+        and synthesized (Ernst Späth, 1919). Aldous Huxley's 1954 mescaline experience inspired "The Doors of
+        Perception," giving name to both a cultural revolution and Jim Morrison's band. Its geometric visions are
+        legendary — form constants that mirror the mathematical structure of consciousness itself.
+      </p>
+      <div class="substance-meta reveal reveal-delay-3">
+        <div class="meta-card">
+          <div class="meta-label">Onset</div>
+          <div class="meta-value" style="color: #FF6347">1–2 h</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value" style="color: #FF4500">8–12 h</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Isolated</div>
+          <div class="meta-value" style="color: #DEB887">1897</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     IBOGAINE — The Root of Truth
+     ═══════════════════════════════════════ -->
+<section class="substance-section" id="ibogaine">
+  <div class="section-bg-gradient" style="background: radial-gradient(ellipse at 70% 50%, rgba(0,206,209,0.2), transparent 70%)"></div>
+  <canvas class="section-particles" data-color="#00CED1" data-count="45"></canvas>
+  <div class="section-content" style="direction: rtl">
+    <div class="substance-info" style="direction: ltr">
+      <div class="substance-number reveal">006 — THE ROOT OF TRUTH</div>
+      <h2 class="substance-name reveal reveal-delay-1">Ibogaine</h2>
+      <div class="substance-latin reveal reveal-delay-2">12-Methoxyibogamine · C₂₀H₂₆N₂O</div>
+      <p class="substance-description reveal reveal-delay-2">
+        Extracted from the root bark of the West African shrub Tabernanthe iboga, central to the Bwiti tradition
+        of Gabon. Ibogaine is unique among psychedelics: a single flood dose can interrupt opioid, cocaine, and
+        alcohol addiction by resetting the brain's reward pathways. It produces a 24-36 hour visionary state often
+        described as a panoramic life review — every memory examined without emotional charge.
+        Research into its anti-addictive properties continues to accelerate worldwide.
+      </p>
+      <div class="substance-meta reveal reveal-delay-3">
+        <div class="meta-card">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value" style="color: #00CED1">24–36 h</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Origin</div>
+          <div class="meta-value" style="color: #20B2AA">Gabon</div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Anti-addictive</div>
+          <div class="meta-value" style="color: #2F4F2F">Yes</div>
+        </div>
+      </div>
+    </div>
+    <div class="substance-visual" style="direction: ltr">
+      <canvas class="substance-glyph-canvas" data-substance="ibogaine" width="400" height="400"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     HOFMANN TRIBUTE
+     ═══════════════════════════════════════ -->
+<section class="hofmann-tribute" id="hofmann">
+  <div class="kaleidoscope">
+    <div class="kaleidoscope-layer"></div>
+    <div class="kaleidoscope-layer"></div>
+  </div>
+  <canvas class="section-particles" data-color="#FFD700" data-count="120"></canvas>
+  <div class="tribute-content">
+    <div class="tribute-years reveal">1906 — 2008</div>
+    <h2 class="tribute-name reveal reveal-delay-1">Dr. Albert Hofmann</h2>
+    <p class="tribute-text reveal reveal-delay-2">
+      "I think that in human evolution it has never been as necessary to have this substance LSD.
+      It is just a tool to turn us into what we are supposed to be."<br><br>
+      Father of LSD. Pioneer of psilocybin synthesis. Champion of consciousness research.
+      He lived to 102, calling LSD his "problem child" — a gift to humanity that was
+      misunderstood, feared, and ultimately, vindicated by science.
+    </p>
+    <div class="bicycle-day reveal reveal-delay-3">
+      BICYCLE DAY — APRIL 19, 1943
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Hofmann's Pharmacopoeia — A Living Catalogue of Consciousness</p>
+  <p class="disclaimer">
+    This is an educational and artistic tribute to the history of psychedelic research.
+    Information presented is for harm reduction and scientific literacy.
+    Always respect local laws and prioritize safety.
+  </p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT — THE MIND EXPANSION ENGINE
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+// ═══════════════════════════════════════
+// LOADING SEQUENCE
+// ═══════════════════════════════════════
+const loadingBar = document.getElementById('loadingBar');
+let loadProgress = 0;
+const loadInterval = setInterval(() => {
+  loadProgress += Math.random() * 15 + 5;
+  if (loadProgress >= 100) {
+    loadProgress = 100;
+    clearInterval(loadInterval);
+    setTimeout(() => {
+      document.getElementById('loadingScreen').classList.add('hidden');
+    }, 500);
+  }
+  loadingBar.style.width = loadProgress + '%';
+}, 200);
+
+// ═══════════════════════════════════════
+// CUSTOM CURSOR
+// ═══════════════════════════════════════
+const cursorOuter = document.getElementById('cursorOuter');
+const cursorInner = document.getElementById('cursorInner');
+let mouseX = 0, mouseY = 0;
+let outerX = 0, outerY = 0;
+
+const trailCount = 12;
+const trails = [];
+const trailPositions = [];
+
+for (let i = 0; i < trailCount; i++) {
+  const trail = document.createElement('div');
+  trail.className = 'cursor-trail';
+  const hue = (i / trailCount) * 360;
+  trail.style.background = `hsl(${hue}, 100%, 60%)`;
+  document.body.appendChild(trail);
+  trails.push(trail);
+  trailPositions.push({ x: 0, y: 0 });
+}
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursorInner.style.left = mouseX - 4 + 'px';
+  cursorInner.style.top = mouseY - 4 + 'px';
+});
+
+function animateCursor() {
+  outerX += (mouseX - outerX) * 0.12;
+  outerY += (mouseY - outerY) * 0.12;
+  cursorOuter.style.left = outerX - 20 + 'px';
+  cursorOuter.style.top = outerY - 20 + 'px';
+
+  for (let i = trails.length - 1; i > 0; i--) {
+    trailPositions[i].x += (trailPositions[i-1].x - trailPositions[i].x) * 0.3;
+    trailPositions[i].y += (trailPositions[i-1].y - trailPositions[i].y) * 0.3;
+  }
+  trailPositions[0].x += (mouseX - trailPositions[0].x) * 0.4;
+  trailPositions[0].y += (mouseY - trailPositions[0].y) * 0.4;
+
+  trails.forEach((trail, i) => {
+    trail.style.left = trailPositions[i].x - 3 + 'px';
+    trail.style.top = trailPositions[i].y - 3 + 'px';
+    trail.style.opacity = (1 - i / trailCount) * 0.6;
+    trail.style.transform = `scale(${1 - i / trailCount})`;
+  });
+
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// ═══════════════════════════════════════
+// HERO CANVAS — Psychedelic Wormhole
+// ═══════════════════════════════════════
+const heroCanvas = document.getElementById('heroCanvas');
+const heroCtx = heroCanvas.getContext('2d');
+
+function resizeHeroCanvas() {
+  heroCanvas.width = window.innerWidth;
+  heroCanvas.height = window.innerHeight;
+}
+resizeHeroCanvas();
+window.addEventListener('resize', resizeHeroCanvas);
+
+class WormholeParticle {
+  constructor() { this.reset(); }
+  reset() {
+    this.angle = Math.random() * Math.PI * 2;
+    this.radius = Math.random() * 2;
+    this.speed = Math.random() * 0.02 + 0.005;
+    this.radiusSpeed = Math.random() * 2 + 0.5;
+    this.hue = Math.random() * 360;
+    this.size = Math.random() * 2 + 0.5;
+    this.opacity = Math.random() * 0.8 + 0.2;
+  }
+  update() {
+    this.angle += this.speed;
+    this.radius += this.radiusSpeed;
+    this.hue += 0.5;
+    if (this.radius > Math.max(heroCanvas.width, heroCanvas.height) * 0.7) this.reset();
+  }
+  draw(ctx) {
+    const cx = heroCanvas.width / 2;
+    const cy = heroCanvas.height / 2;
+    const x = cx + Math.cos(this.angle) * this.radius;
+    const y = cy + Math.sin(this.angle) * this.radius;
+    const distFactor = this.radius / (Math.max(heroCanvas.width, heroCanvas.height) * 0.7);
+    ctx.beginPath();
+    ctx.arc(x, y, this.size * (1 + distFactor * 3), 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue % 360}, 100%, 60%, ${this.opacity * (1 - distFactor * 0.5)})`;
+    ctx.fill();
+  }
+}
+
+const wormholeParticles = Array.from({ length: 300 }, () => new WormholeParticle());
+
+let heroTime = 0;
+function animateHero() {
+  heroCtx.fillStyle = 'rgba(13, 0, 26, 0.08)';
+  heroCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+
+  heroTime += 0.003;
+
+  // Sacred geometry rings
+  const cx = heroCanvas.width / 2;
+  const cy = heroCanvas.height / 2;
+  for (let i = 0; i < 6; i++) {
+    const r = 100 + i * 60 + Math.sin(heroTime * 2 + i) * 20;
+    heroCtx.beginPath();
+    heroCtx.arc(cx, cy, r, 0, Math.PI * 2);
+    heroCtx.strokeStyle = `hsla(${(heroTime * 50 + i * 60) % 360}, 100%, 60%, 0.04)`;
+    heroCtx.lineWidth = 1;
+    heroCtx.stroke();
+  }
+
+  // Fibonacci spiral
+  heroCtx.beginPath();
+  let spiralR = 2;
+  for (let a = 0; a < Math.PI * 12; a += 0.05) {
+    spiralR = 2 * Math.pow(1.08, a);
+    const sx = cx + Math.cos(a + heroTime) * spiralR;
+    const sy = cy + Math.sin(a + heroTime) * spiralR;
+    if (a === 0) heroCtx.moveTo(sx, sy);
+    else heroCtx.lineTo(sx, sy);
+  }
+  heroCtx.strokeStyle = `hsla(${(heroTime * 30) % 360}, 100%, 70%, 0.06)`;
+  heroCtx.lineWidth = 1.5;
+  heroCtx.stroke();
+
+  wormholeParticles.forEach(p => { p.update(); p.draw(heroCtx); });
+  requestAnimationFrame(animateHero);
+}
+animateHero();
+
+// ═══════════════════════════════════════
+// SUBSTANCE GLYPH CANVASES — Living Molecules
+// ═══════════════════════════════════════
+const glyphCanvases = document.querySelectorAll('.substance-glyph-canvas');
+const glyphAnimations = [];
+
+glyphCanvases.forEach(canvas => {
+  const ctx = canvas.getContext('2d');
+  const substance = canvas.dataset.substance;
+  const w = canvas.width;
+  const h = canvas.height;
+  let t = Math.random() * 100;
+
+  const configs = {
+    lsd: {
+      colors: ['#FF00FF', '#00FFFF', '#FFD700', '#39FF14', '#FF1493', '#FF6600'],
+      sides: 6, rings: 8, speed: 0.008
+    },
+    dmt: {
+      colors: ['#E040FB', '#AB47BC', '#CE93D8', '#9C27B0', '#7B1FA2', '#4A148C'],
+      sides: 12, rings: 6, speed: 0.012
+    },
+    psilocybin: {
+      colors: ['#8B4513', '#DEB887', '#D2691E', '#CD853F', '#F4A460', '#FFE4C4'],
+      sides: 5, rings: 7, speed: 0.006
+    },
+    cannabis: {
+      colors: ['#228B22', '#39FF14', '#90EE90', '#2E8B57', '#006400', '#32CD32'],
+      sides: 7, rings: 5, speed: 0.005
+    },
+    mescaline: {
+      colors: ['#FF4500', '#FF6347', '#DEB887', '#FF8C00', '#FFD700', '#DC143C'],
+      sides: 8, rings: 6, speed: 0.007
+    },
+    ibogaine: {
+      colors: ['#00CED1', '#20B2AA', '#2F4F2F', '#008B8B', '#5F9EA0', '#48D1CC'],
+      sides: 9, rings: 5, speed: 0.009
+    }
+  };
+
+  const cfg = configs[substance] || configs.lsd;
+
+  function drawGlyph() {
+    t += cfg.speed;
+    ctx.clearRect(0, 0, w, h);
+
+    const cx = w / 2;
+    const cy = h / 2;
+
+    // Rotating sacred geometry
+    for (let ring = 0; ring < cfg.rings; ring++) {
+      const baseR = 30 + ring * 22;
+      const r = baseR + Math.sin(t * 2 + ring * 0.5) * 10;
+      const rotation = t * (ring % 2 === 0 ? 1 : -1) * 0.5;
+      const sides = cfg.sides + ring;
+
+      ctx.beginPath();
+      for (let i = 0; i <= sides; i++) {
+        const angle = (i / sides) * Math.PI * 2 + rotation;
+        const wobble = Math.sin(t * 3 + i + ring) * 5;
+        const px = cx + Math.cos(angle) * (r + wobble);
+        const py = cy + Math.sin(angle) * (r + wobble);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      const colorIdx = ring % cfg.colors.length;
+      ctx.strokeStyle = cfg.colors[colorIdx];
+      ctx.lineWidth = 1.5 - ring * 0.1;
+      ctx.globalAlpha = 0.4 + Math.sin(t + ring) * 0.2;
+      ctx.stroke();
+    }
+
+    // Central pulsing core
+    const coreR = 15 + Math.sin(t * 4) * 8;
+    const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR * 2);
+    coreGrad.addColorStop(0, cfg.colors[0]);
+    coreGrad.addColorStop(0.5, cfg.colors[2] + '80');
+    coreGrad.addColorStop(1, 'transparent');
+    ctx.globalAlpha = 0.6;
+    ctx.beginPath();
+    ctx.arc(cx, cy, coreR, 0, Math.PI * 2);
+    ctx.fillStyle = coreGrad;
+    ctx.fill();
+
+    // Orbiting atoms
+    for (let i = 0; i < 6; i++) {
+      const orbitR = 60 + i * 25;
+      const orbitAngle = t * (1 + i * 0.3) + (i * Math.PI * 2) / 6;
+      const atomX = cx + Math.cos(orbitAngle) * orbitR;
+      const atomY = cy + Math.sin(orbitAngle) * orbitR;
+      const atomR = 3 + Math.sin(t * 5 + i) * 1.5;
+
+      ctx.globalAlpha = 0.8;
+      ctx.beginPath();
+      ctx.arc(atomX, atomY, atomR, 0, Math.PI * 2);
+      ctx.fillStyle = cfg.colors[i % cfg.colors.length];
+      ctx.fill();
+
+      // Glow
+      ctx.beginPath();
+      ctx.arc(atomX, atomY, atomR * 4, 0, Math.PI * 2);
+      const glowGrad = ctx.createRadialGradient(atomX, atomY, 0, atomX, atomY, atomR * 4);
+      glowGrad.addColorStop(0, cfg.colors[i % cfg.colors.length] + '40');
+      glowGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = glowGrad;
+      ctx.globalAlpha = 0.5;
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(drawGlyph);
+  }
+
+  // Only animate when in viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) drawGlyph();
+    });
+  }, { threshold: 0.1 });
+  observer.observe(canvas);
+});
+
+// ═══════════════════════════════════════
+// SECTION PARTICLE SYSTEMS
+// ═══════════════════════════════════════
+document.querySelectorAll('canvas.section-particles').forEach(canvas => {
+  const ctx = canvas.getContext('2d');
+  const color = canvas.dataset.color;
+  const count = parseInt(canvas.dataset.count) || 50;
+  const particles = [];
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+  }
+
+  class FloatingParticle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.r = Math.random() * 2 + 0.5;
+      this.opacity = Math.random() * 0.5 + 0.1;
+      this.phase = Math.random() * Math.PI * 2;
+    }
+    update(time) {
+      this.x += this.vx + Math.sin(time * 0.001 + this.phase) * 0.2;
+      this.y += this.vy + Math.cos(time * 0.001 + this.phase) * 0.2;
+      if (this.x < -10) this.x = canvas.width + 10;
+      if (this.x > canvas.width + 10) this.x = -10;
+      if (this.y < -10) this.y = canvas.height + 10;
+      if (this.y > canvas.height + 10) this.y = -10;
+    }
+    draw(ctx, time) {
+      const pulse = Math.sin(time * 0.003 + this.phase) * 0.3 + 0.7;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = this.opacity * pulse;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < count; i++) particles.push(new FloatingParticle());
+
+  let running = false;
+  function animate(time) {
+    if (!running) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = color;
+          ctx.globalAlpha = (1 - dist / 100) * 0.08;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+
+    particles.forEach(p => { p.update(time); p.draw(ctx, time); });
+    requestAnimationFrame(animate);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !running) { running = true; animate(0); }
+      else if (!entry.isIntersecting) { running = false; }
+    });
+  }, { threshold: 0.05 });
+  observer.observe(canvas);
+});
+
+// ═══════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ═══════════════════════════════════════
+// MOLECULE NAV
+// ═══════════════════════════════════════
+const molDots = document.querySelectorAll('.mol-dot');
+molDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Active dot tracking
+const sections = document.querySelectorAll('.substance-section, .hofmann-tribute');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      molDots.forEach(d => d.classList.remove('active'));
+      const activeDot = document.querySelector(`.mol-dot[data-target="${entry.target.id}"]`);
+      if (activeDot) activeDot.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObserver.observe(s));
+
+// ═══════════════════════════════════════
+// AMBIENT AUDIO — Web Audio API Synthesis
+// ═══════════════════════════════════════
+const audioToggle = document.getElementById('audioToggle');
+let audioCtx = null;
+let audioPlaying = false;
+let droneOsc1, droneOsc2, droneOsc3, droneGain;
+
+audioToggle.addEventListener('click', () => {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    droneGain = audioCtx.createGain();
+    droneGain.gain.value = 0;
+    droneGain.connect(audioCtx.destination);
+
+    // Deep drone
+    droneOsc1 = audioCtx.createOscillator();
+    droneOsc1.type = 'sine';
+    droneOsc1.frequency.value = 55; // A1
+    droneOsc1.connect(droneGain);
+    droneOsc1.start();
+
+    // Harmonic
+    droneOsc2 = audioCtx.createOscillator();
+    droneOsc2.type = 'sine';
+    droneOsc2.frequency.value = 82.5; // E2 (perfect fifth)
+    const gain2 = audioCtx.createGain();
+    gain2.gain.value = 0.4;
+    droneOsc2.connect(gain2);
+    gain2.connect(droneGain);
+    droneOsc2.start();
+
+    // Shimmer
+    droneOsc3 = audioCtx.createOscillator();
+    droneOsc3.type = 'triangle';
+    droneOsc3.frequency.value = 220;
+    const gain3 = audioCtx.createGain();
+    gain3.gain.value = 0.08;
+    droneOsc3.connect(gain3);
+    gain3.connect(droneGain);
+    droneOsc3.start();
+
+    // LFO for shimmer
+    const lfo = audioCtx.createOscillator();
+    lfo.type = 'sine';
+    lfo.frequency.value = 0.1;
+    const lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 15;
+    lfo.connect(lfoGain);
+    lfoGain.connect(droneOsc3.frequency);
+    lfo.start();
+  }
+
+  audioPlaying = !audioPlaying;
+  if (audioPlaying) {
+    droneGain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 2);
+    audioToggle.classList.add('playing');
+  } else {
+    droneGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1);
+    audioToggle.classList.remove('playing');
+  }
+});
+
+// ═══════════════════════════════════════
+// PSYCHEDELIC SCROLL EFFECTS
+// ═══════════════════════════════════════
+let scrollHue = 0;
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPct = scrollY / docHeight;
+
+  scrollHue = scrollPct * 360;
+  document.body.style.setProperty('--scroll-hue', scrollHue);
+
+  // Parallax on hero
+  const hero = document.querySelector('.hero-content');
+  if (hero) {
+    hero.style.transform = `translateY(${scrollY * 0.3}px)`;
+    hero.style.opacity = 1 - scrollY / (window.innerHeight * 0.8);
+  }
+});
+
+// ═══════════════════════════════════════
+// KONAMI CODE EASTER EGG — Full LSD mode
+// ═══════════════════════════════════════
+const konamiCode = [38,38,40,40,37,39,37,39,66,65];
+let konamiIdx = 0;
+document.addEventListener('keydown', (e) => {
+  if (e.keyCode === konamiCode[konamiIdx]) {
+    konamiIdx++;
+    if (konamiIdx === konamiCode.length) {
+      konamiIdx = 0;
+      document.body.style.animation = 'lsdMode 0.5s ease infinite';
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes lsdMode {
+          0% { filter: hue-rotate(0deg) saturate(2); }
+          25% { filter: hue-rotate(90deg) saturate(3); }
+          50% { filter: hue-rotate(180deg) saturate(2); }
+          75% { filter: hue-rotate(270deg) saturate(3); }
+          100% { filter: hue-rotate(360deg) saturate(2); }
+        }
+      `;
+      document.head.appendChild(style);
+      setTimeout(() => {
+        document.body.style.animation = '';
+      }, 10000);
+    }
+  } else {
+    konamiIdx = 0;
+  }
+});
+
+// ═══════════════════════════════════════
+// CURSOR HOVER EFFECTS
+// ═══════════════════════════════════════
+document.querySelectorAll('a, button, .mol-dot, .meta-card, .bicycle-day, .audio-toggle').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursorOuter.style.transform = 'scale(2)';
+    cursorOuter.style.borderColor = 'var(--lsd-cyan)';
+    cursorInner.style.transform = 'scale(0.5)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursorOuter.style.transform = 'scale(1)';
+    cursorOuter.style.borderColor = 'var(--lsd-magenta)';
+    cursorInner.style.transform = 'scale(1)';
+  });
+});
+
+console.log('%c🚲 BICYCLE DAY — APRIL 19, 1943',
+  'font-size: 20px; font-weight: bold; background: linear-gradient(90deg, #FF00FF, #00FFFF, #FFD700); -webkit-background-clip: text; -webkit-text-fill-color: transparent;');
+console.log('%c"Every experience of reality is a real experience." — Albert Hofmann',
+  'font-size: 12px; color: #7B2FBE; font-style: italic;');
+</script>
+</body>
+</html>
