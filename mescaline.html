@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mescaline — Eyes of the Earth</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0C0504;color:#FDE68A;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+canvas#desert{position:fixed;inset:0;z-index:0}
+.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(251,146,60,.3);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+.back:hover{color:#FB923C}
+.ct{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(2.5rem,10vw,7rem);font-weight:900;background:linear-gradient(180deg,#FDE68A,#FB923C,#C2410C,#7C2D12);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 50px rgba(251,146,60,.3));animation:desertBreathe 7s ease-in-out infinite}
+@keyframes desertBreathe{0%,100%{transform:scale(1);filter:drop-shadow(0 0 50px rgba(251,146,60,.3))}50%{transform:scale(1.02);filter:drop-shadow(0 0 90px rgba(251,146,60,.5))}}
+.hero .ancient{font-size:.6rem;letter-spacing:14px;text-transform:uppercase;color:rgba(251,146,60,.2);margin-top:1.5rem}
+.hero .mol{font-size:1.2rem;color:rgba(251,146,60,.1);margin-top:1rem;letter-spacing:2px}
+.stat-row{display:flex;justify-content:center;gap:3rem;padding:4rem 2rem;flex-wrap:wrap}
+.big-stat{text-align:center}
+.big-stat .v{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);background:linear-gradient(135deg,#FDE68A,#FB923C);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.big-stat .l{font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:rgba(251,146,60,.2);margin-top:.3rem}
+.wide{max-width:900px;margin:0 auto;padding:6rem 2rem}
+.wide h2{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);background:linear-gradient(135deg,#FDE68A,#FB923C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem}
+.wide p{font-size:.95rem;line-height:2.4;color:rgba(253,230,138,.3);margin-bottom:1.5rem}
+.wide p strong{color:rgba(251,146,60,.6);font-weight:400}
+.mandala-section{display:flex;justify-content:center;padding:4rem 0}
+.mandala-section canvas{width:min(500px,90vw);height:min(500px,90vw)}
+.huichol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;max-width:1200px;margin:0 auto;padding:4rem 2rem}
+.huichol-card{padding:2.5rem 2rem;border:1px solid rgba(251,146,60,.05);border-radius:20px;background:rgba(12,5,4,.8);backdrop-filter:blur(20px);position:relative;overflow:hidden;transition:all .7s cubic-bezier(.34,1.56,.64,1)}
+.huichol-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(251,146,60,.03),transparent,rgba(253,230,138,.02));pointer-events:none}
+.huichol-card:hover{transform:translateY(-6px);border-color:rgba(251,146,60,.2);box-shadow:0 20px 60px rgba(251,146,60,.06)}
+.huichol-card h3{font-family:'Cinzel Decorative',serif;font-size:1.1rem;color:#FB923C;margin-bottom:.7rem}
+.huichol-card p{font-size:.8rem;line-height:2;color:rgba(253,230,138,.3)}
+.huichol-card .num{font-size:2.5rem;font-weight:700;color:rgba(251,146,60,.06);position:absolute;top:1rem;right:1.5rem;font-family:'Cinzel Decorative',serif}
+.cactus-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin:2rem 0}
+.cactus{padding:.4rem 1rem;border:1px solid rgba(251,146,60,.1);border-radius:99px;font-size:.6rem;letter-spacing:1px;color:rgba(251,146,60,.35);transition:all .3s}
+.cactus:hover{border-color:rgba(251,146,60,.4);color:rgba(251,146,60,.7);background:rgba(251,146,60,.05)}
+.quote-block{max-width:700px;margin:0 auto;padding:6rem 2rem;text-align:center}
+.quote-block blockquote{font-size:1rem;line-height:2.2;color:rgba(253,230,138,.2);font-style:italic;position:relative;padding:0 2rem}
+.quote-block blockquote::before,.quote-block blockquote::after{content:'"';font-family:'Cinzel Decorative',serif;font-size:3rem;color:rgba(251,146,60,.1);position:absolute}
+.quote-block blockquote::before{top:-.5rem;left:0}
+.quote-block blockquote::after{bottom:-1.5rem;right:0}
+.quote-block cite{display:block;margin-top:1.5rem;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:rgba(251,146,60,.25);font-style:normal}
+footer{text-align:center;padding:3rem;position:relative;z-index:1}
+footer a{color:rgba(251,146,60,.12);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:rgba(251,146,60,.4)}
+</style></head><body>
+<a href="index.html" class="back">Pharmacopoeia</a>
+<canvas id="desert"></canvas>
+<div class="ct">
+<section class="hero">
+  <h1>Mescaline</h1>
+  <div class="ancient">Hikuri — Het Oog van de Aarde</div>
+  <div class="mol">C&#x2081;&#x2081;H&#x2081;&#x2087;NO&#x2083;</div>
+</section>
+<div class="stat-row">
+  <div class="big-stat"><div class="v">5700+</div><div class="l">Jaar Gebruik</div></div>
+  <div class="big-stat"><div class="v">8-12 h</div><div class="l">Duur</div></div>
+  <div class="big-stat"><div class="v">211.3</div><div class="l">g/mol</div></div>
+  <div class="big-stat"><div class="v">1897</div><div class="l">Geisoleerd</div></div>
+</div>
+<div class="wide">
+  <h2>De Woestijncactus</h2>
+  <p>In de Chihuahuan-woestijn van Mexico groeit een kleine, onopvallende cactus — de <strong>Lophophora williamsii</strong>, beter bekend als peyote. De Huichol-indianen (Wixáritari) maken al meer dan 5.700 jaar een jaarlijkse pelgrimstocht van 500 kilometer om deze "Grootvader Peyote" te oogsten. Het is de langst ononderbroken psychedelische traditie op aarde.</p>
+  <p>In 1897 isoleerde <strong>Arthur Heffter</strong> mescaline als het eerste psychedelicum dat ooit uit een natuurlijke bron werd geisoleerd — 46 jaar voordat Hofmann LSD ontdekte. De trimethoxyfenylethylamine-structuur is uniek eenvoudig: <strong>drie methoxygroepen op een fenylring</strong>. Toch produceert het een van de meest visueel rijke en spiritueel diepe ervaringen die het menselijk bewustzijn kent.</p>
+</div>
+<div class="mandala-section"><canvas id="mandalaCanvas" width="500" height="500"></canvas></div>
+<div class="huichol-grid">
+  <div class="huichol-card"><div class="num">01</div><h3>Huichol Visioenen</h3><p>De Huichol-kunstenaars weven hun peyote-visioenen in "nierika" — symmetrische garenkunst die de grens tussen de zichtbare en onzichtbare wereld toont. Elke kleur en elk symbool correspondeert met een specifieke god of geestdier.</p></div>
+  <div class="huichol-card"><div class="num">02</div><h3>Aldous Huxley</h3><p>"The Doors of Perception" (1954) — Huxley's verslag van zijn mescaline-ervaring werd de bijbel van de psychedelische beweging. "What the rest of us see only under the influence of mescalin, the artist is congenitally equipped to see all the time."</p></div>
+  <div class="huichol-card"><div class="num">03</div><h3>De Native American Church</h3><p>Meer dan 300.000 leden gebruiken peyote sacramenteel in ceremonies die christelijke en inheemse elementen combineren. Beschermd door de American Indian Religious Freedom Act sinds 1994.</p></div>
+  <div class="huichol-card"><div class="num">04</div><h3>San Pedro</h3><p>De Trichocereus pachanoi — een zuilvormige cactus die tot 6 meter hoog groeit in de Andes. Al 3.000 jaar gebruikt door de pre-Inca culturen. Bevat dezelfde mescaline maar in een andere plantmatrix, wat een zachtere, langere ervaring geeft.</p></div>
+  <div class="huichol-card"><div class="num">05</div><h3>Synesthesie</h3><p>Mescaline staat bekend om zijn buitengewone visuele effecten: kleuren die gehoord worden, muziek die gezien wordt, geometrische patronen die uit alle oppervlakken stromen. De sensorische grenzen lossen op in een zee van kruis-modale perceptie.</p></div>
+  <div class="huichol-card"><div class="num">06</div><h3>De Langste Trip</h3><p>8-12 uur werkingsduur maakt mescaline het langst werkende klassieke psychedelicum. De langzame opkomst (2-3 uur) geeft het gevoel van een langzame zonsopgang over de woestijn — geleidelijk maar onafwendbaar.</p></div>
+</div>
+<div class="wide">
+  <h2>De Drie Cactussen</h2>
+  <p>Mescaline komt voor in meerdere cactussoorten, elk met hun eigen culturele erfgoed. De <strong>peyote</strong> in de woestijnen van Mexico, de <strong>San Pedro</strong> in de bergen van Peru, en de <strong>Peruviaanse Fakkelcactus</strong> in de hoge Andes. Samen bestrijken ze het hele continent — van de Chihuahuan-woestijn tot de Atacama.</p>
+  <div class="cactus-bar">
+    <span class="cactus">Lophophora williamsii</span><span class="cactus">Trichocereus pachanoi</span>
+    <span class="cactus">Trichocereus peruvianus</span><span class="cactus">Trichocereus bridgesii</span>
+    <span class="cactus">Lophophora diffusa</span><span class="cactus">Lophophora fricii</span>
+  </div>
+</div>
+<div class="quote-block">
+  <blockquote>The man who comes back through the Door in the Wall will never be quite the same as the man who went out. He will be wiser but less sure, happier but less self-satisfied, humbler in acknowledging his ignorance yet better equipped to understand the relationship of words to things, of systematic reasoning to the unfathomable Mystery which it tries, forever vainly, to comprehend.</blockquote>
+  <cite>Aldous Huxley, The Doors of Perception</cite>
+</div>
+</div>
+<footer><a href="index.html">Terug naar Hofmann's Pharmacopoeia</a></footer>
+<script>
+// DESERT — geometric Huichol mandala patterns + sand particles
+const C=document.getElementById('desert'),X=C.getContext('2d');
+let W,H,t=0;
+function resize(){W=C.width=innerWidth;H=C.height=innerHeight}
+resize();addEventListener('resize',resize);
+class SandGrain{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*W;this.y=Math.random()*H;
+    this.vx=Math.random()*.5+.1;this.vy=(Math.random()-.5)*.1;
+    this.size=Math.random()*1.5+.5;this.alpha=Math.random()*.15+.02;
+    this.hue=25+Math.random()*20;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy+Math.sin(t*.01+this.x*.002)*.1;
+    if(this.x>W)this.reset();
+  }
+  draw(c){
+    c.beginPath();c.arc(this.x,this.y,this.size,0,Math.PI*2);
+    c.fillStyle=`hsla(${this.hue},60%,60%,${this.alpha})`;c.fill();
+  }
+}
+const sand=[];for(let i=0;i<100;i++)sand.push(new SandGrain());
+function drawHuicholBG(c,cx,cy,time){
+  // Rotating Huichol-inspired geometric patterns
+  const layers=5;
+  for(let l=0;l<layers;l++){
+    const radius=60+l*80+Math.sin(time*.3+l)*15;
+    const petals=8+l*4;
+    const rot=time*.05*(l%2===0?1:-1);
+    c.save();c.translate(cx,cy);c.rotate(rot);
+    // Diamond petals
+    for(let p=0;p<petals;p++){
+      const a=(p/petals)*Math.PI*2;
+      const x=Math.cos(a)*radius;
+      const y=Math.sin(a)*radius;
+      const sz=10+l*3+Math.sin(time*.5+p)*3;
+      c.save();c.translate(x,y);c.rotate(a+time*.1);
+      c.beginPath();c.moveTo(0,-sz);c.lineTo(sz*.6,0);c.lineTo(0,sz);c.lineTo(-sz*.6,0);c.closePath();
+      const hue=(25+l*30+p*15+time*5)%360;
+      c.fillStyle=`hsla(${hue},70%,50%,.${3-Math.min(l,2)})`;c.fill();
+      c.strokeStyle=`hsla(${hue},80%,60%,.${2-Math.min(l,1)})`;c.lineWidth=.5;c.stroke();
+      c.restore();
+    }
+    // Connecting ring
+    c.beginPath();
+    for(let p=0;p<=petals;p++){
+      const a=(p/petals)*Math.PI*2;
+      const method=p===0?'moveTo':'lineTo';
+      c[method](Math.cos(a)*radius,Math.sin(a)*radius);
+    }
+    c.strokeStyle=`hsla(${30+l*20},60%,50%,.06)`;c.lineWidth=1;c.stroke();
+    c.restore();
+  }
+}
+function draw(){
+  t++;
+  X.fillStyle='rgba(12,5,4,.05)';X.fillRect(0,0,W,H);
+  drawHuicholBG(X,W/2,H/2,t*.02);
+  sand.forEach(s=>{s.update();s.draw(X)});
+  // Desert heat glow
+  if(t%200===0){
+    const grd=X.createRadialGradient(W/2,H*.7,0,W/2,H*.7,W*.3);
+    grd.addColorStop(0,'rgba(251,146,60,.01)');grd.addColorStop(1,'transparent');
+    X.fillStyle=grd;X.fillRect(0,0,W,H);
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+// Mandala canvas — sacred geometry
+const MC=document.getElementById('mandalaCanvas'),MX=MC.getContext('2d');
+let mt=0;
+function drawMandala(){
+  mt+=.008;MX.clearRect(0,0,500,500);
+  const cx=250,cy=250;
+  // Concentric rings with Huichol patterns
+  for(let ring=0;ring<8;ring++){
+    const r=30+ring*28;
+    const n=6+ring*2;
+    const rot=mt*(ring%2===0?1:-1)*.5;
+    MX.save();MX.translate(cx,cy);MX.rotate(rot);
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2;
+      const x=Math.cos(a)*r;
+      const y=Math.sin(a)*r;
+      const sz=8+ring*1.5+Math.sin(mt*2+i)*2;
+      const hue=(ring*45+i*20+mt*20)%360;
+      // Peyote button shape
+      MX.beginPath();MX.arc(x,y,sz,0,Math.PI*2);
+      MX.fillStyle=`hsla(${hue},70%,50%,.${Math.min(ring+2,6)})`;MX.fill();
+      MX.strokeStyle=`hsla(${hue},80%,60%,.${Math.min(ring+1,4)})`;MX.lineWidth=.5;MX.stroke();
+      // Inner cross
+      if(ring>2){
+        MX.save();MX.translate(x,y);MX.rotate(a+mt);
+        MX.beginPath();MX.moveTo(-sz*.5,0);MX.lineTo(sz*.5,0);
+        MX.moveTo(0,-sz*.5);MX.lineTo(0,sz*.5);
+        MX.strokeStyle=`hsla(${hue+60},60%,70%,.3)`;MX.lineWidth=.5;MX.stroke();
+        MX.restore();
+      }
+    }
+    // Ring circle
+    MX.beginPath();MX.arc(0,0,r,0,Math.PI*2);
+    MX.strokeStyle=`hsla(${30+ring*15},50%,50%,.${Math.max(1,4-ring)})`;MX.lineWidth=.5;MX.stroke();
+    MX.restore();
+  }
+  requestAnimationFrame(drawMandala);
+}
+drawMandala();
+// Scroll reveals
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
+document.querySelectorAll('.huichol-card,.wide h2,.wide p,.big-stat,.quote-block,.mandala-section').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(40px)';el.style.transition='all 1s cubic-bezier(.4,0,.2,1)';obs.observe(el)});
+</script></body></html>

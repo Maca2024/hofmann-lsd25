@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>5-MeO-DMT — The God Molecule</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#FAFAFA;color:#111;font-family:'Space Grotesk',sans-serif;overflow-x:hidden;transition:background 2s,color 2s}
+body.void{background:#000;color:#fff}
+canvas#dissolution{position:fixed;inset:0;z-index:0}
+.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(0,0,0,.25);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+body.void .back{color:rgba(255,255,255,.25)}
+.back:hover{color:#000}
+body.void .back:hover{color:#fff}
+.ct{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,8vw,5rem);font-weight:900;color:rgba(0,0,0,.08);transition:color 2s;letter-spacing:.1em;animation:dissolveTitle 10s ease-in-out infinite}
+body.void .hero h1{color:rgba(255,255,255,.06)}
+@keyframes dissolveTitle{0%,100%{letter-spacing:.1em;opacity:.8}50%{letter-spacing:.3em;opacity:.4}}
+.hero .ancient{font-size:.55rem;letter-spacing:20px;text-transform:uppercase;color:rgba(0,0,0,.1);margin-top:2rem;transition:color 2s}
+body.void .hero .ancient{color:rgba(255,255,255,.08)}
+.hero .mol{font-size:1rem;color:rgba(0,0,0,.05);margin-top:1rem;letter-spacing:3px;transition:color 2s}
+body.void .hero .mol{color:rgba(255,255,255,.04)}
+.void-trigger{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:100;padding:.5rem 1.5rem;border:1px solid rgba(0,0,0,.08);border-radius:99px;background:transparent;color:rgba(0,0,0,.2);font-size:.55rem;letter-spacing:4px;text-transform:uppercase;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .5s}
+body.void .void-trigger{border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.15)}
+.void-trigger:hover{border-color:rgba(0,0,0,.3);color:rgba(0,0,0,.5)}
+body.void .void-trigger:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.4)}
+.stat-row{display:flex;justify-content:center;gap:3rem;padding:4rem 2rem;flex-wrap:wrap}
+.big-stat{text-align:center}
+.big-stat .v{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);color:rgba(0,0,0,.06);transition:color 2s}
+body.void .big-stat .v{color:rgba(255,255,255,.06)}
+.big-stat .l{font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:rgba(0,0,0,.08);margin-top:.3rem;transition:color 2s}
+body.void .big-stat .l{color:rgba(255,255,255,.06)}
+.wide{max-width:800px;margin:0 auto;padding:6rem 2rem}
+.wide h2{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,4vw,3rem);color:rgba(0,0,0,.06);margin-bottom:2rem;transition:color 2s}
+body.void .wide h2{color:rgba(255,255,255,.06)}
+.wide p{font-size:.95rem;line-height:2.6;color:rgba(0,0,0,.2);margin-bottom:1.5rem;transition:color 2s}
+body.void .wide p{color:rgba(255,255,255,.15)}
+.wide p strong{color:rgba(0,0,0,.35);font-weight:400;transition:color 2s}
+body.void .wide p strong{color:rgba(255,255,255,.25)}
+.emptiness{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.emptiness p{font-size:clamp(1rem,2vw,1.5rem);color:rgba(0,0,0,.04);max-width:600px;line-height:3;transition:color 2s}
+body.void .emptiness p{color:rgba(255,255,255,.04)}
+.circle-grid{display:flex;justify-content:center;gap:3rem;padding:4rem 2rem;flex-wrap:wrap}
+.void-circle{width:120px;height:120px;border-radius:50%;border:1px solid rgba(0,0,0,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:all 1s}
+body.void .void-circle{border-color:rgba(255,255,255,.04)}
+.void-circle:hover{transform:scale(1.1);border-color:rgba(0,0,0,.1)}
+body.void .void-circle:hover{border-color:rgba(255,255,255,.1)}
+.void-circle .name{font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,.1);transition:color 2s}
+body.void .void-circle .name{color:rgba(255,255,255,.08)}
+.void-circle .val{font-size:.9rem;color:rgba(0,0,0,.06);margin-bottom:.3rem;transition:color 2s}
+body.void .void-circle .val{color:rgba(255,255,255,.06)}
+.quote-block{max-width:700px;margin:0 auto;padding:6rem 2rem;text-align:center}
+.quote-block blockquote{font-size:1rem;line-height:2.4;color:rgba(0,0,0,.1);font-style:italic;transition:color 2s}
+body.void .quote-block blockquote{color:rgba(255,255,255,.08)}
+.quote-block cite{display:block;margin-top:1.5rem;font-size:.55rem;letter-spacing:5px;text-transform:uppercase;color:rgba(0,0,0,.06);font-style:normal;transition:color 2s}
+body.void .quote-block cite{color:rgba(255,255,255,.05)}
+footer{text-align:center;padding:3rem;position:relative;z-index:1}
+footer a{color:rgba(0,0,0,.06);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+body.void footer a{color:rgba(255,255,255,.06)}
+footer a:hover{color:rgba(0,0,0,.2)}
+body.void footer a:hover{color:rgba(255,255,255,.15)}
+</style></head><body>
+<a href="index.html" class="back">Pharmacopoeia</a>
+<canvas id="dissolution"></canvas>
+<button class="void-trigger" id="voidBtn">Ego Dissolution</button>
+<div class="ct">
+<section class="hero">
+  <h1>5-MeO-DMT</h1>
+  <div class="ancient">Het God-molecuul</div>
+  <div class="mol">C&#x2081;&#x2083;H&#x2081;&#x2088;N&#x2082;O</div>
+</section>
+<div class="stat-row">
+  <div class="big-stat"><div class="v">15s</div><div class="l">Onset</div></div>
+  <div class="big-stat"><div class="v">15-45m</div><div class="l">Duur</div></div>
+  <div class="big-stat"><div class="v">218.3</div><div class="l">g/mol</div></div>
+  <div class="big-stat"><div class="v">Endogeen</div><div class="l">In je lichaam</div></div>
+</div>
+<div class="wide">
+  <h2>Voorbij het Zelf</h2>
+  <p>5-MeO-DMT is niet als DMT. Er zijn geen machine-elfen. Geen geometrische kathedralen. Geen visioenen. Er is <strong>niets</strong>. En dat niets is alles. Het is het krachtigste ego-oplossende psychedelicum dat de wetenschap kent — een <strong>volledige vernietiging van het zelf</strong> die gemiddeld 15 minuten duurt maar als een eeuwigheid wordt ervaren.</p>
+  <p>De Seri-indianen van Mexico noemden de Bufo alvarius pad — de enige natuurlijke bron — <strong>"het licht dat alles verbindt."</strong> Het gif wordt gerookt. Binnen 15 seconden lost de wereld op. Er is geen "jij" meer die ervaart. Er is alleen het oneindige wit.</p>
+</div>
+<section class="emptiness">
+  <p>Hier was jij. Hier was de wereld. Hier was alles wat je kende. En toen was er niets. En in dat niets was er alles. En je begreep dat er nooit een verschil was geweest.</p>
+</section>
+<div class="circle-grid">
+  <div class="void-circle"><div class="val">5-HT&#x2081;&#x2090;</div><div class="name">Primaire receptor</div></div>
+  <div class="void-circle"><div class="val">&#x221E;</div><div class="name">Eenheidservaring</div></div>
+  <div class="void-circle"><div class="val">80%</div><div class="name">Rapporteert mystiek</div></div>
+  <div class="void-circle"><div class="val">0</div><div class="name">Visuele beelden</div></div>
+</div>
+<div class="wide">
+  <h2>Het Witte Licht</h2>
+  <p>Onderzoekers aan Johns Hopkins en de Universiteit van Maastricht noemen 5-MeO-DMT de meest betrouwbare veroorzaker van <strong>volledige mystieke ervaringen</strong> — hoger scorend dan psilocybine, LSD of ayahuasca op de Mystical Experience Questionnaire. 80% van de deelnemers rapporteert een ervaring die zij beschrijven als "meer werkelijk dan de werkelijkheid."</p>
+  <p>Het molecuul verschilt slechts één methoxygroep van DMT, maar die ene groep verandert alles. Waar DMT de poorten opent naar <strong>andere werelden</strong>, opent 5-MeO-DMT de poort naar <strong>geen wereld</strong> — naar de leegte waaruit alle werelden ontstaan. Sunyata. Het oneindige. De bron.</p>
+</div>
+<div class="quote-block">
+  <blockquote>There was no me. There was no universe. There was only an infinite field of white light that was simultaneously nothing and everything. And it was the most real thing I have ever experienced.</blockquote>
+  <cite>5-MeO-DMT onderzoeksdeelnemer, Johns Hopkins 2023</cite>
+</div>
+</div>
+<footer><a href="index.html">Terug naar Hofmann's Pharmacopoeia</a></footer>
+<script>
+// DISSOLUTION — particles that form and dissolve, white→void transition
+const C=document.getElementById('dissolution'),X=C.getContext('2d');
+let W,H,t=0,isVoid=false;
+function resize(){W=C.width=innerWidth;H=C.height=innerHeight}
+resize();addEventListener('resize',resize);
+document.getElementById('voidBtn').addEventListener('click',()=>{
+  isVoid=!isVoid;
+  document.body.classList.toggle('void');
+  document.getElementById('voidBtn').textContent=isVoid?'Return':'Ego Dissolution';
+});
+class DissolutionParticle{
+  constructor(){this.reset()}
+  reset(){
+    this.x=W/2+(Math.random()-.5)*W*.8;
+    this.y=H/2+(Math.random()-.5)*H*.8;
+    this.ox=this.x;this.oy=this.y;
+    this.size=Math.random()*3+.5;
+    this.phase=Math.random()*Math.PI*2;
+    this.speed=Math.random()*.5+.1;
+    this.orbit=Math.random()*100+50;
+    this.dissolveRate=Math.random()*.002+.001;
+    this.alpha=Math.random()*.15+.02;
+    this.dissolved=0;
+  }
+  update(){
+    this.phase+=this.speed*.01;
+    this.dissolved+=this.dissolveRate;
+    if(this.dissolved>1)this.dissolved=0;
+    // Breathing orbit
+    const breath=Math.sin(t*.005)*30;
+    this.x=this.ox+Math.cos(this.phase)*(this.orbit+breath)*this.dissolved;
+    this.y=this.oy+Math.sin(this.phase)*(this.orbit+breath)*this.dissolved;
+    // Drift toward center when void
+    if(isVoid){
+      this.x+=(W/2-this.x)*.001;
+      this.y+=(H/2-this.y)*.001;
+    }
+  }
+  draw(c){
+    const fade=1-Math.abs(this.dissolved-.5)*2;
+    const a=this.alpha*fade;
+    if(a<=0)return;
+    const col=isVoid?`rgba(255,255,255,${a})`:`rgba(0,0,0,${a})`;
+    c.beginPath();c.arc(this.x,this.y,this.size*fade,0,Math.PI*2);
+    c.fillStyle=col;c.fill();
+  }
+}
+const particles=[];
+for(let i=0;i<300;i++)particles.push(new DissolutionParticle());
+function draw(){
+  t++;
+  const bg=isVoid?'rgba(0,0,0,.03)':'rgba(250,250,250,.03)';
+  X.fillStyle=bg;X.fillRect(0,0,W,H);
+  particles.forEach(p=>{p.update();p.draw(X)});
+  // Central void/light
+  const cx=W/2,cy=H/2;
+  const pulse=Math.sin(t*.01)*.3+.7;
+  const radius=100+Math.sin(t*.005)*30;
+  const grd=X.createRadialGradient(cx,cy,0,cx,cy,radius);
+  if(isVoid){
+    grd.addColorStop(0,`rgba(255,255,255,${.015*pulse})`);
+    grd.addColorStop(1,'transparent');
+  }else{
+    grd.addColorStop(0,`rgba(0,0,0,${.008*pulse})`);
+    grd.addColorStop(1,'transparent');
+  }
+  X.beginPath();X.arc(cx,cy,radius,0,Math.PI*2);X.fillStyle=grd;X.fill();
+  // Concentric dissolution rings
+  for(let r=0;r<5;r++){
+    const rr=150+r*100+Math.sin(t*.003+r)*20;
+    X.beginPath();X.arc(cx,cy,rr,0,Math.PI*2);
+    const ringAlpha=isVoid?.02:.01;
+    X.strokeStyle=isVoid?`rgba(255,255,255,${ringAlpha})`:`rgba(0,0,0,${ringAlpha})`;
+    X.lineWidth=.5;X.stroke();
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
+document.querySelectorAll('.wide h2,.wide p,.big-stat,.quote-block,.emptiness,.void-circle').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='all 1.2s cubic-bezier(.4,0,.2,1)';obs.observe(el)});
+</script></body></html>

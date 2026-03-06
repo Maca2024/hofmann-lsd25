@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ibogaine — The Root of Truth</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#030806;color:#D1FAE5;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+canvas#jungle{position:fixed;inset:0;z-index:0}
+.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(16,185,129,.3);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+.back:hover{color:#10B981}
+.ct{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(2.5rem,10vw,7rem);font-weight:900;background:linear-gradient(180deg,#6EE7B7,#10B981,#047857,#064E3B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 50px rgba(16,185,129,.3));animation:rootPulse 8s ease-in-out infinite}
+@keyframes rootPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 50px rgba(16,185,129,.3))}50%{transform:scale(1.015);filter:drop-shadow(0 0 80px rgba(16,185,129,.4))}}
+.hero .ancient{font-size:.6rem;letter-spacing:14px;text-transform:uppercase;color:rgba(16,185,129,.2);margin-top:1.5rem}
+.hero .mol{font-size:1.2rem;color:rgba(16,185,129,.1);margin-top:1rem;letter-spacing:2px}
+.stat-row{display:flex;justify-content:center;gap:3rem;padding:4rem 2rem;flex-wrap:wrap}
+.big-stat{text-align:center}
+.big-stat .v{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);background:linear-gradient(135deg,#6EE7B7,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.big-stat .l{font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:rgba(16,185,129,.2);margin-top:.3rem}
+.wide{max-width:900px;margin:0 auto;padding:6rem 2rem}
+.wide h2{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);background:linear-gradient(135deg,#6EE7B7,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem}
+.wide p{font-size:.95rem;line-height:2.4;color:rgba(209,250,229,.3);margin-bottom:1.5rem}
+.wide p strong{color:rgba(16,185,129,.6);font-weight:400}
+.phase-grid{display:grid;grid-template-columns:1fr;gap:0;max-width:800px;margin:0 auto;padding:4rem 2rem}
+.phase{padding:3rem 2.5rem;border-left:2px solid rgba(16,185,129,.1);position:relative;transition:all .6s}
+.phase:hover{border-left-color:rgba(16,185,129,.4);background:rgba(16,185,129,.02)}
+.phase::before{content:'';position:absolute;left:-6px;top:3rem;width:10px;height:10px;border-radius:50%;background:#10B981;opacity:.3;transition:opacity .3s}
+.phase:hover::before{opacity:.8;box-shadow:0 0 20px rgba(16,185,129,.4)}
+.phase h3{font-family:'Cinzel Decorative',serif;font-size:1.1rem;color:#10B981;margin-bottom:.5rem}
+.phase .time{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(16,185,129,.3);margin-bottom:.8rem}
+.phase p{font-size:.82rem;line-height:2;color:rgba(209,250,229,.3)}
+.mask-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:900px;margin:0 auto;padding:4rem 2rem}
+.mask{aspect-ratio:.8;border:1px solid rgba(16,185,129,.06);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;position:relative;overflow:hidden;transition:all .7s cubic-bezier(.34,1.56,.64,1);background:rgba(3,8,6,.8);backdrop-filter:blur(15px)}
+.mask::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(16,185,129,.03));pointer-events:none}
+.mask:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(16,185,129,.2);box-shadow:0 20px 60px rgba(16,185,129,.08)}
+.mask .sym{font-size:3rem;margin-bottom:.8rem;filter:brightness(.7)}
+.mask .name{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(16,185,129,.5);margin-bottom:.3rem}
+.mask .desc{font-size:.65rem;color:rgba(209,250,229,.25);line-height:1.8}
+.quote-block{max-width:700px;margin:0 auto;padding:6rem 2rem;text-align:center}
+.quote-block blockquote{font-size:1rem;line-height:2.2;color:rgba(209,250,229,.2);font-style:italic;position:relative;padding:0 2rem}
+.quote-block blockquote::before,.quote-block blockquote::after{content:'"';font-family:'Cinzel Decorative',serif;font-size:3rem;color:rgba(16,185,129,.1);position:absolute}
+.quote-block blockquote::before{top:-.5rem;left:0}
+.quote-block blockquote::after{bottom:-1.5rem;right:0}
+.quote-block cite{display:block;margin-top:1.5rem;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:rgba(16,185,129,.25);font-style:normal}
+footer{text-align:center;padding:3rem;position:relative;z-index:1}
+footer a{color:rgba(16,185,129,.12);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:rgba(16,185,129,.4)}
+@media(max-width:768px){.mask-grid{grid-template-columns:1fr}}
+</style></head><body>
+<a href="index.html" class="back">Pharmacopoeia</a>
+<canvas id="jungle"></canvas>
+<div class="ct">
+<section class="hero">
+  <h1>Ibogaine</h1>
+  <div class="ancient">Iboga — De Wortel der Waarheid</div>
+  <div class="mol">C&#x2082;&#x2080;H&#x2082;&#x2086;N&#x2082;O</div>
+</section>
+<div class="stat-row">
+  <div class="big-stat"><div class="v">24-36 h</div><div class="l">Duur</div></div>
+  <div class="big-stat"><div class="v">310.4</div><div class="l">g/mol</div></div>
+  <div class="big-stat"><div class="v">1901</div><div class="l">Geisoleerd</div></div>
+  <div class="big-stat"><div class="v">72%</div><div class="l">Opioide Detox Succes</div></div>
+</div>
+<div class="wide">
+  <h2>De Jungle Spreekt</h2>
+  <p>Diep in de regenwouden van Centraal-Afrika groeit de <strong>Tabernanthe iboga</strong> — een onopvallende struik met oranje vruchten. De Bwiti-traditie van Gabon en Kameroen gebruikt de wortelschors al eeuwenlang in initiatierituelen. Een volledige iboga-ceremonie duurt <strong>24 tot 36 uur</strong> — de langste psychedelische ervaring die bekend is.</p>
+  <p>De ingewijde ligt in het donker, begeleid door ngaranga (muzikanten) die de mongongo-harp bespelen. Het visioen ontvouwt zich als een <strong>panoramisch terugkijken op het hele leven</strong> — elke herinnering, elke keuze, elke wonde wordt herbeleefd en begrepen. De Bwiti noemen het "het openen van de schedel zodat het licht naar binnen kan."</p>
+</div>
+<div class="phase-grid">
+  <div class="phase"><h3>Fase 1: De Visuele Fase</h3><div class="time">Uur 0-8</div><p>Intense droomachtige visioenen verschijnen — vaak beschreven als een "waking dream state." Panoramische levensherinneringen ontvouwen zich als een film. Geometrische patronen met Afrikaans karakter: maskers, dieren, ahnengeesten die verschijnen om te onderwijzen.</p></div>
+  <div class="phase"><h3>Fase 2: De Introspectieve Fase</h3><div class="time">Uur 8-20</div><p>De visioenen vervagen maar de introspectie verdiept. Diep analytisch denken over levenspatronen, verslavingen en relaties. Het onbewuste wordt transparant. Trauma's worden bekeken zonder de emotionele lading — alsof je je eigen leven leest als een boek.</p></div>
+  <div class="phase"><h3>Fase 3: Residuele Stimulatie</h3><div class="time">Uur 20-36+</div><p>Een langdurige staat van wakkerheid en reflectie. Slaap is onmogelijk maar niet nodig. Het lichaam reset zichzelf. Bij verslaafden verdwijnen de ontwenningsverschijnselen — de receptoren worden letterlijk hergeprogrammeerd. Noribogaine, de actieve metaboliet, blijft weken in het systeem.</p></div>
+</div>
+<div class="mask-grid">
+  <div class="mask"><div class="sym">&#x1F3AD;</div><div class="name">Bwiti Initiatie</div><div class="desc">De nganga (sjamaan) bereidt de wortelschors. De ingewijde eet tot de visioenen komen. Een symbolische dood en wedergeboorte.</div></div>
+  <div class="mask"><div class="sym">&#x1F50D;</div><div class="name">Verslavings Reset</div><div class="desc">Een enkele ibogaine-behandeling elimineert heroïne-ontwenning in uren. 72% abstinentie na 12 maanden — ongeëvenaard door elke conventionele behandeling.</div></div>
+  <div class="mask"><div class="sym">&#x1F9EC;</div><div class="name">GDNF & BDNF</div><div class="desc">Ibogaine verhoogt Glial-Derived en Brain-Derived neurotrofische factoren — eiwitten die neuronen repareren en nieuwe verbindingen stimuleren. Het brein herstelt zich fysiek.</div></div>
+</div>
+<div class="wide">
+  <h2>De Onderbroken Verslaving</h2>
+  <p>In 1962 ontdekte <strong>Howard Lotsof</strong>, een 19-jarige heroïneverslaafde in New York, per toeval dat ibogaine zijn heroïneverslaving elimineerde na een enkele dosis. Hij wijdde de rest van zijn leven aan het beschikbaar maken van deze behandeling. Vandaag opereren ibogaine-klinieken in Mexico, Costa Rica, Nieuw-Zeeland en Zuid-Afrika.</p>
+  <p>Het werkingsmechanisme is uniek: ibogaine en zijn metaboliet <strong>noribogaine</strong> binden aan meerdere receptorsystemen tegelijk — opioïde, serotonine, dopamine, NMDA en sigma-receptoren. Het reset het verslavingspatroon niet door een receptor te blokkeren, maar door het hele systeem te <strong>herkalibreren</strong>.</p>
+</div>
+<div class="quote-block">
+  <blockquote>Ibogaine showed me a movie of my life. Every choice. Every lie I told myself. Every moment I chose the needle over love. And when the movie was over, I was free. Not because I forgot — because I finally understood.</blockquote>
+  <cite>Anonieme ibogaine-patient, 2019</cite>
+</div>
+</div>
+<footer><a href="index.html">Terug naar Hofmann's Pharmacopoeia</a></footer>
+<script>
+// JUNGLE — root system growth + bioluminescent spores + African mask geometry
+const C=document.getElementById('jungle'),X=C.getContext('2d');
+let W,H,t=0;
+function resize(){W=C.width=innerWidth;H=C.height=innerHeight}
+resize();addEventListener('resize',resize);
+class Root{
+  constructor(x,y,angle,gen){
+    this.x=x;this.y=y;this.angle=angle;this.gen=gen||0;
+    this.speed=.6-this.gen*.1;this.life=150+Math.random()*200;
+    this.age=0;this.thickness=3-this.gen*.8;
+    this.children=[];this.points=[{x,y}];
+    this.hue=140+Math.random()*30;
+  }
+  grow(){
+    if(this.age>=this.life||this.speed<=0)return false;
+    this.age++;
+    this.angle+=Math.sin(this.age*.015)*.12+(Math.random()-.5)*.08;
+    // Gravity pull — roots grow downward
+    this.angle+=(Math.PI/2-this.angle)*.002;
+    this.x+=Math.cos(this.angle)*this.speed;
+    this.y+=Math.sin(this.angle)*this.speed;
+    this.points.push({x:this.x,y:this.y});
+    if(this.points.length>100)this.points.shift();
+    if(Math.random()<.006&&this.gen<3&&this.children.length<2){
+      this.children.push(new Root(this.x,this.y,this.angle+(Math.random()-.5)*1.2,this.gen+1));
+    }
+    this.children.forEach(c=>c.grow());
+    return true;
+  }
+  draw(c){
+    if(this.points.length<2)return;
+    const alpha=(1-this.age/this.life)*.4;
+    c.beginPath();c.moveTo(this.points[0].x,this.points[0].y);
+    for(let i=1;i<this.points.length;i++){
+      c.lineTo(this.points[i].x,this.points[i].y);
+    }
+    c.strokeStyle=`hsla(${this.hue},40%,25%,${alpha})`;
+    c.lineWidth=Math.max(.3,this.thickness*(1-this.age/this.life));c.stroke();
+    // Bioluminescent node at tip
+    if(this.age<this.life){
+      const grd=c.createRadialGradient(this.x,this.y,0,this.x,this.y,6+this.gen*-1);
+      grd.addColorStop(0,`hsla(${this.hue},100%,60%,${alpha*.6})`);
+      grd.addColorStop(1,'transparent');
+      c.beginPath();c.arc(this.x,this.y,6,0,Math.PI*2);c.fillStyle=grd;c.fill();
+    }
+    this.children.forEach(ch=>ch.draw(c));
+  }
+}
+class Spore{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*W;this.y=H+10;
+    this.vx=(Math.random()-.5)*.3;this.vy=-(Math.random()*.4+.15);
+    this.size=Math.random()*2+.5;this.phase=Math.random()*Math.PI*2;
+    this.hue=120+Math.random()*50;this.life=0;this.maxLife=400+Math.random()*300;
+  }
+  update(){
+    this.life++;
+    if(this.life>=this.maxLife){this.reset();return}
+    this.phase+=.03;this.x+=this.vx+Math.sin(this.phase)*.2;this.y+=this.vy;
+  }
+  draw(c){
+    const a=(1-this.life/this.maxLife)*.4;
+    const glow=Math.sin(this.phase)*.3+.5;
+    c.beginPath();c.arc(this.x,this.y,this.size,0,Math.PI*2);
+    c.fillStyle=`hsla(${this.hue},100%,70%,${a*glow})`;c.fill();
+  }
+}
+const roots=[];const spores=[];
+for(let i=0;i<8;i++){
+  roots.push(new Root(Math.random()*W,0,Math.PI/2+(Math.random()-.5)*.5,0));
+}
+for(let i=0;i<50;i++)spores.push(new Spore());
+function draw(){
+  t++;
+  X.fillStyle='rgba(3,8,6,.04)';X.fillRect(0,0,W,H);
+  roots.forEach(r=>r.grow());
+  roots.forEach(r=>r.draw(X));
+  spores.forEach(s=>{s.update();s.draw(X)});
+  // Replace dead roots
+  for(let i=roots.length-1;i>=0;i--){
+    if(roots[i].age>=roots[i].life){
+      roots.splice(i,1);
+      roots.push(new Root(Math.random()*W,0,Math.PI/2+(Math.random()-.5)*.5,0));
+    }
+  }
+  // Ambient jungle glow
+  if(t%300===0){
+    const grd=X.createRadialGradient(W/2,H*.3,0,W/2,H*.3,W*.3);
+    grd.addColorStop(0,'rgba(16,185,129,.005)');grd.addColorStop(1,'transparent');
+    X.fillStyle=grd;X.fillRect(0,0,W,H);
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
+document.querySelectorAll('.phase,.mask,.wide h2,.wide p,.big-stat,.quote-block').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(40px)';el.style.transition='all 1s cubic-bezier(.4,0,.2,1)';obs.observe(el)});
+</script></body></html>

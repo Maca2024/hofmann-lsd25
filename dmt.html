@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DMT — The Spirit Molecule</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0012;color:#fff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+canvas#hyperspace{position:fixed;inset:0;z-index:0}
+.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(217,70,239,.4);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+.back:hover{color:#D946EF;text-shadow:0 0 20px rgba(217,70,239,.5)}
+.content{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(5rem,18vw,14rem);font-weight:900;color:#D946EF;text-shadow:0 0 80px rgba(217,70,239,.6),0 0 160px rgba(217,70,239,.3);animation:dmtPulse 2s ease-in-out infinite}
+@keyframes dmtPulse{0%,100%{text-shadow:0 0 80px rgba(217,70,239,.6),0 0 160px rgba(217,70,239,.3)}50%{text-shadow:0 0 120px rgba(217,70,239,.9),0 0 240px rgba(217,70,239,.5),0 0 360px rgba(217,70,239,.2)}}
+.hero .sub{font-size:.75rem;letter-spacing:15px;text-transform:uppercase;color:rgba(217,70,239,.3);margin-top:1rem}
+.hero .flash{font-size:clamp(.8rem,1.5vw,1.1rem);color:rgba(255,255,255,.2);margin-top:2rem;max-width:500px;text-align:center;line-height:2}
+.sacred-geo{position:relative;width:100%;display:flex;justify-content:center;padding:6rem 0}
+.sacred-geo canvas{width:min(500px,90vw);height:min(500px,90vw)}
+.panel{max-width:900px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.panel.reverse{direction:rtl}.panel.reverse>*{direction:ltr}
+.panel h2{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,4vw,3rem);color:#D946EF;text-shadow:0 0 30px rgba(217,70,239,.3);margin-bottom:1rem}
+.panel p{font-size:.9rem;line-height:2.2;color:rgba(255,255,255,.35)}
+.panel p em{color:rgba(217,70,239,.7);font-style:normal}
+.entities{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:4rem 2rem;max-width:1000px;margin:0 auto}
+.entity{aspect-ratio:1;border:1px solid rgba(217,70,239,.08);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;position:relative;overflow:hidden;transition:all .8s cubic-bezier(.34,1.56,.64,1)}
+.entity::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 0deg,transparent,rgba(217,70,239,.2),transparent,rgba(167,139,250,.2),transparent);animation:entitySpin 8s linear infinite}
+@keyframes entitySpin{to{transform:rotate(360deg)}}
+.entity:hover{transform:scale(1.1);border-color:rgba(217,70,239,.3);box-shadow:0 0 60px rgba(217,70,239,.15)}
+.entity .sym{font-size:2.5rem;margin-bottom:.5rem;filter:hue-rotate(0deg);animation:entityHue 4s ease infinite}
+@keyframes entityHue{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(60deg)}}
+.entity .name{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(217,70,239,.5)}
+.entity .desc{font-size:.65rem;color:rgba(255,255,255,.2);margin-top:.3rem;line-height:1.6}
+.data-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:800px;margin:3rem auto;padding:0 2rem}
+.data-cell{padding:1.5rem;border:1px solid rgba(217,70,239,.06);border-radius:12px;text-align:center;background:rgba(217,70,239,.02);backdrop-filter:blur(10px)}
+.data-cell .v{font-size:1.5rem;font-weight:700;color:#D946EF}
+.data-cell .l{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;opacity:.3;margin-top:.3rem}
+.breakthrough{min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem}
+.breakthrough h2{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,6vw,5rem);background:linear-gradient(135deg,#D946EF,#A78BFA,#fff,#D946EF);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:hueShift 4s linear infinite}
+@keyframes hueShift{0%{background-position:0%}100%{background-position:300%}}
+.breakthrough p{max-width:600px;margin:1.5rem auto 0;font-size:.95rem;line-height:2.2;color:rgba(255,255,255,.25)}
+footer{text-align:center;padding:3rem;position:relative;z-index:1}
+footer a{color:rgba(217,70,239,.2);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:rgba(217,70,239,.6)}
+@media(max-width:768px){.panel{grid-template-columns:1fr}.entities{grid-template-columns:1fr}.data-grid{grid-template-columns:repeat(2,1fr)}}
+</style></head><body>
+<a href="index.html" class="back">Pharmacopoeia</a>
+<canvas id="hyperspace"></canvas>
+<div class="content">
+<section class="hero">
+  <h1>DMT</h1>
+  <div class="sub">N,N-Dimethyltryptamine</div>
+  <div class="flash">30 seconden. Dat is alles wat je nodig hebt om de deur naar een andere dimensie te openen. Geen trip — een <em style="color:rgba(217,70,239,.7)">doorbraak</em>.</div>
+</section>
+<div class="data-grid">
+  <div class="data-cell"><div class="v">30s</div><div class="l">Onset</div></div>
+  <div class="data-cell"><div class="v">5-20m</div><div class="l">Duration</div></div>
+  <div class="data-cell"><div class="v">188.27</div><div class="l">g/mol</div></div>
+  <div class="data-cell"><div class="v">Endogeen</div><div class="l">In je brein</div></div>
+</div>
+<div class="panel">
+  <div>
+    <h2>Het Geest-molecuul</h2>
+    <p>DMT is het krachtigste natuurlijke psychedelicum. Het wordt <em>geproduceerd in je eigen brein</em> — door de pijnappelklier, het "derde oog" van de oude mystici. Het komt voor in honderden plantensoorten, in het gif van de Bufo alvarius pad, en in het menselijk cerebrospinaal vocht.</p>
+    <p>Rick Strassman's baanbrekend onderzoek (1990-1995) bij de Universiteit van New Mexico was het eerste goedgekeurde psychedelisch onderzoek in 20 jaar. Zijn proefpersonen rapporteerden consistent: <em>contact met niet-menselijke intelligentie</em>.</p>
+  </div>
+  <div class="sacred-geo"><canvas id="sgCanvas" width="400" height="400"></canvas></div>
+</div>
+<div class="entities">
+  <div class="entity"><div class="sym">&#x25C8;</div><div class="name">Machine Elfen</div><div class="desc">Zelfstransformerende entiteiten die objecten tonen gemaakt van taal</div></div>
+  <div class="entity"><div class="sym">&#x2742;</div><div class="name">Geometrische Kathedralen</div><div class="desc">Onmogelijke architectuur van licht en wiskundige perfectie</div></div>
+  <div class="entity"><div class="sym">&#x2726;</div><div class="name">De Wachtkamer</div><div class="desc">De ruimte tussen dimensies waar de reiziger wordt ontvangen</div></div>
+</div>
+<div class="panel reverse">
+  <div>
+    <h2>Ayahuasca</h2>
+    <p>De inheemse volkeren van het Amazonegebied ontdekten dat DMT oraal actief wordt wanneer het gecombineerd wordt met <em>MAO-remmers</em> — planten die het enzym blokkeren dat DMT normaal afbreekt in de maag.</p>
+    <p>Ayahuasca — "de wijnstok der zielen" — combineert de DMT-bevattende Psychotria viridis met de MAO-remmende Banisteriopsis caapi. Het resultaat: <em>4-6 uur</em> in de geometrische kathedralen van het bewustzijn.</p>
+  </div>
+  <div style="text-align:center;padding:2rem">
+    <div style="font-family:'Cinzel Decorative',serif;font-size:2rem;color:rgba(217,70,239,.2);line-height:2">C&#x2081;&#x2082;H&#x2081;&#x2086;N&#x2082;</div>
+    <div style="font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.1);margin-top:1rem">INDOLE RING SYSTEM<br>2 RINGS &middot; SIMPLEST TRYPTAMINE</div>
+  </div>
+</div>
+<section class="breakthrough">
+  <div>
+    <h2>De Doorbraak</h2>
+    <p>Voorbij de chrysanthemum — het draaiende geometrische patroon dat verschijnt bij het sluiten van de ogen — ligt de doorbraak. De grenzen van het zelf lossen op. Je bent niet langer een waarnemer. Je bent het waargenomene. De entiteiten verwelkomen je alsof ze je verwacht hebben.</p>
+  </div>
+</section>
+</div>
+<footer><a href="index.html">Terug naar Hofmann's Pharmacopoeia</a></footer>
+<script>
+// HYPERSPACE - sacred geometry tunnel
+const C=document.getElementById('hyperspace'),X=C.getContext('2d');
+let W,H,t=0;
+function resize(){W=C.width=innerWidth;H=C.height=innerHeight}
+resize();addEventListener('resize',resize);
+const particles=[];
+class HyperParticle{
+  constructor(){this.reset()}
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.z=Math.random()*3+1;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.hue=270+Math.random()*60;this.life=1}
+  update(){
+    const cx=W/2,cy=H/2;
+    const dx=this.x-cx,dy=this.y-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    const angle=Math.atan2(dy,dx);
+    this.x+=Math.cos(angle+Math.PI/2)*dist*.001*this.z+this.vx;
+    this.y+=Math.sin(angle+Math.PI/2)*dist*.001*this.z+this.vy;
+    this.hue=(this.hue+.1)%360;
+    if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();
+  }
+  draw(c){
+    c.beginPath();c.arc(this.x,this.y,this.z*.8,0,Math.PI*2);
+    c.fillStyle=`hsla(${this.hue},100%,60%,.${Math.floor(this.z*15)})`;c.fill();
+  }
+}
+for(let i=0;i<200;i++)particles.push(new HyperParticle());
+function drawHyper(){
+  t+=.01;
+  X.fillStyle='rgba(10,0,18,.12)';X.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  // Sacred geometry rings
+  for(let r=0;r<6;r++){
+    const radius=100+r*80+Math.sin(t+r*.5)*20;
+    const sides=6+r;
+    X.beginPath();
+    for(let i=0;i<=sides;i++){
+      const a=(i/sides)*Math.PI*2+t*.1*(r%2===0?1:-1);
+      const x=cx+Math.cos(a)*radius;
+      const y=cy+Math.sin(a)*radius;
+      i===0?X.moveTo(x,y):X.lineTo(x,y);
+    }
+    X.strokeStyle=`hsla(${280+r*15},100%,50%,.${4-Math.floor(r*.5)})`;
+    X.lineWidth=1;X.stroke();
+    // Inner connections
+    for(let i=0;i<sides;i++){
+      const a1=(i/sides)*Math.PI*2+t*.1*(r%2===0?1:-1);
+      const a2=((i+Math.floor(sides/2))/sides)*Math.PI*2+t*.1*(r%2===0?1:-1);
+      X.beginPath();
+      X.moveTo(cx+Math.cos(a1)*radius,cy+Math.sin(a1)*radius);
+      X.lineTo(cx+Math.cos(a2)*radius,cy+Math.sin(a2)*radius);
+      X.strokeStyle=`hsla(${280+r*15},80%,40%,.06)`;X.stroke();
+    }
+  }
+  particles.forEach(p=>{p.update();p.draw(X)});
+  requestAnimationFrame(drawHyper);
+}
+drawHyper();
+// Sacred geometry canvas
+const SG=document.getElementById('sgCanvas'),SX=SG.getContext('2d');
+let st=0;
+function drawSG(){
+  st+=.005;SX.clearRect(0,0,400,400);
+  const cx=200,cy=200;
+  // Flower of Life
+  const r=50;
+  for(let ring=0;ring<3;ring++){
+    const n=ring===0?1:ring*6;
+    const rd=ring*r;
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2+st;
+      const x=cx+(ring===0?0:Math.cos(a)*rd);
+      const y=cy+(ring===0?0:Math.sin(a)*rd);
+      SX.beginPath();SX.arc(x,y,r,0,Math.PI*2);
+      SX.strokeStyle=`hsla(${280+ring*20+i*10},100%,60%,.${2+ring})`;
+      SX.lineWidth=.8;SX.stroke();
+    }
+  }
+  // Metatron's cube overlay
+  const pts=[];
+  for(let i=0;i<6;i++){
+    const a=(i/6)*Math.PI*2+st*2;
+    pts.push({x:cx+Math.cos(a)*r*2,y:cy+Math.sin(a)*r*2});
+  }
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      SX.beginPath();SX.moveTo(pts[i].x,pts[i].y);SX.lineTo(pts[j].x,pts[j].y);
+      SX.strokeStyle='rgba(217,70,239,.1)';SX.lineWidth=.5;SX.stroke();
+    }
+  }
+  requestAnimationFrame(drawSG);
+}
+drawSG();
+// Scroll reveals
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0) scale(1)'}})},{threshold:.15});
+document.querySelectorAll('.panel>div,.entity,.data-cell,.breakthrough>div').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(40px) scale(.95)';el.style.transition='all 1s cubic-bezier(.4,0,.2,1)';obs.observe(el)});
+</script></body></html>
