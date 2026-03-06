@@ -5,805 +5,689 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HOFMANN'S PHARMACOPOEIA</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Fira+Code:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Fira+Code:wght@300;400;500&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#07030F;--white:#F8F5FF;--purple:#8B5CF6;--indigo:#4F46E5;--rose:#F43F5E;
---toxic:#39FF14;--deep-purple:#2D1B69;--violet:#A78BFA;--fuchsia:#D946EF;
---gold:#FFD700;--glass:rgba(139,92,246,0.08);--glass-border:rgba(139,92,246,0.15);
-}
+:root{--bg:#05020D;--w:#F8F5FF;--p:#8B5CF6;--i:#4F46E5;--r:#F43F5E;--t:#39FF14;--v:#A78BFA;--f:#D946EF;--g:#FFD700;--dp:#1a0a3e;--gl:rgba(139,92,246,.06);--gb:rgba(139,92,246,.12)}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:var(--bg);color:var(--white);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
-.cur-o{width:40px;height:40px;border:2px solid var(--rose);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transition:transform .15s,border-color .3s;mix-blend-mode:difference}
-.cur-i{width:8px;height:8px;background:var(--toxic);border-radius:50%;position:fixed;pointer-events:none;z-index:99999}
-.cur-t{position:fixed;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:99998;opacity:0}
-.lang-sw{position:fixed;top:20px;left:20px;z-index:10000;display:flex;gap:4px;background:rgba(7,3,15,0.7);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:99px;padding:4px}
-.lang-btn{background:none;border:none;color:rgba(248,245,255,0.4);font-family:'Fira Code',monospace;font-size:.7rem;letter-spacing:2px;padding:6px 12px;border-radius:99px;cursor:pointer;transition:all .3s}
-.lang-btn.active{background:var(--purple);color:#fff}
-.lang-btn:hover{color:#fff}
-[data-l]{display:none}[data-l].show{display:inline}
-.ld-scr{position:fixed;inset:0;z-index:100000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.5s,visibility 1.5s}
-.ld-scr.hidden{opacity:0;visibility:hidden}
-.ld-mol{width:200px;height:200px;animation:molSpin 4s linear infinite}
-@keyframes molSpin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
-.ld-txt{font-family:'Cinzel Decorative',serif;font-size:1rem;letter-spacing:6px;margin-top:30px;background:linear-gradient(90deg,var(--purple),var(--rose),var(--toxic),var(--indigo));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 2s linear infinite}
-@keyframes shimmer{0%{background-position:0%}100%{background-position:300%}}
-.ld-bar{width:300px;height:2px;background:rgba(255,255,255,.06);margin-top:20px;overflow:hidden}
-.ld-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--rose),var(--toxic));width:0%;transition:width .3s}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
-canvas#hC{position:absolute;inset:0;z-index:0}
-.hero-ct{position:relative;z-index:2;text-align:center;padding:2rem}
-.hero-sub{font-family:'Fira Code',monospace;font-size:.85rem;letter-spacing:10px;text-transform:uppercase;color:var(--violet);opacity:.8;margin-bottom:1rem}
-.hero-t{font-family:'Cinzel Decorative',serif;font-size:clamp(2.5rem,8vw,7rem);font-weight:900;line-height:1.1;background:linear-gradient(135deg,#fff 0%,var(--purple) 25%,var(--rose) 50%,var(--toxic) 75%,var(--indigo) 100%);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 6s ease infinite;filter:drop-shadow(0 0 40px rgba(139,92,246,.4));margin-bottom:1.5rem}
-@keyframes heroG{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.hero-q{font-style:italic;font-size:clamp(1rem,2vw,1.3rem);max-width:700px;color:rgba(248,245,255,.5);line-height:1.9;margin:0 auto 2rem}
-.hero-q span{color:var(--gold);font-style:normal;font-weight:600}
-.scroll-ind{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px;animation:floatUp 2s ease-in-out infinite}
-@keyframes floatUp{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
-.scroll-ind span{font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:rgba(248,245,255,.3)}
-.scroll-arr{width:20px;height:20px;border-right:2px solid var(--rose);border-bottom:2px solid var(--rose);transform:rotate(45deg);opacity:.5}
-.mol-nav{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:1000;display:flex;flex-direction:column;gap:12px}
-.mol-d{width:10px;height:10px;border-radius:50%;border:2px solid rgba(248,245,255,.2);cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative}
-.mol-d:hover,.mol-d.active{transform:scale(2);border-color:var(--rose);box-shadow:0 0 15px currentColor}
-.mol-d::after{content:attr(data-label);position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .3s;color:rgba(248,245,255,.6)}
-.mol-d:hover::after{opacity:1}
-.s-sec{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding:4rem 2rem}
-.s-bg{position:absolute;inset:0;opacity:.12;z-index:0}
-.s-ct{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-@media(max-width:900px){.s-ct{grid-template-columns:1fr;gap:2rem}}
-.s-vis{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
+
+/* ═══ CURSOR SYSTEM ═══ */
+#cO{width:50px;height:50px;border:1.5px solid var(--r);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:difference;transition:width .3s,height .3s,border-color .3s}
+#cI{width:6px;height:6px;background:var(--t);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;box-shadow:0 0 10px var(--t),0 0 20px var(--t)}
+.ct{position:fixed;border-radius:50%;pointer-events:none;z-index:99998}
+
+/* ═══ LANG ═══ */
+.ls{position:fixed;top:20px;left:20px;z-index:10000;display:flex;gap:3px;background:rgba(5,2,13,.8);backdrop-filter:blur(30px) saturate(1.5);border:1px solid var(--gb);border-radius:99px;padding:3px}
+.lb{background:none;border:none;color:rgba(248,245,255,.35);font-family:'Fira Code',monospace;font-size:.65rem;letter-spacing:2px;padding:5px 12px;border-radius:99px;cursor:pointer;transition:all .4s}
+.lb.on{background:linear-gradient(135deg,var(--p),var(--i));color:#fff;box-shadow:0 0 20px rgba(139,92,246,.3)}
+.lb:hover{color:#fff}
+[data-l]{display:none}[data-l].s{display:inline}
+
+/* ═══ LOADING — THE SYNTHESIS ═══ */
+.ld{position:fixed;inset:0;z-index:100000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 2s cubic-bezier(.4,0,.2,1),visibility 2s}
+.ld.go{opacity:0;visibility:hidden;transform:scale(1.1)}
+.ld canvas{width:300px;height:300px}
+.ld-t{font-family:'Cinzel Decorative',serif;font-size:.9rem;letter-spacing:8px;margin-top:2rem;background:linear-gradient(90deg,var(--p),var(--r),var(--t),var(--p));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 1.5s linear infinite}
+@keyframes sh{0%{background-position:0%}100%{background-position:300%}}
+.ld-b{width:250px;height:1px;background:rgba(255,255,255,.05);margin-top:1.5rem;overflow:hidden;border-radius:1px}
+.ld-f{height:100%;background:linear-gradient(90deg,var(--p),var(--r),var(--t));width:0%;transition:width .2s}
+
+/* ═══ WEBGL BACKGROUND ═══ */
+#glBg{position:fixed;inset:0;z-index:0;opacity:.7}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1}
+.hero-ct{text-align:center;padding:2rem;position:relative;z-index:2}
+.hero-sub{font-family:'Fira Code',monospace;font-size:.75rem;letter-spacing:12px;text-transform:uppercase;color:var(--v);opacity:0;animation:fadeSlideUp 1.2s .5s forwards}
+.hero-t{font-family:'Cinzel Decorative',serif;font-size:clamp(3rem,10vw,8rem);font-weight:900;line-height:1;margin:1rem 0 1.5rem;position:relative}
+.hero-t .char{display:inline-block;opacity:0;transform:translateY(60px) rotateX(90deg);animation:charIn .6s forwards;animation-delay:calc(var(--i) * .04s + .8s)}
+@keyframes charIn{to{opacity:1;transform:translateY(0) rotateX(0)}}
+.hero-t .word{display:inline-block;background:linear-gradient(135deg,#fff,var(--p),var(--r),var(--t),var(--v));background-size:400% 400%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 8s ease infinite;filter:drop-shadow(0 0 60px rgba(139,92,246,.3))}
+@keyframes heroG{0%,100%{background-position:0% 50%}25%{background-position:100% 0%}50%{background-position:100% 100%}75%{background-position:0% 100%}}
+.hero-q{font-style:italic;font-size:clamp(.9rem,1.8vw,1.2rem);max-width:650px;color:rgba(248,245,255,.4);line-height:2;margin:0 auto;opacity:0;animation:fadeSlideUp 1.5s 2s forwards}
+.hero-q b{color:var(--g);font-style:normal;font-weight:500}
+@keyframes fadeSlideUp{to{opacity:1;transform:translateY(0)}}
+.hero-q,.hero-sub{transform:translateY(30px)}
+.scroll-i{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:5;opacity:0;animation:fadeSlideUp 1s 3s forwards;display:flex;flex-direction:column;align-items:center;gap:6px}
+.scroll-i span{font-size:.6rem;letter-spacing:5px;text-transform:uppercase;color:rgba(248,245,255,.2)}
+.scroll-a{width:16px;height:16px;border-right:1.5px solid var(--r);border-bottom:1.5px solid var(--r);transform:rotate(45deg);animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(8px)}}
+
+/* ═══ NAV ═══ */
+.mn{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:1000;display:flex;flex-direction:column;gap:10px}
+.md{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(248,245,255,.15);cursor:pointer;transition:all .5s cubic-bezier(.34,1.56,.64,1);position:relative}
+.md:hover,.md.on{transform:scale(2.5);border-color:var(--r);box-shadow:0 0 20px currentColor,0 0 40px currentColor}
+.md::after{content:attr(data-n);position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:.55rem;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .3s,transform .3s;color:rgba(248,245,255,.5);transform:translateY(-50%) translateX(5px)}
+.md:hover::after{opacity:1;transform:translateY(-50%) translateX(0)}
+
+/* ═══ SECTIONS ═══ */
+.sec{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding:5rem 2rem;z-index:1}
+.sec-ct{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+@media(max-width:968px){.sec-ct{grid-template-columns:1fr;gap:2rem}}
+.sec canvas.bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* ═══ MOLECULE CONTAINER ═══ */
+.mol-ct{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;cursor:grab}
+.mol-ct:active{cursor:grabbing}
+.mol-ct canvas{width:100%;height:100%;max-width:400px;max-height:400px}
+.mol-label{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'Fira Code',monospace;font-size:.65rem;color:rgba(248,245,255,.15);letter-spacing:1px;text-align:center;white-space:nowrap}
+
+/* ═══ INFO ═══ */
 .s-info{padding:2rem 0}
-.s-num{font-family:'Fira Code',monospace;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;opacity:.4;margin-bottom:.5rem}
-.s-name{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:.5rem;line-height:1.2}
-.s-lat{font-family:'Fira Code',monospace;font-size:.75rem;opacity:.35;margin-bottom:1.5rem;letter-spacing:1px}
-.s-desc{font-size:.95rem;line-height:1.9;color:rgba(248,245,255,.6);margin-bottom:2rem;max-width:550px}
-.s-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
-.m-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:.85rem;backdrop-filter:blur(10px);transition:all .4s}
-.m-card:hover{border-color:rgba(139,92,246,.3);transform:translateY(-4px);box-shadow:0 8px 32px rgba(139,92,246,.12)}
-.m-lbl{font-size:.55rem;letter-spacing:3px;text-transform:uppercase;opacity:.35;margin-bottom:4px}
-.m-val{font-size:1rem;font-weight:600}
-.mol-svg{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 0 20px rgba(139,92,246,.3));animation:molPulse 4s ease-in-out infinite}
-@keyframes molPulse{0%,100%{filter:drop-shadow(0 0 15px rgba(139,92,246,.2)) brightness(1)}50%{filter:drop-shadow(0 0 40px rgba(139,92,246,.5)) brightness(1.1)}}
-canvas.s-part{position:absolute;inset:0;z-index:1;pointer-events:none}
-#lsd .s-name{background:linear-gradient(135deg,var(--purple),var(--rose),var(--toxic));background-size:400%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:lsdT 3s ease infinite}
-@keyframes lsdT{0%,100%{background-position:0%}50%{background-position:100%}}
-#dmt .s-name{color:var(--fuchsia);text-shadow:0 0 30px rgba(217,70,239,.5)}
-#psilocybin .s-name{background:linear-gradient(135deg,#C084FC,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#cannabis .s-name{background:linear-gradient(135deg,var(--toxic),#A3E635);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#mescaline .s-name{background:linear-gradient(135deg,var(--rose),#FB923C);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#ibogaine .s-name{background:linear-gradient(135deg,var(--indigo),#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#meodmt .s-name{color:#fff;text-shadow:0 0 40px rgba(255,255,255,.4)}
-#mdma .s-name{background:linear-gradient(135deg,var(--rose),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#ketamine .s-name{background:linear-gradient(135deg,#E0E7FF,var(--indigo));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-#breathwork .s-name{background:linear-gradient(135deg,var(--gold),#FBBF24,var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.bw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:1200px;margin:2rem auto 0}
-@media(max-width:900px){.bw-grid{grid-template-columns:1fr}}
-.bw-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1.8rem;backdrop-filter:blur(12px);transition:all .5s;position:relative;overflow:hidden}
-.bw-card:hover{border-color:var(--gold);transform:translateY(-6px) scale(1.02);box-shadow:0 12px 40px rgba(255,215,0,.08)}
-.bw-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,215,0,.04),transparent 70%);pointer-events:none}
-.bw-nm{font-family:'Cinzel Decorative',serif;font-size:1.2rem;margin-bottom:.4rem;color:var(--gold)}
-.bw-sub{font-family:'Fira Code',monospace;font-size:.65rem;letter-spacing:2px;opacity:.35;margin-bottom:.8rem}
-.bw-desc{font-size:.85rem;line-height:1.8;color:rgba(248,245,255,.55)}
-.breath-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(255,215,0,.08);animation:breathe 6s ease-in-out infinite;pointer-events:none;z-index:0}
-@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(.8);opacity:.05}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.2}}
-.hof-sec{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;padding:4rem 2rem}
-.hof-ct{position:relative;z-index:2;max-width:800px}
-.hof-yrs{font-family:'Fira Code',monospace;font-size:1rem;letter-spacing:8px;color:var(--purple);margin-bottom:1rem}
-.hof-name{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,6vw,4.5rem);font-weight:900;margin-bottom:2rem;background:linear-gradient(135deg,#fff,var(--gold),#fff);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 4s ease infinite}
-.hof-txt{font-size:1.1rem;line-height:2;color:rgba(248,245,255,.45);margin-bottom:3rem}
-.bday{display:inline-block;padding:1rem 3rem;border:1px solid var(--purple);border-radius:999px;font-family:'Cinzel Decorative',serif;font-size:.85rem;letter-spacing:4px;color:var(--purple);transition:all .5s}
-.bday:hover{border-color:var(--rose);color:#fff;box-shadow:0 0 40px rgba(139,92,246,.3)}
-.kl{position:absolute;inset:0;z-index:0;overflow:hidden}
-.kl-l{position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,var(--purple) 30deg,transparent 60deg,var(--rose) 120deg,transparent 150deg,var(--toxic) 210deg,transparent 240deg,var(--indigo) 300deg,transparent 330deg);opacity:.03;animation:klR 30s linear infinite}
-.kl-l:nth-child(2){animation-direction:reverse;animation-duration:25s;opacity:.02}
-@keyframes klR{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.au-tog{position:fixed;bottom:20px;left:20px;z-index:1000;width:42px;height:42px;border-radius:50%;background:rgba(7,3,15,.6);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:all .3s;backdrop-filter:blur(10px)}
-.au-tog:hover{background:rgba(139,92,246,.15);border-color:var(--purple)}
-.au-b{width:3px;background:var(--rose);border-radius:2px}
-.au-tog.playing .au-b:nth-child(1){animation:aB .8s ease-in-out infinite}
-.au-tog.playing .au-b:nth-child(2){animation:aB .6s ease-in-out infinite .1s}
-.au-tog.playing .au-b:nth-child(3){animation:aB .9s ease-in-out infinite .2s}
-.au-tog.playing .au-b:nth-child(4){animation:aB .7s ease-in-out infinite .15s}
-@keyframes aB{0%,100%{height:8px}50%{height:18px}}
-.au-tog:not(.playing) .au-b{height:3px}
-.rv{opacity:0;transform:translateY(50px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-.rv.vis{opacity:1;transform:translateY(0)}
-.rv-1{transition-delay:.1s}.rv-2{transition-delay:.2s}.rv-3{transition-delay:.3s}
-.splat{position:absolute;border-radius:50%;background:var(--toxic);filter:blur(60px);pointer-events:none;z-index:0}
-footer{text-align:center;padding:4rem 2rem;border-top:1px solid rgba(248,245,255,.04)}
-footer p{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,255,.18)}
-footer .disc{margin-top:1rem;font-size:.6rem;color:rgba(248,245,255,.1);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.8;letter-spacing:1px;text-transform:none}
-@media(max-width:768px){.mol-nav{display:none}.s-meta{grid-template-columns:1fr}.hero-t{font-size:2.2rem}.s-sec{padding:3rem 1rem}}
+.s-n{font-family:'Fira Code',monospace;font-size:.65rem;letter-spacing:6px;text-transform:uppercase;opacity:0;transform:translateX(-20px);transition:all .8s}
+.s-n.vis{opacity:.35;transform:translateX(0)}
+.s-nm{font-family:'Cinzel Decorative',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;line-height:1.1;margin:.5rem 0;opacity:0;transform:translateY(40px);transition:all .8s .1s}
+.s-nm.vis{opacity:1;transform:translateY(0)}
+.s-lt{font-family:'Fira Code',monospace;font-size:.7rem;opacity:0;transform:translateY(20px);transition:all .8s .2s;letter-spacing:.5px}
+.s-lt.vis{opacity:.3;transform:translateY(0)}
+.s-d{font-size:.92rem;line-height:2;color:rgba(248,245,255,.5);margin:1.5rem 0 2rem;max-width:520px;opacity:0;transform:translateY(30px);transition:all .8s .3s}
+.s-d.vis{opacity:1;transform:translateY(0)}
+.s-m{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;opacity:0;transform:translateY(20px);transition:all .8s .4s}
+.s-m.vis{opacity:1;transform:translateY(0)}
+.mc{background:rgba(139,92,246,.04);border:1px solid rgba(139,92,246,.08);border-radius:14px;padding:.8rem;backdrop-filter:blur(20px);transition:all .5s cubic-bezier(.34,1.56,.64,1);overflow:hidden;position:relative}
+.mc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,.05),transparent);opacity:0;transition:opacity .3s}
+.mc:hover{border-color:rgba(139,92,246,.25);transform:translateY(-6px) scale(1.02);box-shadow:0 12px 40px rgba(139,92,246,.1)}
+.mc:hover::before{opacity:1}
+.ml{font-size:.5rem;letter-spacing:3px;text-transform:uppercase;opacity:.3;margin-bottom:3px}
+.mv{font-size:1rem;font-weight:600}
+
+/* ═══ SECTION NAMES ═══ */
+#lsd .s-nm{background:linear-gradient(135deg,var(--p),var(--r),var(--t),var(--f));background-size:600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:lsdN 4s ease infinite}
+@keyframes lsdN{0%,100%{background-position:0%}33%{background-position:50%}66%{background-position:100%}}
+#dmt .s-nm{color:var(--f);text-shadow:0 0 40px rgba(217,70,239,.6),0 0 80px rgba(217,70,239,.2)}
+#psilocybin .s-nm{background:linear-gradient(135deg,#C084FC,var(--v),var(--p));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 5s ease infinite}
+#cannabis .s-nm{background:linear-gradient(135deg,var(--t),#A3E635,#65A30D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 0 30px rgba(57,255,20,.3))}
+#mescaline .s-nm{background:linear-gradient(135deg,var(--r),#FB923C,var(--g));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 4s ease infinite}
+#ibogaine .s-nm{background:linear-gradient(135deg,var(--i),#06B6D4,#0EA5E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#meodmt .s-nm{color:#fff;text-shadow:0 0 60px rgba(255,255,255,.5),0 0 120px rgba(255,255,255,.15)}
+#mdma .s-nm{background:linear-gradient(135deg,var(--r),#EC4899,var(--g));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 3s ease infinite}
+#ketamine .s-nm{background:linear-gradient(135deg,#E0E7FF,var(--i),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ═══ BREATHWORK ═══ */
+.bw{min-height:100vh;position:relative;overflow:hidden;padding:6rem 2rem;z-index:1}
+.bw-hd{text-align:center;max-width:800px;margin:0 auto 3rem;position:relative;z-index:2}
+.bw-t{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,4.5vw,3.5rem);background:linear-gradient(135deg,var(--g),#FBBF24,#fff,var(--g));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 6s ease infinite;margin-bottom:1rem}
+.bw-p{font-size:.95rem;line-height:2;color:rgba(248,245,255,.4);max-width:600px;margin:0 auto}
+.bw-g{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+@media(max-width:900px){.bw-g{grid-template-columns:1fr}}
+.bwc{background:rgba(255,215,0,.02);border:1px solid rgba(255,215,0,.08);border-radius:20px;padding:2rem;backdrop-filter:blur(20px);transition:all .6s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden}
+.bwc::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,215,0,.03),transparent,rgba(255,215,0,.02),transparent);animation:bwSpin 12s linear infinite;pointer-events:none}
+@keyframes bwSpin{to{transform:rotate(360deg)}}
+.bwc:hover{border-color:rgba(255,215,0,.2);transform:translateY(-8px) scale(1.01);box-shadow:0 20px 60px rgba(255,215,0,.08)}
+.bwc-n{font-family:'Cinzel Decorative',serif;font-size:1.15rem;color:var(--g);margin-bottom:.3rem}
+.bwc-s{font-family:'Fira Code',monospace;font-size:.6rem;letter-spacing:2px;opacity:.3;margin-bottom:.8rem}
+.bwc-d{font-size:.82rem;line-height:1.9;color:rgba(248,245,255,.45)}
+.br{position:absolute;border-radius:50%;border:1px solid rgba(255,215,0,.04);animation:br 6s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes br{0%,100%{transform:translate(-50%,-50%) scale(.7);opacity:.03}50%{transform:translate(-50%,-50%) scale(1.4);opacity:.12}}
+
+/* ═══ HOFMANN ═══ */
+.hof{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;padding:4rem 2rem;z-index:1}
+.hof-ct{position:relative;z-index:2;max-width:750px}
+.hof-y{font-family:'Fira Code',monospace;font-size:.9rem;letter-spacing:10px;color:var(--p);opacity:.5}
+.hof-n{font-family:'Cinzel Decorative',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;margin:1rem 0 2rem;background:linear-gradient(135deg,#fff 0%,var(--g) 40%,#fff 60%,var(--g) 100%);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 5s ease infinite}
+.hof-q{font-size:1.05rem;line-height:2.2;color:rgba(248,245,255,.35);margin-bottom:3rem}
+.bd{display:inline-block;padding:1rem 3rem;border:1px solid rgba(139,92,246,.3);border-radius:999px;font-family:'Cinzel Decorative',serif;font-size:.8rem;letter-spacing:5px;color:var(--v);transition:all .6s;position:relative;overflow:hidden}
+.bd::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from var(--bd-angle,0deg),transparent,var(--p),var(--r),var(--t),var(--p),transparent);opacity:0;transition:opacity .4s;border-radius:inherit;z-index:-1}
+.bd:hover{color:#fff;border-color:transparent;box-shadow:0 0 60px rgba(139,92,246,.3)}
+.bd:hover::before{opacity:1;animation:bdSpin 3s linear infinite}
+@keyframes bdSpin{to{--bd-angle:360deg}}
+@property --bd-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+
+/* ═══ SPLATTER SYSTEM ═══ */
+.sp{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;mix-blend-mode:screen}
+
+/* ═══ AUDIO ═══ */
+.at{position:fixed;bottom:16px;left:16px;z-index:1000;width:40px;height:40px;border-radius:50%;background:rgba(5,2,13,.7);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:all .3s;backdrop-filter:blur(20px)}
+.at:hover{background:rgba(139,92,246,.12);border-color:var(--p);box-shadow:0 0 20px rgba(139,92,246,.2)}
+.ab{width:2px;background:var(--r);border-radius:2px;transition:height .2s}
+.at.pl .ab:nth-child(1){animation:aB .8s ease-in-out infinite}
+.at.pl .ab:nth-child(2){animation:aB .6s ease-in-out infinite .1s}
+.at.pl .ab:nth-child(3){animation:aB .9s ease-in-out infinite .2s}
+.at.pl .ab:nth-child(4){animation:aB .7s ease-in-out infinite .15s}
+@keyframes aB{0%,100%{height:6px}50%{height:16px}}
+.at:not(.pl) .ab{height:2px}
+
+/* ═══ GLITCH TEXT ═══ */
+.glitch{position:relative}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.glitch:hover::before{animation:gl1 .3s infinite;background:inherit;-webkit-background-clip:text;left:2px;text-shadow:2px 0 var(--r)}
+.glitch:hover::after{animation:gl2 .3s infinite;background:inherit;-webkit-background-clip:text;left:-2px;text-shadow:-2px 0 var(--t)}
+@keyframes gl1{0%{clip-path:inset(20% 0 60% 0)}20%{clip-path:inset(60% 0 10% 0)}40%{clip-path:inset(40% 0 30% 0)}60%{clip-path:inset(80% 0 5% 0)}80%{clip-path:inset(10% 0 70% 0)}100%{clip-path:inset(50% 0 30% 0)}}
+@keyframes gl2{0%{clip-path:inset(70% 0 10% 0)}20%{clip-path:inset(10% 0 60% 0)}40%{clip-path:inset(50% 0 20% 0)}60%{clip-path:inset(30% 0 40% 0)}80%{clip-path:inset(80% 0 5% 0)}100%{clip-path:inset(20% 0 50% 0)}}
+
+/* ═══ FOOTER ═══ */
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(248,245,255,.03);position:relative;z-index:1}
+footer p{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,255,.12)}
+footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-width:550px;margin-left:auto;margin-right:auto;line-height:1.8;text-transform:none}
+
+@media(max-width:768px){.mn{display:none}.s-m{grid-template-columns:1fr}.sec{padding:3rem 1rem}.sec-ct{gap:2rem}}
 </style>
 </head>
 <body>
+<!-- WEBGL PSYCHEDELIC SHADER -->
+<canvas id="glBg"></canvas>
+
 <!-- LOADING -->
-<div class="ld-scr" id="LS">
-  <svg class="ld-mol" viewBox="0 0 200 200">
-    <defs><linearGradient id="mg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="50%" stop-color="#F43F5E"/><stop offset="100%" stop-color="#39FF14"/></linearGradient></defs>
-    <g stroke="url(#mg)" stroke-width="2" fill="none">
-      <polygon points="100,30 140,55 140,95 100,120 60,95 60,55"/>
-      <line x1="100" y1="30" x2="100" y2="10"/><line x1="140" y1="55" x2="165" y2="45"/>
-      <line x1="140" y1="95" x2="165" y2="105"/><line x1="100" y1="120" x2="100" y2="145"/>
-      <line x1="60" y1="95" x2="35" y2="105"/><line x1="60" y1="55" x2="35" y2="45"/>
-      <circle cx="100" cy="30" r="5" fill="#8B5CF6" opacity=".8"/><circle cx="140" cy="55" r="4" fill="#F43F5E" opacity=".8"/>
-      <circle cx="140" cy="95" r="5" fill="#39FF14" opacity=".8"/><circle cx="100" cy="120" r="5" fill="#A78BFA" opacity=".8"/>
-      <circle cx="60" cy="95" r="4" fill="#D946EF" opacity=".8"/><circle cx="60" cy="55" r="5" fill="#F43F5E" opacity=".8"/>
-      <path d="M100 145Q130 170 160 155"/><circle cx="160" cy="155" r="4" fill="#60A5FA" opacity=".8"/>
-    </g>
-  </svg>
-  <div class="ld-txt"><span data-l="nl" class="show">BEWUSTZIJN SYNTHETISEREN</span><span data-l="en">SYNTHESIZING CONSCIOUSNESS</span><span data-l="fi">SYNTETISOIDAAN TIETOISUUTTA</span></div>
-  <div class="ld-bar"><div class="ld-fill" id="LB"></div></div>
+<div class="ld" id="LD">
+  <canvas id="ldC" width="300" height="300"></canvas>
+  <div class="ld-t"><span data-l="nl" class="s">BEWUSTZIJN SYNTHETISEREN</span><span data-l="en">SYNTHESIZING CONSCIOUSNESS</span><span data-l="fi">TIETOISUUTTA SYNTETISOIDAAN</span></div>
+  <div class="ld-b"><div class="ld-f" id="LF"></div></div>
 </div>
 
 <!-- CURSOR -->
-<div class="cur-o" id="cO"></div><div class="cur-i" id="cI"></div>
+<div id="cO"></div><div id="cI"></div>
 
 <!-- LANG -->
-<div class="lang-sw" id="langSw">
-  <button class="lang-btn active" data-lang="nl">NL</button>
-  <button class="lang-btn" data-lang="en">EN</button>
-  <button class="lang-btn" data-lang="fi">FI</button>
-</div>
+<div class="ls"><button class="lb on" data-lang="nl">NL</button><button class="lb" data-lang="en">EN</button><button class="lb" data-lang="fi">FI</button></div>
 
 <!-- NAV -->
-<nav class="mol-nav" id="mN">
-  <div class="mol-d" data-target="lsd" data-label="LSD-25" style="color:var(--purple)"></div>
-  <div class="mol-d" data-target="dmt" data-label="DMT" style="color:var(--fuchsia)"></div>
-  <div class="mol-d" data-target="psilocybin" data-label="PSILOCYBIN" style="color:var(--violet)"></div>
-  <div class="mol-d" data-target="cannabis" data-label="CANNABIS" style="color:var(--toxic)"></div>
-  <div class="mol-d" data-target="mescaline" data-label="MESCALINE" style="color:var(--rose)"></div>
-  <div class="mol-d" data-target="ibogaine" data-label="IBOGAINE" style="color:var(--indigo)"></div>
-  <div class="mol-d" data-target="meodmt" data-label="5-MeO-DMT" style="color:#fff"></div>
-  <div class="mol-d" data-target="mdma" data-label="MDMA" style="color:var(--rose)"></div>
-  <div class="mol-d" data-target="ketamine" data-label="KETAMINE" style="color:#E0E7FF"></div>
-  <div class="mol-d" data-target="breathwork" data-label="ADEMWERK" style="color:var(--gold)"></div>
-  <div class="mol-d" data-target="hofmann" data-label="HOFMANN" style="color:var(--gold)"></div>
+<nav class="mn" id="MN">
+  <div class="md" data-t="lsd" data-n="LSD-25" style="color:var(--p)"></div>
+  <div class="md" data-t="dmt" data-n="DMT" style="color:var(--f)"></div>
+  <div class="md" data-t="psilocybin" data-n="PSILOCYBIN" style="color:var(--v)"></div>
+  <div class="md" data-t="cannabis" data-n="CANNABIS" style="color:var(--t)"></div>
+  <div class="md" data-t="mescaline" data-n="MESCALINE" style="color:var(--r)"></div>
+  <div class="md" data-t="ibogaine" data-n="IBOGAINE" style="color:var(--i)"></div>
+  <div class="md" data-t="meodmt" data-n="5-MeO-DMT" style="color:#fff"></div>
+  <div class="md" data-t="mdma" data-n="MDMA" style="color:var(--r)"></div>
+  <div class="md" data-t="ketamine" data-n="KETAMINE" style="color:#C7D2FE"></div>
+  <div class="md" data-t="breathwork" data-n="ADEMWERK" style="color:var(--g)"></div>
+  <div class="md" data-t="hofmann" data-n="HOFMANN" style="color:var(--g)"></div>
 </nav>
 
 <!-- AUDIO -->
-<div class="au-tog" id="aT"><div class="au-b" style="height:8px"></div><div class="au-b" style="height:14px"></div><div class="au-b" style="height:10px"></div><div class="au-b" style="height:12px"></div></div>
+<div class="at" id="aT"><div class="ab" style="height:6px"></div><div class="ab" style="height:12px"></div><div class="ab" style="height:8px"></div><div class="ab" style="height:10px"></div></div>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero" id="hero">
-  <canvas id="hC"></canvas>
-  <div class="kl"><div class="kl-l"></div><div class="kl-l"></div></div>
-  <div class="splat" style="width:400px;height:400px;top:20%;left:-5%;opacity:.04"></div>
-  <div class="splat" style="width:300px;height:300px;bottom:10%;right:-3%;opacity:.03;background:var(--rose)"></div>
+  <div class="sp" style="width:500px;height:500px;top:15%;left:-8%;background:var(--p);opacity:.04"></div>
+  <div class="sp" style="width:400px;height:400px;bottom:10%;right:-5%;background:var(--r);opacity:.03"></div>
+  <div class="sp" style="width:300px;height:300px;top:50%;left:50%;background:var(--t);opacity:.02"></div>
   <div class="hero-ct">
-    <div class="hero-sub rv">Hofmann's Pharmacopoeia</div>
-    <h1 class="hero-t rv rv-1">
-      <span data-l="nl" class="show">De Levende<br>Catalogus van het<br>Bewustzijn</span>
-      <span data-l="en">The Living<br>Catalogue of<br>Consciousness</span>
-      <span data-l="fi">Tietoisuuden<br>Elävä<br>Luettelo</span>
-    </h1>
-    <p class="hero-q rv rv-2">
+    <div class="hero-sub">Hofmann's Pharmacopoeia</div>
+    <h1 class="hero-t" id="heroTitle"></h1>
+    <p class="hero-q">
       "I share the belief of many of my contemporaries that the spiritual crisis pervading all spheres of
       Western industrial society can be remedied only by a change in our world view."<br>
-      <span>— Dr. Albert Hofmann, 1906–2008</span>
+      <b>— Dr. Albert Hofmann, 1906–2008</b>
     </p>
   </div>
-  <div class="scroll-ind">
-    <span><span data-l="nl" class="show">Betreed de ervaring</span><span data-l="en">Enter the experience</span><span data-l="fi">Astu kokemukseen</span></span>
-    <div class="scroll-arr"></div>
+  <div class="scroll-i">
+    <span><span data-l="nl" class="s">Betreed de ervaring</span><span data-l="en">Enter the experience</span><span data-l="fi">Astu kokemukseen</span></span>
+    <div class="scroll-a"></div>
   </div>
 </section>
-
-<!-- LSD-25 -->
-<section class="s-sec" id="lsd">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 30% 50%,rgba(139,92,246,.3),transparent 70%)"></div>
-  <div class="splat" style="width:200px;height:200px;top:10%;right:20%;opacity:.05"></div>
-  <canvas class="s-part" data-color="#8B5CF6" data-count="80"></canvas>
-  <div class="s-ct">
-    <div class="s-vis">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- LSD Ergoline: 4 fused rings -->
-        <g opacity=".8">
-          <!-- Ring A - benzene -->
-          <polygon points="80,90 105,75 130,90 130,120 105,135 80,120" fill="none" stroke="var(--violet)" stroke-width="2"/>
-          <!-- Ring B - pyrrole -->
-          <polygon points="130,90 155,80 170,100 160,120 130,120" fill="none" stroke="var(--purple)" stroke-width="2"/>
-          <!-- Ring C - cyclohexene -->
-          <polygon points="160,120 185,110 200,130 195,155 170,160 155,140" fill="none" stroke="var(--rose)" stroke-width="2"/>
-          <!-- Ring D - piperidine -->
-          <polygon points="155,140 170,160 160,185 135,185 125,165 135,145" fill="none" stroke="var(--toxic)" stroke-width="1.5"/>
-          <!-- N atoms -->
-          <circle cx="155" cy="80" r="6" fill="#60A5FA" opacity=".9"/><text x="155" y="80" fill="#60A5FA" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-          <circle cx="135" cy="185" r="6" fill="#60A5FA" opacity=".9"/><text x="135" y="185" fill="#60A5FA" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-          <!-- Diethylamide -->
-          <line x1="195" y1="155" x2="225" y2="165" stroke="var(--violet)" stroke-width="1.5"/>
-          <line x1="225" y1="165" x2="225" y2="195" stroke="var(--violet)" stroke-width="1.5"/>
-          <circle cx="225" cy="165" r="5" fill="#F43F5E" opacity=".8"/><text x="225" y="165" fill="#F43F5E" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <circle cx="225" cy="195" r="5" fill="#60A5FA" opacity=".8"/><text x="225" y="195" fill="#60A5FA" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-          <line x1="225" y1="195" x2="250" y2="185" stroke="var(--violet)" stroke-width="1"/><line x1="225" y1="195" x2="250" y2="210" stroke="var(--violet)" stroke-width="1"/>
-          <!-- Methyl on D-ring N -->
-          <line x1="135" y1="185" x2="115" y2="205" stroke="var(--violet)" stroke-width="1"/>
-          <!-- Glow core -->
-          <circle cx="145" cy="130" r="30" fill="url(#lsdGlow)" opacity=".15"/>
-        </g>
-        <defs><radialGradient id="lsdGlow"><stop offset="0%" stop-color="var(--purple)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₂₀H₂₅N₃O — 323.43 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Ergoline tetracyclic · 4 rings</text>
-      </svg>
-    </div>
+<!-- ═══ LSD-25 ═══ -->
+<section class="sec" id="lsd">
+  <canvas class="bg" data-c="139,92,246" data-n="100"></canvas>
+  <div class="sp" style="width:250px;height:250px;top:10%;right:15%;background:var(--t);opacity:.03"></div>
+  <div class="sec-ct">
+    <div class="mol-ct"><canvas class="mol3d" data-mol="lsd" width="400" height="400"></canvas><div class="mol-label">C₂₀H₂₅N₃O · 323.43 g/mol · Ergoline · 4 rings</div></div>
     <div class="s-info">
-      <div class="s-num rv"><span data-l="nl" class="show">001 — HET PROBLEEMKIND</span><span data-l="en">001 — THE PROBLEM CHILD</span><span data-l="fi">001 — ONGELMALAPSI</span></div>
-      <h2 class="s-name rv rv-1">LSD-25</h2>
-      <div class="s-lat rv rv-2">Lysergic acid diethylamide · C₂₀H₂₅N₃O · MW 323.43 · CAS 50-37-3</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Gesynthetiseerd uit moederkoorenalkaloïden door Albert Hofmann op 16 november 1938 in de Sandoz Laboratoria in Basel. De diepgaande psychoactieve eigenschappen werden per toeval ontdekt op 16 april 1943 — en drie dagen later bevestigd op de legendarische Fietsdag, 19 april, toen Hofmann bewust 250μg innam en op zijn fiets naar huis reed door de oplossende straten van Basel.</span>
-        <span data-l="en">Synthesized from ergot alkaloids by Albert Hofmann on November 16, 1938, at Sandoz Laboratories in Basel. Its profound psychoactive properties were discovered accidentally on April 16, 1943 — and confirmed three days later on the legendary Bicycle Day, April 19, when Hofmann intentionally ingested 250μg and rode his bicycle home through the dissolving streets of Basel.</span>
-        <span data-l="fi">Albert Hofmann syntetisoi LSD:n torajyväalkaloideista 16. marraskuuta 1938 Sandozin laboratoriossa Baselissa. Sen syvälliset psykoaktiiviset ominaisuudet löydettiin vahingossa 16. huhtikuuta 1943 — ja vahvistettiin kolme päivää myöhemmin legendaarisena Polkupyöräpäivänä 19. huhtikuuta, kun Hofmann otti tarkoituksella 250μg ja pyöräili kotiin Baselin liukenevien katujen halki.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Drempel</span><span data-l="en">Threshold</span><span data-l="fi">Kynnysannos</span></div><div class="m-val" style="color:var(--purple)">25 μg</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:var(--rose)">8–14 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Ontdekt</span><span data-l="en">Discovered</span><span data-l="fi">Löydetty</span></div><div class="m-val" style="color:var(--toxic)">1943</div></div>
+      <div class="s-n"><span data-l="nl" class="s">001 — HET PROBLEEMKIND</span><span data-l="en">001 — THE PROBLEM CHILD</span><span data-l="fi">001 — ONGELMALAPSI</span></div>
+      <h2 class="s-nm glitch" data-text="LSD-25">LSD-25</h2>
+      <div class="s-lt">Lysergic acid diethylamide · CAS 50-37-3</div>
+      <p class="s-d"><span data-l="nl" class="s">Gesynthetiseerd uit moederkoorenalkaloïden door Albert Hofmann op 16 november 1938 in Basel. De psychoactieve eigenschappen werden per toeval ontdekt op 16 april 1943 — bevestigd op de legendarische Fietsdag, 19 april, toen Hofmann 250μg innam en op zijn fiets door de oplossende straten van Basel reed. Het meest potente psychedelicum ooit ontdekt — actief in microgrammen.</span><span data-l="en">Synthesized from ergot alkaloids by Albert Hofmann on November 16, 1938 in Basel. Its psychoactive properties were discovered accidentally on April 16, 1943 — confirmed on the legendary Bicycle Day, April 19, when Hofmann ingested 250μg and rode his bicycle through the dissolving streets of Basel. The most potent psychedelic ever discovered — active in micrograms.</span><span data-l="fi">Albert Hofmann syntetisoi torajyväalkaloideista 16. marraskuuta 1938 Baselissa. Psykoaktiiviset ominaisuudet löydettiin vahingossa 16. huhtikuuta 1943 — vahvistettu legendaarisena Polkupyöräpäivänä 19. huhtikuuta, kun Hofmann otti 250μg ja pyöräili Baselin liukenevien katujen halki. Kaikkein voimakkain koskaan löydetty psykedeeli — aktiivinen mikrogrammoissa.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Drempel</span><span data-l="en">Threshold</span><span data-l="fi">Kynnysannos</span></div><div class="mv" style="color:var(--p)">25 μg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--r)">8–14 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Ontdekt</span><span data-l="en">Discovered</span><span data-l="fi">Löydetty</span></div><div class="mv" style="color:var(--t)">1943</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DMT -->
-<section class="s-sec" id="dmt">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 70% 50%,rgba(217,70,239,.25),transparent 70%)"></div>
-  <div class="splat" style="width:250px;height:250px;bottom:15%;left:10%;opacity:.04;background:var(--fuchsia)"></div>
-  <canvas class="s-part" data-color="#D946EF" data-count="100"></canvas>
-  <div class="s-ct" style="direction:rtl">
+<!-- ═══ DMT ═══ -->
+<section class="sec" id="dmt">
+  <canvas class="bg" data-c="217,70,239" data-n="120"></canvas>
+  <div class="sp" style="width:300px;height:300px;bottom:20%;left:5%;background:var(--f);opacity:.04"></div>
+  <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-num rv"><span data-l="nl" class="show">002 — HET GEESTMOLECUUL</span><span data-l="en">002 — THE SPIRIT MOLECULE</span><span data-l="fi">002 — HENKIMOLEKYYLI</span></div>
-      <h2 class="s-name rv rv-1">DMT</h2>
-      <div class="s-lat rv rv-2">N,N-Dimethyltryptamine · C₁₂H₁₆N₂ · MW 188.27 · CAS 61-50-7</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Het krachtigste natuurlijk voorkomende psychedelicum dat de wetenschap kent. Aanwezig in het menselijk brein, in honderden plantensoorten en in het gif van de Bufo alvarius pad. De Amazoniaanse drank Ayahuasca combineert DMT-bevattende planten met MAO-remmers, waardoor een reis van 4-6 uur ontstaat door geometrische kathedralen van licht en de fundamentele architectuur van de werkelijkheid zelf.</span>
-        <span data-l="en">The most powerful naturally occurring psychedelic known to science. Found endogenously in the human brain, in hundreds of plant species, and in the venomous secretions of the Bufo alvarius toad. The Amazonian brew Ayahuasca combines DMT-containing plants with MAO inhibitors, creating a 4-6 hour oral journey through geometric cathedrals of light and the fundamental architecture of reality itself.</span>
-        <span data-l="fi">Tieteen tuntema voimakkain luonnossa esiintyvä psykedeeli. Sitä löytyy endogeenisesti ihmisaivoista, sadoista kasvilajeista ja Bufo alvarius -sammakkoeläimen myrkkyeritteestä. Amazonialainen ayahuasca-juoma yhdistää DMT:tä sisältäviä kasveja MAO-estäjiin luoden 4-6 tunnin matkan geometristen valokatedraalien ja todellisuuden perusarkkitehtuurin läpi.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Vaikutuksen alku</span></div><div class="m-val" style="color:var(--fuchsia)">30 sec</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:var(--violet)">5–20 min</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Endogeen</span><span data-l="en">Endogenous</span><span data-l="fi">Endogeeninen</span></div><div class="m-val" style="color:var(--purple)">Ja / Yes</div></div>
+      <div class="s-n"><span data-l="nl" class="s">002 — HET GEESTMOLECUUL</span><span data-l="en">002 — THE SPIRIT MOLECULE</span><span data-l="fi">002 — HENKIMOLEKYYLI</span></div>
+      <h2 class="s-nm glitch" data-text="DMT">DMT</h2>
+      <div class="s-lt">N,N-Dimethyltryptamine · CAS 61-50-7</div>
+      <p class="s-d"><span data-l="nl" class="s">Het krachtigste natuurlijke psychedelicum. Aanwezig in het menselijk brein, honderden plantensoorten en het gif van de Bufo alvarius pad. Ayahuasca combineert DMT met MAO-remmers: een reis van 4-6 uur door geometrische kathedralen van licht en contact met wat velen beschrijven als niet-menselijke intelligentie. De eenvoudigste tryptamine — twee ringen, oneindig bewustzijn.</span><span data-l="en">The most powerful natural psychedelic. Found in the human brain, hundreds of plant species, and the Bufo alvarius toad. Ayahuasca combines DMT with MAO inhibitors: a 4-6 hour journey through geometric cathedrals of light and contact with what many describe as non-human intelligence. The simplest tryptamine — two rings, infinite consciousness.</span><span data-l="fi">Voimakkain luonnollinen psykedeeli. Löytyy ihmisaivoista, sadoista kasvilajeista ja Bufo alvarius -sammakosta. Ayahuasca yhdistää DMT:n MAO-estäjiin: 4-6 tunnin matka geometristen valokatedraalien läpi ja kontakti ei-inhimilliseen älykkyyteen. Yksinkertaisin tryptamiini — kaksi rengasta, ääretön tietoisuus.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Alku</span></div><div class="mv" style="color:var(--f)">30 sec</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--v)">5–20 min</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Endogeen</span><span data-l="en">Endogenous</span><span data-l="fi">Endogeeninen</span></div><div class="mv" style="color:var(--p)">✓</div></div>
       </div>
     </div>
-    <div class="s-vis" style="direction:ltr">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- DMT: Indole (benzene+pyrrole) + ethylamine chain -->
-        <g opacity=".8">
-          <polygon points="90,100 115,85 140,100 140,130 115,145 90,130" fill="none" stroke="var(--fuchsia)" stroke-width="2"/>
-          <polygon points="140,100 165,90 175,115 160,135 140,130" fill="none" stroke="var(--violet)" stroke-width="2"/>
-          <circle cx="165" cy="90" r="6" fill="#60A5FA" opacity=".9"/><text x="165" y="90" fill="#60A5FA" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH</text>
-          <line x1="175" y1="115" x2="200" y2="120" stroke="var(--fuchsia)" stroke-width="1.5"/>
-          <line x1="200" y1="120" x2="220" y2="135" stroke="var(--fuchsia)" stroke-width="1.5"/>
-          <circle cx="220" cy="135" r="6" fill="#60A5FA" opacity=".9"/><text x="220" y="135" fill="#60A5FA" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-          <line x1="220" y1="135" x2="245" y2="125" stroke="var(--violet)" stroke-width="1"/>
-          <line x1="220" y1="135" x2="245" y2="150" stroke="var(--violet)" stroke-width="1"/>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₁₂H₁₆N₂ — 188.27 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Indole bicyclic · 2 rings</text>
-      </svg>
+    <div class="mol-ct" style="direction:ltr"><canvas class="mol3d" data-mol="dmt" width="400" height="400"></canvas><div class="mol-label">C₁₂H₁₆N₂ · 188.27 g/mol · Indole · 2 rings</div></div>
+  </div>
+</section>
+
+<!-- ═══ PSILOCYBIN ═══ -->
+<section class="sec" id="psilocybin">
+  <canvas class="bg" data-c="167,139,250" data-n="70"></canvas>
+  <div class="sec-ct">
+    <div class="mol-ct"><canvas class="mol3d" data-mol="psilocybin" width="400" height="400"></canvas><div class="mol-label">C₁₂H₁₇N₂O₄P · 284.25 g/mol · Phosphotryptamine · 2 rings</div></div>
+    <div class="s-info">
+      <div class="s-n"><span data-l="nl" class="s">003 — TEONANÁCATL</span><span data-l="en">003 — TEONANÁCATL</span><span data-l="fi">003 — TEONANÁCATL</span></div>
+      <h2 class="s-nm glitch" data-text="Psilocybin">Psilocybin</h2>
+      <div class="s-lt">4-PO-DMT · CAS 520-52-5</div>
+      <p class="s-d"><span data-l="nl" class="s">Heilige paddenstoelen, 7.000 jaar oud. María Sabina deelde de velada in 1955. Hofmann isoleerde psilocybine in 1958. Johns Hopkins toont nu opmerkelijke werkzaamheid bij depressie en verslaving — één dosis produceert blijvende persoonlijkheidsveranderingen richting openheid. De fosfaatgroep op positie 4 maakt het tot een prodrug: in het lichaam wordt het omgezet naar het actieve psilocine.</span><span data-l="en">Sacred mushrooms, 7,000 years old. María Sabina shared the velada in 1955. Hofmann isolated psilocybin in 1958. Johns Hopkins now shows remarkable efficacy for depression and addiction — a single dose produces lasting personality changes toward openness. The phosphate group at position 4 makes it a prodrug: in the body it converts to active psilocin.</span><span data-l="fi">Pyhät sienet, 7 000 vuotta vanhat. María Sabina jakoi veladan 1955. Hofmann eristi psilosybiinin 1958. Johns Hopkins osoittaa nyt merkittävää tehoa masennukseen ja riippuvuuksiin — yksi annos tuottaa pysyviä persoonallisuusmuutoksia avoimuuteen. Fosfaattiryhmä positiossa 4 tekee siitä prodrugin: elimistössä se muuttuu aktiiviseksi psilosiiniksi.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Soorten</span><span data-l="en">Species</span><span data-l="fi">Lajit</span></div><div class="mv" style="color:var(--v)">200+</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--p)">4–6 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="mv" style="color:var(--r)">1958</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PSILOCYBIN -->
-<section class="s-sec" id="psilocybin">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 30% 50%,rgba(167,139,250,.25),transparent 70%)"></div>
-  <canvas class="s-part" data-color="#A78BFA" data-count="60"></canvas>
-  <div class="s-ct">
-    <div class="s-vis">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- Psilocybin: Indole + phosphate at pos 4 -->
-        <g opacity=".8">
-          <polygon points="100,100 125,85 150,100 150,130 125,145 100,130" fill="none" stroke="var(--violet)" stroke-width="2"/>
-          <polygon points="150,100 175,90 185,115 170,135 150,130" fill="none" stroke="var(--purple)" stroke-width="2"/>
-          <circle cx="175" cy="90" r="5" fill="#60A5FA" opacity=".9"/><text x="175" y="90" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH</text>
-          <!-- Phosphate group at position 4 -->
-          <line x1="100" y1="100" x2="70" y2="85" stroke="var(--violet)" stroke-width="1.5"/>
-          <circle cx="70" cy="85" r="5" fill="#F43F5E" opacity=".8"/><text x="70" y="85" fill="#F43F5E" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <line x1="70" y1="85" x2="45" y2="75" stroke="var(--violet)" stroke-width="1.5"/>
-          <circle cx="45" cy="75" r="7" fill="#F97316" opacity=".8"/><text x="45" y="75" fill="#fff" font-size="8" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">P</text>
-          <line x1="45" y1="75" x2="25" y2="60" stroke="#F97316" stroke-width="1"/><circle cx="25" cy="60" r="4" fill="#F43F5E" opacity=".7"/><text x="25" y="52" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle">OH</text>
-          <line x1="45" y1="75" x2="25" y2="90" stroke="#F97316" stroke-width="1"/><circle cx="25" cy="90" r="4" fill="#F43F5E" opacity=".7"/><text x="25" y="98" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle">OH</text>
-          <line x1="45" y1="75" x2="45" y2="50" stroke="#F97316" stroke-width="2"/><circle cx="45" cy="50" r="4" fill="#F43F5E" opacity=".7"/><text x="45" y="42" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle">O</text>
-          <!-- Dimethylamine chain -->
-          <line x1="185" y1="115" x2="210" y2="120" stroke="var(--violet)" stroke-width="1.5"/>
-          <line x1="210" y1="120" x2="230" y2="135" stroke="var(--violet)" stroke-width="1.5"/>
-          <circle cx="230" cy="135" r="5" fill="#60A5FA" opacity=".9"/><text x="230" y="135" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₁₂H₁₇N₂O₄P — 284.25 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Phosphorylated tryptamine · 2 rings</text>
-      </svg>
-    </div>
-    <div class="s-info">
-      <div class="s-num rv"><span data-l="nl" class="show">003 — TEONANÁCATL</span><span data-l="en">003 — TEONANÁCATL</span><span data-l="fi">003 — TEONANÁCATL</span></div>
-      <h2 class="s-name rv rv-1">Psilocybin</h2>
-      <div class="s-lat rv rv-2">4-PO-DMT · C₁₂H₁₇N₂O₄P · MW 284.25 · CAS 520-52-5</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Heilige paddenstoelen worden al minstens 7.000 jaar gebruikt — afgebeeld in Tassili-grotschilderingen en Meso-Amerikaanse codices. Mazatec curandera María Sabina deelde de velada-ceremonie met R. Gordon Wasson in 1955. Albert Hofmann isoleerde en synthetiseerde psilocybine in 1958. Vandaag tonen klinische studies bij Johns Hopkins en Imperial College opmerkelijke werkzaamheid bij therapieresistente depressie.</span>
-        <span data-l="en">Sacred mushrooms have been used for at least 7,000 years — depicted in Tassili cave paintings and Mesoamerican codices. Mazatec curandera María Sabina shared the velada ceremony with R. Gordon Wasson in 1955. Albert Hofmann isolated and synthesized psilocybin in 1958. Today, clinical trials at Johns Hopkins and Imperial College show remarkable efficacy for treatment-resistant depression.</span>
-        <span data-l="fi">Pyhiä sieniä on käytetty vähintään 7 000 vuotta — kuvattu Tassilin luolamaalauksissa ja mesoamerikkalaisissa koodekseissa. Mazatec-parantaja María Sabina jakoi velada-seremonian R. Gordon Wassonin kanssa 1955. Albert Hofmann eristi ja syntetisoi psilosybiinin 1958. Nykyään Johns Hopkinsin ja Imperial Collegen kliiniset tutkimukset osoittavat merkittävää tehoa hoitoresistentissä masennuksessa.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Soort</span><span data-l="en">Species</span><span data-l="fi">Laji</span></div><div class="m-val" style="color:var(--violet)">200+</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:var(--purple)">4–6 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="m-val" style="color:var(--rose)">1958</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- CANNABIS -->
-<section class="s-sec" id="cannabis">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 70% 50%,rgba(57,255,20,.15),transparent 70%)"></div>
-  <div class="splat" style="width:300px;height:300px;top:20%;right:5%;opacity:.06"></div>
-  <canvas class="s-part" data-color="#39FF14" data-count="50"></canvas>
-  <div class="s-ct" style="direction:rtl">
+<!-- ═══ CANNABIS ═══ -->
+<section class="sec" id="cannabis">
+  <canvas class="bg" data-c="57,255,20" data-n="60"></canvas>
+  <div class="sp" style="width:350px;height:350px;top:20%;right:0;background:var(--t);opacity:.04"></div>
+  <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-num rv"><span data-l="nl" class="show">004 — DE OUDE GENEZER</span><span data-l="en">004 — THE ANCIENT HEALER</span><span data-l="fi">004 — MUINAINEN PARANTAJA</span></div>
-      <h2 class="s-name rv rv-1">Cannabis</h2>
-      <div class="s-lat rv rv-2">Δ⁹-Tetrahydrocannabinol · C₂₁H₃₀O₂ · MW 314.46 · CAS 1972-08-3</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">De oudste gecultiveerde psychoactieve plant van de mensheid, met archeologisch bewijs van 12.000 jaar geleden in Centraal-Azië. THC en CBD interageren met het endocannabinoïde systeem — meer dan 140 cannabinoïden werken samen in een entourage-effect dat uniek is in de hele natuur. Van de Scythische rituele tenten tot moderne medicinale toepassingen.</span>
-        <span data-l="en">Humanity's oldest cultivated psychoactive plant, with archaeological evidence dating to 12,000 years ago in Central Asia. THC and CBD interact with the endocannabinoid system — over 140 cannabinoids work in an entourage effect unique in all of nature. From Scythian ritual tents to modern medicinal applications.</span>
-        <span data-l="fi">Ihmiskunnan vanhin viljelty psykoaktiivinen kasvi, jonka arkeologiset todisteet ulottuvat 12 000 vuoden taakse Keski-Aasiaan. THC ja CBD vaikuttavat endokannabinoidijärjestelmään — yli 140 kannabinoidia toimii yhdessä ainutlaatuisessa entourage-vaikutuksessa.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Cannabinoïden</span><span data-l="en">Cannabinoids</span><span data-l="fi">Kannabinoidit</span></div><div class="m-val" style="color:var(--toxic)">140+</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:#A3E635">2–4 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Eerste gebruik</span><span data-l="en">First Use</span><span data-l="fi">Ensimmäinen käyttö</span></div><div class="m-val" style="color:var(--toxic)">~10000 v.Chr.</div></div>
+      <div class="s-n"><span data-l="nl" class="s">004 — DE OUDE GENEZER</span><span data-l="en">004 — THE ANCIENT HEALER</span><span data-l="fi">004 — MUINAINEN PARANTAJA</span></div>
+      <h2 class="s-nm glitch" data-text="Cannabis">Cannabis</h2>
+      <div class="s-lt">Δ⁹-THC · CAS 1972-08-3</div>
+      <p class="s-d"><span data-l="nl" class="s">De oudste psychoactieve plant — 12.000 jaar bewijs. Uniek: geen stikstof in de moleculaire structuur (tricyclisch dibenzopyran). 140+ cannabinoïden werken samen in het entourage-effect via het endocannabinoïde systeem. Van Scythische rituele tenten tot moderne medicinale cannabis — de meest veelzijdige plant op aarde.</span><span data-l="en">Humanity's oldest psychoactive plant — 12,000 years of evidence. Unique: no nitrogen in the molecular structure (tricyclic dibenzopyran). 140+ cannabinoids work together in the entourage effect via the endocannabinoid system. From Scythian ritual tents to modern medicinal cannabis — the most versatile plant on earth.</span><span data-l="fi">Ihmiskunnan vanhin psykoaktiivinen kasvi — 12 000 vuotta todisteita. Ainutlaatuinen: ei typpeä molekyylirakenteessa (trisyklinen dibentsopyraani). 140+ kannabinoidia toimivat yhdessä entourage-vaikutuksessa endokannabinoidijärjestelmän kautta.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Cannabinoïden</span><span data-l="en">Cannabinoids</span><span data-l="fi">Kannabinoidit</span></div><div class="mv" style="color:var(--t)">140+</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:#A3E635">2–4 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Eerste gebruik</span><span data-l="en">First Use</span><span data-l="fi">Ensikäyttö</span></div><div class="mv" style="color:var(--t)">~10000 BC</div></div>
       </div>
     </div>
-    <div class="s-vis" style="direction:ltr">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- THC: Tricyclic dibenzopyran - NO nitrogen -->
-        <g opacity=".8">
-          <!-- Ring A - phenol -->
-          <polygon points="70,110 95,95 120,110 120,140 95,155 70,140" fill="none" stroke="var(--toxic)" stroke-width="2"/>
-          <!-- Ring B - pyran -->
-          <polygon points="120,110 145,100 160,120 155,145 130,150 120,140" fill="none" stroke="#A3E635" stroke-width="2"/>
-          <!-- Ring C - cyclohexene -->
-          <polygon points="155,145 175,135 195,150 190,175 170,180 155,165" fill="none" stroke="var(--toxic)" stroke-width="1.5"/>
-          <!-- O in pyran -->
-          <circle cx="145" cy="100" r="5" fill="#F43F5E" opacity=".8"/><text x="145" y="100" fill="#F43F5E" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <!-- OH on phenol -->
-          <line x1="70" y1="110" x2="50" y2="100" stroke="var(--toxic)" stroke-width="1.5"/>
-          <circle cx="50" cy="100" r="5" fill="#F43F5E" opacity=".8"/><text x="50" y="100" fill="#F43F5E" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">OH</text>
-          <!-- Pentyl chain -->
-          <line x1="95" y1="155" x2="95" y2="180" stroke="var(--toxic)" stroke-width="1"/><line x1="95" y1="180" x2="80" y2="200" stroke="var(--toxic)" stroke-width="1"/><line x1="80" y1="200" x2="80" y2="220" stroke="var(--toxic)" stroke-width="1"/>
-        </g>
-        <text x="150" y="260" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₂₁H₃₀O₂ — 314.46 g/mol</text>
-        <text x="150" y="278" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Dibenzopyran tricyclic · 3 rings · No nitrogen</text>
-      </svg>
-    </div>
+    <div class="mol-ct" style="direction:ltr"><canvas class="mol3d" data-mol="thc" width="400" height="400"></canvas><div class="mol-label">C₂₁H₃₀O₂ · 314.46 g/mol · Dibenzopyran · 3 rings · No nitrogen</div></div>
   </div>
 </section>
 
-<!-- MESCALINE -->
-<section class="s-sec" id="mescaline">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 30% 50%,rgba(244,63,94,.2),transparent 70%)"></div>
-  <canvas class="s-part" data-color="#F43F5E" data-count="40"></canvas>
-  <div class="s-ct">
-    <div class="s-vis">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- Mescaline: single benzene ring + 3 methoxy + ethylamine -->
-        <g opacity=".8">
-          <polygon points="120,100 150,85 180,100 180,135 150,150 120,135" fill="none" stroke="var(--rose)" stroke-width="2.5"/>
-          <!-- 3 methoxy groups at 3,4,5 -->
-          <line x1="120" y1="100" x2="90" y2="90" stroke="var(--rose)" stroke-width="1.5"/>
-          <circle cx="90" cy="90" r="5" fill="#F43F5E" opacity=".8"/><text x="90" y="90" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <line x1="90" y1="90" x2="70" y2="80" stroke="var(--violet)" stroke-width="1"/>
-          <line x1="120" y1="135" x2="90" y2="145" stroke="var(--rose)" stroke-width="1.5"/>
-          <circle cx="90" cy="145" r="5" fill="#F43F5E" opacity=".8"/><text x="90" y="145" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <line x1="90" y1="145" x2="70" y2="155" stroke="var(--violet)" stroke-width="1"/>
-          <line x1="150" y1="150" x2="150" y2="175" stroke="var(--rose)" stroke-width="1.5"/>
-          <circle cx="150" cy="175" r="5" fill="#F43F5E" opacity=".8"/><text x="150" y="175" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <line x1="150" y1="175" x2="135" y2="195" stroke="var(--violet)" stroke-width="1"/>
-          <!-- Ethylamine chain -->
-          <line x1="150" y1="85" x2="150" y2="60" stroke="var(--rose)" stroke-width="1.5"/>
-          <line x1="150" y1="60" x2="170" y2="40" stroke="var(--rose)" stroke-width="1.5"/>
-          <circle cx="170" cy="40" r="6" fill="#60A5FA" opacity=".9"/><text x="170" y="40" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH₂</text>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₁₁H₁₇NO₃ — 211.26 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Phenethylamine · 1 ring · Simplest psychedelic</text>
-      </svg>
-    </div>
+<!-- ═══ MESCALINE ═══ -->
+<section class="sec" id="mescaline">
+  <canvas class="bg" data-c="244,63,94" data-n="50"></canvas>
+  <div class="sec-ct">
+    <div class="mol-ct"><canvas class="mol3d" data-mol="mescaline" width="400" height="400"></canvas><div class="mol-label">C₁₁H₁₇NO₃ · 211.26 g/mol · Phenethylamine · 1 ring</div></div>
     <div class="s-info">
-      <div class="s-num rv"><span data-l="nl" class="show">005 — DE WOESTIJNLERAAR</span><span data-l="en">005 — THE DESERT TEACHER</span><span data-l="fi">005 — AAVIKON OPETTAJA</span></div>
-      <h2 class="s-name rv rv-1">Mescaline</h2>
-      <div class="s-lat rv rv-2">3,4,5-Trimethoxyphenethylamine · C₁₁H₁₇NO₃ · MW 211.26 · CAS 54-04-6</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Het heilige medicijn van de peyote-cactus en San Pedro, al meer dan 5.700 jaar gebruikt door inheemse volken. Het eerste psychedelicum dat werd geïsoleerd (Heffter, 1897) en gesynthetiseerd (Späth, 1919). Aldous Huxley's mescaline-ervaring inspireerde "The Doors of Perception" — de geometrische visioenen weerspiegelen de wiskundige structuur van het bewustzijn zelf.</span>
-        <span data-l="en">The sacred medicine of the peyote cactus and San Pedro, used by indigenous peoples for over 5,700 years. The first psychedelic to be isolated (Heffter, 1897) and synthesized (Späth, 1919). Aldous Huxley's mescaline experience inspired "The Doors of Perception" — its geometric visions mirror the mathematical structure of consciousness itself.</span>
-        <span data-l="fi">Peyote-kaktuksen ja San Pedron pyhä lääke, jota alkuperäiskansat ovat käyttäneet yli 5 700 vuotta. Ensimmäinen eristetty (Heffter, 1897) ja syntetisoitu (Späth, 1919) psykedeeli. Aldous Huxleyn meskaliinikokemus inspiroi teoksen "The Doors of Perception" — sen geometriset visiot heijastavat tietoisuuden matemaattista rakennetta.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Vaikutuksen alku</span></div><div class="m-val" style="color:var(--rose)">1–2 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:#FB923C">8–12 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="m-val" style="color:var(--rose)">1897</div></div>
+      <div class="s-n"><span data-l="nl" class="s">005 — DE WOESTIJNLERAAR</span><span data-l="en">005 — THE DESERT TEACHER</span><span data-l="fi">005 — AAVIKON OPETTAJA</span></div>
+      <h2 class="s-nm glitch" data-text="Mescaline">Mescaline</h2>
+      <div class="s-lt">3,4,5-Trimethoxyphenethylamine · CAS 54-04-6</div>
+      <p class="s-d"><span data-l="nl" class="s">Het eenvoudigste psychedelicum — slechts één ring. 5.700 jaar gebruikt via peyote en San Pedro. Eerste psychedelicum ooit geïsoleerd (Heffter, 1897). Huxley's "Doors of Perception" veranderde de wereld. De geometrische visioenen — form constants — weerspiegelen de wiskundige structuur van het bewustzijn.</span><span data-l="en">The simplest psychedelic — just one ring. 5,700 years of use via peyote and San Pedro. First psychedelic ever isolated (Heffter, 1897). Huxley's "Doors of Perception" changed the world. The geometric visions — form constants — mirror the mathematical structure of consciousness.</span><span data-l="fi">Yksinkertaisin psykedeeli — vain yksi rengas. 5 700 vuotta käyttöä peyoten ja San Pedron kautta. Ensimmäinen koskaan eristetty psykedeeli (Heffter, 1897). Huxleyn "Havainnon ovet" muutti maailman. Geometriset visiot heijastavat tietoisuuden matemaattista rakennetta.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Alku</span></div><div class="mv" style="color:var(--r)">1–2 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:#FB923C">8–12 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="mv" style="color:var(--r)">1897</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- IBOGAINE -->
-<section class="s-sec" id="ibogaine">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 70% 50%,rgba(79,70,229,.2),transparent 70%)"></div>
-  <canvas class="s-part" data-color="#4F46E5" data-count="45"></canvas>
-  <div class="s-ct" style="direction:rtl">
+<!-- ═══ IBOGAINE ═══ -->
+<section class="sec" id="ibogaine">
+  <canvas class="bg" data-c="79,70,229" data-n="55"></canvas>
+  <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-num rv"><span data-l="nl" class="show">006 — DE WORTEL VAN WAARHEID</span><span data-l="en">006 — THE ROOT OF TRUTH</span><span data-l="fi">006 — TOTUUDEN JUURI</span></div>
-      <h2 class="s-name rv rv-1">Ibogaine</h2>
-      <div class="s-lat rv rv-2">12-Methoxyibogamine · C₂₀H₂₆N₂O · MW 310.43 · CAS 83-74-9</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Gewonnen uit de wortelbast van de West-Afrikaanse iboga-struik, centraal in de Bwiti-traditie van Gabon. Ibogaïne is uniek: een enkele dosis kan opiaat-, cocaïne- en alcoholverslaving doorbreken door de beloningscircuits van het brein te resetten. Het produceert een 24-36 uur durende visionare staat — elk geheugen onderzocht zonder emotionele lading.</span>
-        <span data-l="en">Extracted from the root bark of the West African iboga shrub, central to the Bwiti tradition of Gabon. Ibogaine is unique: a single flood dose can interrupt opioid, cocaine, and alcohol addiction by resetting the brain's reward pathways. It produces a 24-36 hour visionary state — every memory examined without emotional charge.</span>
-        <span data-l="fi">Uutettu Länsi-Afrikan iboga-pensaan juurikuoresta, Gabonin Bwiti-perinteen ytimessä. Ibogaiini on ainutlaatuinen: yksi annos voi katkaista opioidi-, kokaiini- ja alkoholiriippuvuuden nollaamalla aivojen palkitsemisreitit. Se tuottaa 24-36 tunnin visionäärisen tilan — jokainen muisto tutkitaan ilman tunnevarausta.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:var(--indigo)">24–36 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Oorsprong</span><span data-l="en">Origin</span><span data-l="fi">Alkuperä</span></div><div class="m-val" style="color:#06B6D4">Gabon</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Anti-verslavend</span><span data-l="en">Anti-addictive</span><span data-l="fi">Riippuvuutta ehkäisevä</span></div><div class="m-val" style="color:var(--toxic)">Ja / Yes</div></div>
+      <div class="s-n"><span data-l="nl" class="s">006 — DE WORTEL VAN WAARHEID</span><span data-l="en">006 — THE ROOT OF TRUTH</span><span data-l="fi">006 — TOTUUDEN JUURI</span></div>
+      <h2 class="s-nm glitch" data-text="Ibogaine">Ibogaine</h2>
+      <div class="s-lt">12-Methoxyibogamine · CAS 83-74-9</div>
+      <p class="s-d"><span data-l="nl" class="s">Het meest complexe molecuul — vijf versmolten ringen. Uit de wortelbast van de iboga-struik, centraal in Gabons Bwiti-traditie. Uniek vermogen: één dosis doorbreekt opiaat- en alcoholverslaving door beloningscircuits te resetten. 24-36 uur panoramisch levensoverzicht — elk geheugen onderzocht zonder emotionele lading.</span><span data-l="en">The most complex molecule — five fused rings. From the root bark of the iboga shrub, central to Gabon's Bwiti tradition. Unique ability: a single dose interrupts opioid and alcohol addiction by resetting reward circuits. 24-36 hour panoramic life review — every memory examined without emotional charge.</span><span data-l="fi">Monimutkaisin molekyyli — viisi fuusioitunutta rengasta. Iboga-pensaan juurikuoresta, Gabonin Bwiti-perinteen ytimestä. Ainutlaatuinen kyky: yksi annos katkaisee opioidi- ja alkoholiriippuvuuden nollaamalla palkitsemisreitit. 24-36 tunnin panoraaminen elämänkatsaus.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--i)">24–36 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Oorsprong</span><span data-l="en">Origin</span><span data-l="fi">Alkuperä</span></div><div class="mv" style="color:#06B6D4">Gabon</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Anti-verslavend</span><span data-l="en">Anti-addictive</span><span data-l="fi">Riippuvuutta ehkäisevä</span></div><div class="mv" style="color:var(--t)">✓</div></div>
       </div>
     </div>
-    <div class="s-vis" style="direction:ltr">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- Ibogaine: Pentacyclic (5 fused rings) -->
-        <g opacity=".8">
-          <!-- Indole A - benzene -->
-          <polygon points="60,100 85,85 110,100 110,130 85,145 60,130" fill="none" stroke="var(--indigo)" stroke-width="2"/>
-          <!-- Indole B - pyrrole -->
-          <polygon points="110,100 135,90 145,115 130,130 110,130" fill="none" stroke="var(--violet)" stroke-width="2"/>
-          <!-- Ring C - azepine (7-membered) -->
-          <path d="M145,115 L165,105 L180,115 L185,135 L175,150 L155,150 L145,135" fill="none" stroke="var(--purple)" stroke-width="1.8"/>
-          <!-- Ring D - bridge part 1 -->
-          <polygon points="175,150 195,145 205,165 195,180 175,175" fill="none" stroke="var(--rose)" stroke-width="1.5"/>
-          <!-- Ring E - bridge part 2 -->
-          <polygon points="155,150 175,175 165,195 145,190 140,170" fill="none" stroke="var(--fuchsia)" stroke-width="1.5"/>
-          <!-- N atoms -->
-          <circle cx="135" cy="90" r="5" fill="#60A5FA" opacity=".9"/><text x="135" y="90" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH</text>
-          <circle cx="155" cy="150" r="5" fill="#60A5FA" opacity=".9"/><text x="155" y="150" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-          <!-- Methoxy at position 12 -->
-          <line x1="60" y1="130" x2="40" y2="145" stroke="var(--indigo)" stroke-width="1.5"/>
-          <circle cx="40" cy="145" r="4" fill="#F43F5E" opacity=".8"/><text x="40" y="145" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <line x1="40" y1="145" x2="25" y2="158" stroke="var(--violet)" stroke-width="1"/>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₂₀H₂₆N₂O — 310.43 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Pentacyclic · 5 rings · Most complex</text>
-      </svg>
-    </div>
+    <div class="mol-ct" style="direction:ltr"><canvas class="mol3d" data-mol="ibogaine" width="400" height="400"></canvas><div class="mol-label">C₂₀H₂₆N₂O · 310.43 g/mol · Pentacyclic · 5 rings</div></div>
   </div>
 </section>
 
-<!-- 5-MeO-DMT -->
-<section class="s-sec" id="meodmt">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 30% 50%,rgba(248,245,255,.15),transparent 70%)"></div>
-  <canvas class="s-part" data-color="#E0E7FF" data-count="90"></canvas>
-  <div class="s-ct">
-    <div class="s-vis">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- 5-MeO-DMT: Indole + methoxy at 5 + dimethylamine chain -->
-        <g opacity=".8">
-          <polygon points="100,110 125,95 150,110 150,140 125,155 100,140" fill="none" stroke="#E0E7FF" stroke-width="2"/>
-          <polygon points="150,110 175,100 185,125 170,145 150,140" fill="none" stroke="var(--violet)" stroke-width="2"/>
-          <circle cx="175" cy="100" r="5" fill="#60A5FA" opacity=".9"/><text x="175" y="100" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH</text>
-          <!-- Methoxy at position 5 -->
-          <line x1="100" y1="140" x2="75" y2="155" stroke="#E0E7FF" stroke-width="1.5"/>
-          <circle cx="75" cy="155" r="5" fill="#F43F5E" opacity=".8"/><text x="75" y="155" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <line x1="75" y1="155" x2="55" y2="165" stroke="var(--violet)" stroke-width="1"/>
-          <!-- Dimethylamine chain -->
-          <line x1="185" y1="125" x2="210" y2="130" stroke="#E0E7FF" stroke-width="1.5"/>
-          <line x1="210" y1="130" x2="230" y2="145" stroke="#E0E7FF" stroke-width="1.5"/>
-          <circle cx="230" cy="145" r="6" fill="#60A5FA" opacity=".9"/><text x="230" y="145" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">N</text>
-          <line x1="230" y1="145" x2="255" y2="135" stroke="var(--violet)" stroke-width="1"/>
-          <line x1="230" y1="145" x2="255" y2="160" stroke="var(--violet)" stroke-width="1"/>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₁₃H₁₈N₂O — 218.30 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Indole + 5-methoxy · 2 rings</text>
-      </svg>
-    </div>
+<!-- ═══ 5-MeO-DMT ═══ -->
+<section class="sec" id="meodmt">
+  <canvas class="bg" data-c="255,255,255" data-n="100"></canvas>
+  <div class="sec-ct">
+    <div class="mol-ct"><canvas class="mol3d" data-mol="meodmt" width="400" height="400"></canvas><div class="mol-label">C₁₃H₁₈N₂O · 218.30 g/mol · 5-methoxy-indole · 2 rings</div></div>
     <div class="s-info">
-      <div class="s-num rv"><span data-l="nl" class="show">007 — HET GODSMOLECUUL</span><span data-l="en">007 — THE GOD MOLECULE</span><span data-l="fi">007 — JUMALAMOLEKYYLI</span></div>
-      <h2 class="s-name rv rv-1">5-MeO-DMT</h2>
-      <div class="s-lat rv rv-2">5-Methoxy-N,N-dimethyltryptamine · C₁₃H₁₈N₂O · MW 218.30</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Het krachtigste psychedelicum per gewicht — afgescheiden door de Sonorawoestijnpad en aanwezig in talrijke plantensoorten. Anders dan DMT activeert 5-MeO-DMT bij voorkeur de serotonine 5-HT₁ₐ receptor, wat totale ego-oplossing produceert — een wit-out van puur non-duaal bewustzijn. Beckley Psytechs Fase 2b studie (2025) toonde 57,5% remissie bij therapieresistente depressie na één dosis.</span>
-        <span data-l="en">The most potent psychedelic by weight — secreted by the Sonoran Desert toad and found in numerous plant species. Unlike DMT, 5-MeO-DMT preferentially activates the serotonin 5-HT₁ₐ receptor, producing total ego dissolution — a white-out of pure non-dual awareness. Beckley Psytech's Phase 2b trial (2025) showed 57.5% remission in treatment-resistant depression after a single dose.</span>
-        <span data-l="fi">Painoonsa nähden voimakkain psykedeeli — Sonoran aavikkosammakon erittämä ja lukuisissa kasvilajeissa esiintyvä. Toisin kuin DMT, 5-MeO-DMT aktivoi ensisijaisesti serotoniini 5-HT₁ₐ -reseptoria tuottaen täydellisen egon liukenemisen. Beckley Psytechin vaiheen 2b tutkimus (2025) osoitti 57,5% remission hoitoresistentissä masennuksessa yhdellä annoksella.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:#E0E7FF">15–30 min</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Dosis</span><span data-l="en">Full Dose</span><span data-l="fi">Täysi annos</span></div><div class="m-val" style="color:var(--violet)">8–12 mg</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="m-val" style="color:#fff">1965</div></div>
+      <div class="s-n"><span data-l="nl" class="s">007 — HET GODSMOLECUUL</span><span data-l="en">007 — THE GOD MOLECULE</span><span data-l="fi">007 — JUMALAMOLEKYYLI</span></div>
+      <h2 class="s-nm glitch" data-text="5-MeO-DMT">5-MeO-DMT</h2>
+      <div class="s-lt">5-Methoxy-N,N-dimethyltryptamine · MW 218.30</div>
+      <p class="s-d"><span data-l="nl" class="s">Het krachtigste psychedelicum per gewicht. 300-1000x selectiviteit voor 5-HT₁ₐ boven 5-HT₂ₐ — geen fractals maar totale ego-oplossing, een wit-out van puur non-duaal bewustzijn. Beckley Psytech Fase 2b (2025): 57,5% remissie therapieresistente depressie, 0% placebo. De Sonorawoestijnpad scheidt het af als verdedigingsmechanisme.</span><span data-l="en">The most potent psychedelic by weight. 300-1000x selectivity for 5-HT₁ₐ over 5-HT₂ₐ — no fractals but total ego dissolution, a white-out of pure non-dual awareness. Beckley Psytech Phase 2b (2025): 57.5% remission in treatment-resistant depression, 0% placebo. The Sonoran Desert toad secretes it as a defense mechanism.</span><span data-l="fi">Painoonsa nähden voimakkain psykedeeli. 300-1000x selektiivisyys 5-HT₁ₐ:lle — ei fraktaaleja vaan täydellinen egon liukeneminen. Beckley Psytech vaiheen 2b (2025): 57,5% remissio hoitoresistentissä masennuksessa.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:#E0E7FF">15–30 min</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Dosis</span><span data-l="en">Full Dose</span><span data-l="fi">Annos</span></div><div class="mv" style="color:var(--v)">8–12 mg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="mv" style="color:#fff">1965</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MDMA -->
-<section class="s-sec" id="mdma">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 70% 50%,rgba(244,63,94,.2),transparent 70%)"></div>
-  <div class="splat" style="width:200px;height:200px;top:30%;left:5%;opacity:.04;background:var(--rose)"></div>
-  <canvas class="s-part" data-color="#F43F5E" data-count="70"></canvas>
-  <div class="s-ct" style="direction:rtl">
+<!-- ═══ MDMA ═══ -->
+<section class="sec" id="mdma">
+  <canvas class="bg" data-c="244,63,94" data-n="80"></canvas>
+  <div class="sp" style="width:200px;height:200px;top:30%;left:3%;background:var(--r);opacity:.04"></div>
+  <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-num rv"><span data-l="nl" class="show">008 — DE HARTOPENER</span><span data-l="en">008 — THE HEART OPENER</span><span data-l="fi">008 — SYDÄMEN AVAAJA</span></div>
-      <h2 class="s-name rv rv-1">MDMA</h2>
-      <div class="s-lat rv rv-2">3,4-Methylenedioxymethamphetamine · C₁₁H₁₅NO₂ · MW 193.25</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Gesynthetiseerd in 1912 door Anton Köllisch bij Merck, herontdekt door Alexander Shulgin in 1976. MDMA overspoelt de synaps met serotonine, dopamine en noradrenaline terwijl het oxytocine verhoogt — een staat van radicale empathie. MAPS Fase 3 studies toonden dat 67% van ernstige PTSS-patiënten niet meer aan de diagnostische criteria voldeed na drie sessies. Australië werd in 2023 het eerste land dat MDMA-therapie goedkeurde.</span>
-        <span data-l="en">Synthesized in 1912 by Anton Köllisch at Merck, rediscovered by Alexander Shulgin in 1976. MDMA floods the synapse with serotonin, dopamine, and norepinephrine while boosting oxytocin — creating radical empathy. MAPS Phase 3 trials showed 67% of severe PTSD patients no longer met diagnostic criteria after three sessions. Australia approved MDMA-assisted therapy in 2023.</span>
-        <span data-l="fi">Anton Köllisch syntetisoi Merckillä 1912, Alexander Shulgin löysi uudelleen 1976. MDMA tulvii synapsit serotoniinilla, dopamiinilla ja noradrenaliinilla samalla lisäten oksitosiinia — luoden radikaalin empatian tilan. MAPS-vaiheen 3 tutkimukset osoittivat, että 67% vakavista PTSD-potilaista ei enää täyttänyt diagnostisia kriteereitä kolmen istunnon jälkeen.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="m-val" style="color:var(--rose)">4–6 h</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Therapeutisch</span><span data-l="en">Therapeutic</span><span data-l="fi">Terapeuttinen</span></div><div class="m-val" style="color:var(--gold)">75–125 mg</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Gesynthetiseerd</span><span data-l="en">Synthesized</span><span data-l="fi">Syntetisoitu</span></div><div class="m-val" style="color:var(--rose)">1912</div></div>
+      <div class="s-n"><span data-l="nl" class="s">008 — DE HARTOPENER</span><span data-l="en">008 — THE HEART OPENER</span><span data-l="fi">008 — SYDÄMEN AVAAJA</span></div>
+      <h2 class="s-nm glitch" data-text="MDMA">MDMA</h2>
+      <div class="s-lt">3,4-MDMA · midomafetamine · MW 193.25</div>
+      <p class="s-d"><span data-l="nl" class="s">Köllisch synthetiseerde het in 1912 bij Merck. Shulgin herontdekte het in 1976 — zijn "low-calorie martini." Overspoelt de synaps met serotonine + oxytocine = radicale empathie. MAPS Fase 3: 67% ernstige PTSS-patiënten hersteld na 3 sessies. Australië keurde MDMA-therapie goed in 2023. Shulgins 38-jarige missie gaat voort.</span><span data-l="en">Köllisch synthesized it at Merck in 1912. Shulgin rediscovered it in 1976 — his "low-calorie martini." Floods the synapse with serotonin + oxytocin = radical empathy. MAPS Phase 3: 67% of severe PTSD patients recovered after 3 sessions. Australia approved MDMA therapy in 2023.</span><span data-l="fi">Köllisch syntetisoi Merckillä 1912. Shulgin löysi uudelleen 1976. Tulvii synapsit serotoniinilla + oksitosiinilla = radikaali empatia. MAPS vaiheen 3: 67% vakavista PTSD-potilaista toipui 3 istunnon jälkeen. Australia hyväksyi MDMA-terapian 2023.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--r)">4–6 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Therapeutisch</span><span data-l="en">Therapeutic</span><span data-l="fi">Terapeuttinen</span></div><div class="mv" style="color:var(--g)">75–125 mg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Synthese</span><span data-l="en">Synthesized</span><span data-l="fi">Syntetisoitu</span></div><div class="mv" style="color:var(--r)">1912</div></div>
       </div>
     </div>
-    <div class="s-vis" style="direction:ltr">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- MDMA: benzodioxole + methamphetamine chain -->
-        <g opacity=".8">
-          <!-- Benzene ring -->
-          <polygon points="100,110 125,95 150,110 150,140 125,155 100,140" fill="none" stroke="var(--rose)" stroke-width="2"/>
-          <!-- Methylenedioxy bridge (dioxole) -->
-          <path d="M100,110 Q80,100 85,80 Q90,65 110,70 Q125,75 125,95" fill="none" stroke="var(--rose)" stroke-width="1.5"/>
-          <circle cx="85" cy="80" r="4" fill="#F43F5E" opacity=".8"/><text x="85" y="80" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <circle cx="110" cy="70" r="4" fill="#F43F5E" opacity=".8"/><text x="110" y="70" fill="#F43F5E" font-size="6" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <!-- CH2 bridge -->
-          <text x="95" y="62" fill="rgba(248,245,255,.3)" font-size="7" font-family="Fira Code" text-anchor="middle">CH₂</text>
-          <!-- Methamphetamine chain -->
-          <line x1="150" y1="110" x2="175" y2="100" stroke="var(--rose)" stroke-width="1.5"/>
-          <line x1="175" y1="100" x2="195" y2="110" stroke="var(--rose)" stroke-width="1.5"/>
-          <line x1="195" y1="110" x2="220" y2="100" stroke="var(--rose)" stroke-width="1.5"/>
-          <circle cx="220" cy="100" r="6" fill="#60A5FA" opacity=".9"/><text x="220" y="100" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH</text>
-          <line x1="220" y1="100" x2="240" y2="90" stroke="var(--violet)" stroke-width="1"/>
-          <!-- Methyl on alpha carbon -->
-          <line x1="195" y1="110" x2="195" y2="135" stroke="var(--violet)" stroke-width="1"/>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₁₁H₁₅NO₂ — 193.25 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Benzodioxole + amphetamine · 2 rings</text>
-      </svg>
-    </div>
+    <div class="mol-ct" style="direction:ltr"><canvas class="mol3d" data-mol="mdma" width="400" height="400"></canvas><div class="mol-label">C₁₁H₁₅NO₂ · 193.25 g/mol · Benzodioxole · 2 rings</div></div>
   </div>
 </section>
 
-<!-- KETAMINE -->
-<section class="s-sec" id="ketamine">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 30% 50%,rgba(79,70,229,.25),transparent 70%)"></div>
-  <canvas class="s-part" data-color="#A78BFA" data-count="55"></canvas>
-  <div class="s-ct">
-    <div class="s-vis">
-      <svg class="mol-svg" viewBox="0 0 300 300">
-        <!-- Ketamine: cyclohexanone + chloro-phenyl + methylamine -->
-        <g opacity=".8">
-          <!-- Cyclohexanone ring -->
-          <polygon points="120,110 145,95 170,110 170,140 145,155 120,140" fill="none" stroke="var(--violet)" stroke-width="2"/>
-          <!-- Ketone =O -->
-          <line x1="170" y1="110" x2="195" y2="100" stroke="var(--violet)" stroke-width="2"/>
-          <line x1="170" y1="112" x2="193" y2="103" stroke="var(--violet)" stroke-width="1" opacity=".5"/>
-          <circle cx="195" cy="100" r="5" fill="#F43F5E" opacity=".8"/><text x="195" y="100" fill="#F43F5E" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">O</text>
-          <!-- Phenyl ring (chloro-substituted) -->
-          <polygon points="100,80 80,65 80,35 100,20 120,35 120,65" fill="none" stroke="#E0E7FF" stroke-width="2"/>
-          <line x1="120" y1="65" x2="120" y2="110" stroke="var(--violet)" stroke-width="1.5"/>
-          <!-- Chlorine -->
-          <line x1="80" y1="35" x2="55" y2="25" stroke="#E0E7FF" stroke-width="1.5"/>
-          <circle cx="55" cy="25" r="6" fill="var(--toxic)" opacity=".9"/><text x="55" y="25" fill="var(--toxic)" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">Cl</text>
-          <!-- Methylamine -->
-          <line x1="120" y1="110" x2="145" y2="95" stroke="transparent" stroke-width="0"/>
-          <line x1="145" y1="155" x2="145" y2="180" stroke="var(--violet)" stroke-width="1.5"/>
-          <circle cx="145" cy="180" r="6" fill="#60A5FA" opacity=".9"/><text x="145" y="180" fill="#60A5FA" font-size="7" font-family="Fira Code" text-anchor="middle" dominant-baseline="central">NH</text>
-          <line x1="145" y1="180" x2="165" y2="195" stroke="var(--violet)" stroke-width="1"/>
-        </g>
-        <text x="150" y="250" fill="rgba(248,245,255,.2)" font-size="11" font-family="Fira Code" text-anchor="middle">C₁₃H₁₆ClNO — 237.73 g/mol</text>
-        <text x="150" y="268" fill="rgba(248,245,255,.12)" font-size="9" font-family="Fira Code" text-anchor="middle">Arylcyclohexylamine · 2 rings</text>
-      </svg>
-    </div>
+<!-- ═══ KETAMINE ═══ -->
+<section class="sec" id="ketamine">
+  <canvas class="bg" data-c="79,70,229" data-n="65"></canvas>
+  <div class="sec-ct">
+    <div class="mol-ct"><canvas class="mol3d" data-mol="ketamine" width="400" height="400"></canvas><div class="mol-label">C₁₃H₁₆ClNO · 237.73 g/mol · Arylcyclohexylamine · 2 rings</div></div>
     <div class="s-info">
-      <div class="s-num rv"><span data-l="nl" class="show">009 — DE DISSOCIATIEVE GENEZER</span><span data-l="en">009 — THE DISSOCIATIVE HEALER</span><span data-l="fi">009 — DISSOSIATIIVINEN PARANTAJA</span></div>
-      <h2 class="s-name rv rv-1">Ketamine</h2>
-      <div class="s-lat rv rv-2">2-(2-Chlorophenyl)-2-(methylamino)cyclohexanone · C₁₃H₁₆ClNO · MW 237.73</div>
-      <p class="s-desc rv rv-2">
-        <span data-l="nl" class="show">Gesynthetiseerd in 1962 door Calvin Stevens als veiliger alternatief voor PCP. In 2000 ontdekten Krystal en Charney aan Yale iets buitengewoons: een enkele sub-anesthetische dosis tilde therapieresistente depressie op binnen uren. Ketamine blokkeert NMDA-glutamaatreceptoren en triggert een cascade van BDNF-afgifte en snelle synaptogenese. Esketamine (Spravato) kreeg FDA-goedkeuring in 2019. Meer dan 100.000 patiënten wereldwijd behandeld.</span>
-        <span data-l="en">Synthesized in 1962 by Calvin Stevens as a safer alternative to PCP. In 2000, Krystal and Charney at Yale discovered something extraordinary: a single sub-anesthetic dose lifted treatment-resistant depression within hours. Ketamine blocks NMDA glutamate receptors, triggering BDNF release and rapid synaptogenesis. Esketamine (Spravato) received FDA approval in 2019. Over 100,000 patients treated worldwide.</span>
-        <span data-l="fi">Calvin Stevens syntetisoi 1962 turvallisemmaksi vaihtoehdoksi PCP:lle. Vuonna 2000 Krystal ja Charney Yalessa löysivät jotain poikkeuksellista: yksi sub-anesteettinen annos lievitti hoitoresistenttiä masennusta tunneissa. Ketamiini estää NMDA-glutamaattireseptoreita laukaisten BDNF:n vapautumisen ja nopean synaptogeneesin. Esketamiini (Spravato) sai FDA-hyväksynnän 2019.</span>
-      </p>
-      <div class="s-meta rv rv-3">
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Antidepressief</span><span data-l="en">Antidepressant</span><span data-l="fi">Masennuslääke</span></div><div class="m-val" style="color:var(--violet)">0.5 mg/kg</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Vaikutuksen alku</span></div><div class="m-val" style="color:#E0E7FF">Minuten</div></div>
-        <div class="m-card"><div class="m-lbl"><span data-l="nl" class="show">FDA</span><span data-l="en">FDA Approved</span><span data-l="fi">FDA-hyväksytty</span></div><div class="m-val" style="color:var(--indigo)">2019</div></div>
+      <div class="s-n"><span data-l="nl" class="s">009 — DE DISSOCIATIEVE GENEZER</span><span data-l="en">009 — THE DISSOCIATIVE HEALER</span><span data-l="fi">009 — DISSOSIATIIVINEN PARANTAJA</span></div>
+      <h2 class="s-nm glitch" data-text="Ketamine">Ketamine</h2>
+      <div class="s-lt">Arylcyclohexylamine · CAS 6740-88-1</div>
+      <p class="s-d"><span data-l="nl" class="s">Stevens synthetiseerde het in 1962 als PCP-alternatief. Yale ontdekte in 2000: één sub-anesthetische dosis tilt therapieresistente depressie binnen uren. Blokkeert NMDA-receptoren → BDNF-cascade → nieuwe synaptische verbindingen in één nacht. Esketamine (Spravato) FDA 2019. 100.000+ patiënten. $2,3 miljard markt.</span><span data-l="en">Stevens synthesized it in 1962 as a PCP alternative. Yale discovered in 2000: a single sub-anesthetic dose lifts treatment-resistant depression within hours. Blocks NMDA receptors → BDNF cascade → new synaptic connections overnight. Esketamine (Spravato) FDA 2019. 100,000+ patients. $2.3B market.</span><span data-l="fi">Stevens syntetisoi 1962 PCP-vaihtoehdoksi. Yale löysi 2000: yksi sub-anesteettinen annos lievittää hoitoresistenttiä masennusta tunneissa. Estää NMDA-reseptoreita → BDNF-kaskadi → uudet synaptiset yhteydet yhdessä yössä. Esketamiini (Spravato) FDA 2019.</span></p>
+      <div class="s-m">
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Dosis</span><span data-l="en">Dose</span><span data-l="fi">Annos</span></div><div class="mv" style="color:var(--v)">0.5 mg/kg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Alku</span></div><div class="mv" style="color:#C7D2FE">Minuten</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">FDA</span><span data-l="en">FDA</span><span data-l="fi">FDA</span></div><div class="mv" style="color:var(--i)">2019</div></div>
       </div>
     </div>
   </div>
 </section>
-<!-- BREATHWORK -->
-<section class="s-sec" id="breathwork" style="display:block;padding:6rem 2rem">
-  <div class="s-bg" style="background:radial-gradient(ellipse at 50% 50%,rgba(255,215,0,.12),transparent 70%)"></div>
-  <div class="breath-ring" style="width:200px;height:200px"></div>
-  <div class="breath-ring" style="width:280px;height:280px;animation-delay:.5s"></div>
-  <div class="breath-ring" style="width:360px;height:360px;animation-delay:1s"></div>
-  <canvas class="s-part" data-color="#FFD700" data-count="60"></canvas>
-  <div style="position:relative;z-index:2;text-align:center;max-width:900px;margin:0 auto">
-    <div class="s-num rv"><span data-l="nl" class="show">010 — DE ADEM VAN HET BEWUSTZIJN</span><span data-l="en">010 — THE BREATH OF CONSCIOUSNESS</span><span data-l="fi">010 — TIETOISUUDEN HENGITYS</span></div>
-    <h2 class="s-name rv rv-1" style="background:linear-gradient(135deg,var(--gold),#FBBF24,var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem">
-      <span data-l="nl" class="show">Ademwerk</span><span data-l="en">Breathwork</span><span data-l="fi">Hengitystyö</span>
-    </h2>
-    <p class="s-desc rv rv-2" style="max-width:700px;margin:0 auto 3rem;text-align:center">
-      <span data-l="nl" class="show">De oudste psychedelische technologie vereist geen molecuul — alleen adem. Deze technieken veranderen het bewustzijn door gecontroleerde ademhalingspatronen, waarmee de endogene neurochemie wordt geactiveerd.</span>
-      <span data-l="en">The most ancient psychedelic technology requires no molecule — only breath. These techniques alter consciousness through controlled breathing patterns, activating endogenous neurochemistry.</span>
-      <span data-l="fi">Vanhin psykedeelinen teknologia ei vaadi molekyyliä — ainoastaan hengityksen. Nämä tekniikat muuttavat tietoisuutta kontrolloiduilla hengityskaavoilla aktivoimalla elimistön omaa neurokemiaa.</span>
-    </p>
+<!-- ═══ BREATHWORK ═══ -->
+<section class="bw" id="breathwork">
+  <canvas class="bg" data-c="255,215,0" data-n="80" style="position:absolute;inset:0;z-index:0;pointer-events:none"></canvas>
+  <div class="br" style="width:200px;height:200px;top:50%;left:50%"></div>
+  <div class="br" style="width:300px;height:300px;top:50%;left:50%;animation-delay:.6s"></div>
+  <div class="br" style="width:400px;height:400px;top:50%;left:50%;animation-delay:1.2s"></div>
+  <div class="br" style="width:500px;height:500px;top:50%;left:50%;animation-delay:1.8s"></div>
+  <div class="bw-hd">
+    <div class="s-n" style="text-align:center"><span data-l="nl" class="s">010 — DE ADEM VAN HET BEWUSTZIJN</span><span data-l="en">010 — THE BREATH OF CONSCIOUSNESS</span><span data-l="fi">010 — TIETOISUUDEN HENGITYS</span></div>
+    <h2 class="bw-t"><span data-l="nl" class="s">Ademwerk</span><span data-l="en">Breathwork</span><span data-l="fi">Hengitystyö</span></h2>
+    <p class="bw-p"><span data-l="nl" class="s">De oudste psychedelische technologie vereist geen molecuul — alleen adem. Deze technieken veranderen het bewustzijn door gecontroleerde ademhalingspatronen, waarmee de endogene neurochemie wordt geactiveerd.</span><span data-l="en">The most ancient psychedelic technology requires no molecule — only breath. These techniques alter consciousness through controlled breathing patterns, activating endogenous neurochemistry.</span><span data-l="fi">Vanhin psykedeelinen teknologia ei vaadi molekyyliä — ainoastaan hengityksen. Nämä tekniikat muuttavat tietoisuutta kontrolloiduilla hengityskaavoilla aktivoimalla elimistön omaa neurokemiaa.</span></p>
   </div>
-  <div class="bw-grid" style="position:relative;z-index:2">
-    <!-- Holotropic -->
-    <div class="bw-card rv rv-1">
-      <div class="bw-nm"><span data-l="nl" class="show">Holotropisch Ademwerk</span><span data-l="en">Holotropic Breathwork</span><span data-l="fi">Holotrooppinen hengitystyö</span></div>
-      <div class="bw-sub">Stanislav Grof · 1976</div>
-      <p class="bw-desc">
-        <span data-l="nl" class="show">Ontwikkeld door Stanislav Grof als niet-farmacologisch alternatief voor LSD-therapie. Versnelde ademhaling gecombineerd met evocatieve muziek veroorzaakt respiratoire alkalose en cerebrale hypoxie — wat leidt tot diepgaand veranderde bewustzijnstoestanden. Een PLOS One studie uit 2025 toonde activatie van de amygdala en hippocampus, vergelijkbaar met psychedelische ervaringen.</span>
-        <span data-l="en">Developed by Stanislav Grof as a non-pharmacological alternative to LSD therapy. Accelerated breathing combined with evocative music causes respiratory alkalosis and cerebral hypoxia — leading to profoundly altered states of consciousness. A 2025 PLOS One study showed amygdala and hippocampus activation comparable to psychedelic experiences.</span>
-        <span data-l="fi">Stanislav Grofin kehittämä ei-farmakologisena vaihtoehtona LSD-terapialle. Kiihdytetty hengitys yhdistettynä evokatiiviseen musiikkiin aiheuttaa respiratorisen alkaloosin ja aivojen hypoksian — johtaen syvällisesti muuntuneisiin tajunnantiloihin. PLOS One -tutkimus (2025) osoitti amygdalan ja hippokampuksen aktivaation verrattavissa psykedeelisiin kokemuksiin.</span>
-      </p>
-    </div>
-    <!-- Wim Hof -->
-    <div class="bw-card rv rv-2">
-      <div class="bw-nm"><span data-l="nl" class="show">Wim Hof Methode</span><span data-l="en">Wim Hof Method</span><span data-l="fi">Wim Hof -menetelmä</span></div>
-      <div class="bw-sub">Wim Hof · Netherlands</div>
-      <p class="bw-desc">
-        <span data-l="nl" class="show">Hyperventilatie gecombineerd met koudeblootstelling en meditatie. De baanbrekende Radboud/PNAS studie uit 2014 bewees dat mensen via deze methode willekeurig hun immuunsysteem kunnen moduleren — een doorbraak in de neurowetenschappen. PET-imaging toonde ~20% toename in CB1 endocannabinoïde receptorbinding en een enorme adrenalinesurge tijdens de ademhalingsronden.</span>
-        <span data-l="en">Hyperventilation combined with cold exposure and meditation. The groundbreaking 2014 Radboud/PNAS study proved humans can voluntarily modulate their immune system through this method — a neuroscience breakthrough. PET imaging showed ~20% increase in CB1 endocannabinoid receptor binding and massive adrenaline surge during breathing rounds.</span>
-        <span data-l="fi">Hyperventilaatio yhdistettynä kylmäaltistukseen ja meditaatioon. Uraauurtava Radboudin/PNAS-tutkimus (2014) todisti, että ihmiset voivat tahdonalaisesti moduloida immuunijärjestelmäänsä tällä menetelmällä. PET-kuvantaminen osoitti ~20% lisäyksen CB1-endokannabinoidoreseptorien sitoutumisessa ja valtavan adrenaliinipiikin hengitysjaksojen aikana.</span>
-      </p>
-    </div>
-    <!-- Pranayama -->
-    <div class="bw-card rv rv-3">
-      <div class="bw-nm">Pranayama</div>
-      <div class="bw-sub">Yogic tradition · 5000+ years</div>
-      <p class="bw-desc">
-        <span data-l="nl" class="show">Meer dan 8 technieken met elk eigen autonome effecten op het zenuwstelsel. Onderzoek van Streeter (Boston University) toonde verhoogde GABA-niveaus in het brein — de belangrijkste remmende neurotransmitter. Afwisselende neusgat-ademhaling balanceert de EEG-activiteit tussen beide hersenhelften. Een 5.000 jaar oude traditie die nu wetenschappelijk wordt bevestigd.</span>
-        <span data-l="en">Over 8 techniques each with distinct autonomic nervous system effects. Research by Streeter (Boston University) showed elevated brain GABA levels — the primary inhibitory neurotransmitter. Alternate nostril breathing balances EEG activity between hemispheres. A 5,000-year tradition now being scientifically validated.</span>
-        <span data-l="fi">Yli 8 tekniikkaa, joilla kullakin on erilliset autonomiset hermostovaikutukset. Streeterin (Boston University) tutkimus osoitti kohonneet aivojen GABA-tasot — tärkeimmän inhibitorisen välittäjäaineen. Vuorotteleva sierainten hengitys tasapainottaa EEG-aktiviteettia aivopuoliskojen välillä. 5 000 vuotta vanha perinne, joka nyt saa tieteellistä vahvistusta.</span>
-      </p>
-    </div>
-    <!-- Tummo -->
-    <div class="bw-card rv rv-4" style="transition-delay:.4s">
-      <div class="bw-nm">Tummo</div>
-      <div class="bw-sub">Tibetan inner fire · g-Tummo</div>
-      <p class="bw-desc">
-        <span data-l="nl" class="show">Tibetaanse "innerlijk vuur" meditatie die ademhaling (vaasadem) combineert met visualisatie. Harvard-studies documenteerden een perifere temperatuurstijging van 8,3°C — biologisch onverklaarbaar zonder deze techniek. Kozhevnikovs PLOS One studie (2013) onderscheidde somatische (vaasademhaling) en neurocognitieve (visualisatie) componenten. Een poort naar helder-licht meditatie.</span>
-        <span data-l="en">Tibetan "inner fire" meditation combining breathing (vase breath) with visualization. Harvard studies documented 8.3°C peripheral temperature increase — biologically inexplicable without this technique. Kozhevnikov's 2013 PLOS One study distinguished somatic (vase breathing) and neurocognitive (visualization) components. A gateway to clear light meditation.</span>
-        <span data-l="fi">Tiibetiläinen "sisäisen tulen" meditaatio, joka yhdistää hengityksen (vaasihengitys) visualisointiin. Harvardin tutkimukset dokumentoivat 8,3°C perifeerisen lämpötilannousun — biologisesti selittämättömän ilman tätä tekniikkaa. Kozhevnikovin PLOS One -tutkimus (2013) erotti somaattiset (vaasihengitys) ja neurokognitiiviset (visualisointi) komponentit.</span>
-      </p>
-    </div>
+  <div class="bw-g">
+    <div class="bwc"><div class="bwc-n"><span data-l="nl" class="s">Holotropisch Ademwerk</span><span data-l="en">Holotropic Breathwork</span><span data-l="fi">Holotrooppinen hengitystyö</span></div><div class="bwc-s">Stanislav Grof · 1976</div><p class="bwc-d"><span data-l="nl" class="s">Grofin non-farmacologisch alternatief voor LSD-therapie. Versnelde ademhaling + evocatieve muziek → respiratoire alkalose → cerebrale hypoxie → diepgaand veranderde bewustzijnstoestanden. PLOS One (2025): amygdala/hippocampus-activatie vergelijkbaar met psychedelische ervaringen. 11.000 patiënten in MAPS klinische rapportage.</span><span data-l="en">Grof's non-pharmacological alternative to LSD therapy. Accelerated breathing + evocative music → respiratory alkalosis → cerebral hypoxia → profoundly altered states. PLOS One (2025): amygdala/hippocampus activation comparable to psychedelic experiences. 11,000 patients in MAPS clinical reporting.</span><span data-l="fi">Grofin ei-farmakologinen vaihtoehto LSD-terapialle. Kiihdytetty hengitys + musiikki → respiratorinen alkaloosi → aivojen hypoksia → syvästi muuntuneet tajunnantilat. PLOS One (2025): amygdalan/hippokampuksen aktivaatio verrattavissa psykedeelisiin kokemuksiin.</span></p></div>
+    <div class="bwc"><div class="bwc-n"><span data-l="nl" class="s">Wim Hof Methode</span><span data-l="en">Wim Hof Method</span><span data-l="fi">Wim Hof -menetelmä</span></div><div class="bwc-s">Wim Hof · Netherlands</div><p class="bwc-d"><span data-l="nl" class="s">Hyperventilatie + koude + meditatie. Radboud/PNAS (2014): bewijs dat mensen willekeurig hun immuunsysteem moduleren. PET: ~20% CB1 endocannabinoïde receptorbinding toename. Enorme adrenalinesurge. PAG-gemedieerde opioïde/endocannabinoïde afgifte.</span><span data-l="en">Hyperventilation + cold + meditation. Radboud/PNAS (2014): proof that humans can voluntarily modulate their immune system. PET: ~20% CB1 endocannabinoid receptor binding increase. Massive adrenaline surge. PAG-mediated opioid/endocannabinoid release.</span><span data-l="fi">Hyperventilaatio + kylmä + meditaatio. Radboud/PNAS (2014): todiste ihmisten kyvystä tahdonalaisesti moduloida immuunijärjestelmää. PET: ~20% CB1-endokannabinoidreseptorisitoutumisen lisäys.</span></p></div>
+    <div class="bwc"><div class="bwc-n">Pranayama</div><div class="bwc-s">Yogic tradition · 5000+ years</div><p class="bwc-d"><span data-l="nl" class="s">8+ technieken, elk met unieke autonome effecten. Streeter (Boston): verhoogde GABA-niveaus. Afwisselende neusgat-ademhaling balanceert EEG tussen hersenhelften. Kundalini-effecten: prefrontale activatie, DMN-onderdrukking. 2024 survey: 45% van de bevolking heeft niet-farmacologische veranderde bewustzijnstoestanden ervaren.</span><span data-l="en">8+ techniques each with unique autonomic effects. Streeter (Boston): elevated brain GABA levels. Alternate nostril breathing balances EEG between hemispheres. Kundalini effects: prefrontal activation, DMN suppression. 2024 survey: 45% of the population has experienced non-drug altered states.</span><span data-l="fi">8+ tekniikkaa, kullakin ainutlaatuiset autonomiset vaikutukset. Streeter (Boston): kohonneet aivojen GABA-tasot. Vuorotteleva sierainten hengitys tasapainottaa EEG:tä aivopuoliskojen välillä. 2024 tutkimus: 45% väestöstä on kokenut ei-farmakologisia muuntuneita tajunnantiloja.</span></p></div>
+    <div class="bwc"><div class="bwc-n">Tummo</div><div class="bwc-s">Tibetan inner fire · g-Tummo</div><p class="bwc-d"><span data-l="nl" class="s">Tibetaanse "innerlijk vuur" — vaasademhaling + visualisatie. Harvard: 8,3°C perifere temperatuurstijging. Kozhevnikov (PLOS One, 2013): onderscheid somatische en neurocognitieve componenten. EEG alfa-temperatuur correlatie. Poort naar helder-licht meditatie en diepere lagen van bewustzijn.</span><span data-l="en">Tibetan "inner fire" — vase breathing + visualization. Harvard: 8.3°C peripheral temperature increase. Kozhevnikov (PLOS One, 2013): distinguished somatic and neurocognitive components. EEG alpha-temperature correlation. Gateway to clear light meditation and deeper layers of consciousness.</span><span data-l="fi">Tiibetiläinen "sisäinen tuli" — vaasihengitys + visualisointi. Harvard: 8,3°C perifeerinen lämpötilannousu. Kozhevnikov (PLOS One, 2013): somaattisten ja neurokognitiivisten komponenttien erottelu. EEG alfa-lämpötila -korrelaatio. Portti kirkkaan valon meditaatioon.</span></p></div>
   </div>
 </section>
 
-<!-- HOFMANN TRIBUTE -->
-<section class="hof-sec" id="hofmann">
-  <div class="kl"><div class="kl-l"></div><div class="kl-l"></div></div>
-  <canvas class="s-part" data-color="#FFD700" data-count="120"></canvas>
+<!-- ═══ HOFMANN ═══ -->
+<section class="hof" id="hofmann">
+  <canvas class="bg" data-c="255,215,0" data-n="150" style="position:absolute;inset:0;z-index:0;pointer-events:none"></canvas>
   <div class="hof-ct">
-    <div class="hof-yrs rv">1906 — 2008</div>
-    <h2 class="hof-name rv rv-1">Dr. Albert Hofmann</h2>
-    <p class="hof-txt rv rv-2">
-      <span data-l="nl" class="show">"Ik denk dat het in de menselijke evolutie nooit zo noodzakelijk is geweest om deze stof LSD te hebben. Het is slechts een werktuig om ons te maken tot wat we behoren te zijn."<br><br>Vader van LSD. Pionier van de psilocybinesynthese. Voorvechter van bewustzijnsonderzoek. Hij werd 102 jaar oud en noemde LSD zijn "probleemkind" — een geschenk aan de mensheid dat werd misverstaan, gevreesd, en uiteindelijk door de wetenschap gerehabiliteerd.</span>
-      <span data-l="en">"I think that in human evolution it has never been as necessary to have this substance LSD. It is just a tool to turn us into what we are supposed to be."<br><br>Father of LSD. Pioneer of psilocybin synthesis. Champion of consciousness research. He lived to 102, calling LSD his "problem child" — a gift to humanity that was misunderstood, feared, and ultimately vindicated by science.</span>
-      <span data-l="fi">"Uskon, että ihmisen evoluutiossa ei ole koskaan ollut yhtä välttämätöntä saada tämä aine LSD. Se on vain työkalu muuttamaan meidät siksi, mitä meidän pitäisi olla."<br><br>LSD:n isä. Psilosybiinisynteesin pioneeri. Tietoisuustutkimuksen puolestapuhuja. Hän eli 102-vuotiaaksi kutsuen LSD:tä "ongelmalapsekseen" — lahja ihmiskunnalle, joka ymmärrettiin väärin, pelättiin ja lopulta tiede rehabilitoi.</span>
-    </p>
-    <div class="bday rv rv-3">
-      <span data-l="nl" class="show">FIETSDAG — 19 APRIL 1943</span>
-      <span data-l="en">BICYCLE DAY — APRIL 19, 1943</span>
-      <span data-l="fi">POLKUPYÖRÄPÄIVÄ — 19. HUHTIKUUTA 1943</span>
-    </div>
+    <div class="hof-y">1906 — 2008</div>
+    <h2 class="hof-n">Dr. Albert Hofmann</h2>
+    <p class="hof-q"><span data-l="nl" class="s">"Ik denk dat het in de menselijke evolutie nooit zo noodzakelijk is geweest om deze stof LSD te hebben. Het is slechts een werktuig om ons te maken tot wat we behoren te zijn."<br><br>Vader van LSD. Pionier van psilocybinesynthese. Voorvechter van bewustzijnsonderzoek. Hij werd 102 en noemde LSD zijn "probleemkind" — een geschenk dat werd misverstaan, gevreesd, en uiteindelijk door de wetenschap gerehabiliteerd.</span><span data-l="en">"I think that in human evolution it has never been as necessary to have this substance LSD. It is just a tool to turn us into what we are supposed to be."<br><br>Father of LSD. Pioneer of psilocybin synthesis. Champion of consciousness research. He lived to 102, calling LSD his "problem child" — a gift that was misunderstood, feared, and ultimately vindicated by science.</span><span data-l="fi">"Uskon, että ihmisen evoluutiossa ei ole koskaan ollut yhtä välttämätöntä saada tämä aine LSD. Se on vain työkalu muuttamaan meidät siksi, mitä meidän pitäisi olla."<br><br>LSD:n isä. Psilosybiinisynteesin pioneeri. Tietoisuustutkimuksen puolestapuhuja. Hän eli 102-vuotiaaksi kutsuen LSD:tä "ongelmalapsekseen."</span></p>
+    <div class="bd"><span data-l="nl" class="s">FIETSDAG — 19 APRIL 1943</span><span data-l="en">BICYCLE DAY — APRIL 19, 1943</span><span data-l="fi">POLKUPYÖRÄPÄIVÄ — 19.4.1943</span></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>Hofmann's Pharmacopoeia</p>
-  <p class="disc">
-    <span data-l="nl" class="show">Dit is een educatief en artistiek eerbetoon aan de geschiedenis van psychedelisch onderzoek. Informatie is bedoeld voor schadebeperking en wetenschappelijke geletterdheid. Respecteer altijd de lokale wetgeving en geef prioriteit aan veiligheid.</span>
-    <span data-l="en">This is an educational and artistic tribute to the history of psychedelic research. Information presented is for harm reduction and scientific literacy. Always respect local laws and prioritize safety.</span>
-    <span data-l="fi">Tämä on opetuksellinen ja taiteellinen kunnianosoitus psykedeelitutkimuksen historialle. Tiedot on tarkoitettu haittojen vähentämiseen ja tieteelliseen lukutaitoon. Kunnioita aina paikallista lainsäädäntöä ja aseta turvallisuus etusijalle.</span>
-  </p>
+  <p class="dc"><span data-l="nl" class="s">Educatief en artistiek eerbetoon aan psychedelisch onderzoek. Bedoeld voor schadebeperking en wetenschappelijke geletterdheid. Respecteer lokale wetgeving.</span><span data-l="en">Educational and artistic tribute to psychedelic research. For harm reduction and scientific literacy. Respect local laws.</span><span data-l="fi">Opetuksellinen ja taiteellinen kunnianosoitus psykedeelitutkimukselle. Haittojen vähentämiseen ja tieteelliseen lukutaitoon. Kunnioita paikallista lainsäädäntöä.</span></p>
 </footer>
 <script>
-// LANGUAGE SYSTEM
-let lang=localStorage.getItem('hp-lang')||'nl';
-function setLang(l){
-  lang=l;localStorage.setItem('hp-lang',l);
-  document.querySelectorAll('[data-l]').forEach(e=>{e.classList.toggle('show',e.dataset.l===l)});
-  document.querySelectorAll('.lang-btn').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l)});
-  document.documentElement.lang=l==='nl'?'nl':l==='fi'?'fi':'en';
+// ═══════════════════════════════════════
+// LANGUAGE
+// ═══════════════════════════════════════
+let L=localStorage.getItem('hp-l')||'nl';
+function sL(l){L=l;localStorage.setItem('hp-l',l);document.querySelectorAll('[data-l]').forEach(e=>e.classList.toggle('s',e.dataset.l===l));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));updateHeroTitle()}
+document.querySelectorAll('.lb').forEach(b=>b.addEventListener('click',()=>sL(b.dataset.lang)));
+
+// ═══════════════════════════════════════
+// HERO TITLE — Character-by-character animation
+// ═══════════════════════════════════════
+const heroTitles={nl:'De Levende\nCatalogus van het\nBewustzijn',en:'The Living\nCatalogue of\nConsciousness',fi:'Tietoisuuden\nElävä\nLuettelo'};
+function updateHeroTitle(){
+  const el=document.getElementById('heroTitle');
+  const text=heroTitles[L];
+  el.innerHTML='';
+  let ci=0;
+  text.split('\n').forEach((line,li)=>{
+    if(li>0)el.appendChild(document.createElement('br'));
+    const span=document.createElement('span');span.className='word';
+    line.split('').forEach(ch=>{const c=document.createElement('span');c.className='char';c.textContent=ch;c.style.setProperty('--i',ci);span.appendChild(c);ci++});
+    el.appendChild(span);
+  });
 }
-document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-setLang(lang);
+sL(L);
 
-// LOADING
-const LB=document.getElementById('LB');let lp=0;
-const li=setInterval(()=>{lp+=Math.random()*15+5;if(lp>=100){lp=100;clearInterval(li);setTimeout(()=>document.getElementById('LS').classList.add('hidden'),400)}LB.style.width=lp+'%'},180);
+// ═══════════════════════════════════════
+// LOADING — Animated molecule
+// ═══════════════════════════════════════
+const ldC=document.getElementById('ldC'),lx=ldC.getContext('2d');
+let lt=0;
+function drawLd(){lt+=.02;lx.clearRect(0,0,300,300);
+const cx=150,cy=150;
+for(let i=0;i<6;i++){const a=(i/6)*Math.PI*2+lt,r=40+Math.sin(lt*2+i)* 10;
+const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;
+const na=(((i+1)%6)/6)*Math.PI*2+lt,nr=40+Math.sin(lt*2+((i+1)%6))*10;
+const nx=cx+Math.cos(na)*nr,ny=cy+Math.sin(na)*nr;
+lx.beginPath();lx.moveTo(x,y);lx.lineTo(nx,ny);
+lx.strokeStyle=`hsla(${i*60+lt*50},100%,65%,.5)`;lx.lineWidth=2;lx.stroke();
+lx.beginPath();lx.arc(x,y,5+Math.sin(lt*3+i)*2,0,Math.PI*2);
+lx.fillStyle=`hsla(${i*60+lt*50},100%,65%,.8)`;lx.fill();
+lx.beginPath();lx.arc(x,y,15+Math.sin(lt*3+i)*5,0,Math.PI*2);
+const g=lx.createRadialGradient(x,y,0,x,y,15);g.addColorStop(0,`hsla(${i*60+lt*50},100%,65%,.2)`);g.addColorStop(1,'transparent');lx.fillStyle=g;lx.fill()}
+requestAnimationFrame(drawLd)}drawLd();
 
+const LF=document.getElementById('LF');let lp=0;
+const lI=setInterval(()=>{lp+=Math.random()*12+3;if(lp>=100){lp=100;clearInterval(lI);setTimeout(()=>document.getElementById('LD').classList.add('go'),300)}LF.style.width=lp+'%'},150);
+
+// ═══════════════════════════════════════
 // CURSOR
+// ═══════════════════════════════════════
 const cO=document.getElementById('cO'),cI=document.getElementById('cI');
 let mx=0,my=0,ox=0,oy=0;
-const tc=12,trails=[],tp=[];
-for(let i=0;i<tc;i++){const t=document.createElement('div');t.className='cur-t';t.style.background=`hsl(${(i/tc)*360},100%,60%)`;document.body.appendChild(t);trails.push(t);tp.push({x:0,y:0})}
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cI.style.left=mx-4+'px';cI.style.top=my-4+'px'});
-function aCur(){ox+=(mx-ox)*.12;oy+=(my-oy)*.12;cO.style.left=ox-20+'px';cO.style.top=oy-20+'px';
-for(let i=tc-1;i>0;i--){tp[i].x+=(tp[i-1].x-tp[i].x)*.3;tp[i].y+=(tp[i-1].y-tp[i].y)*.3}
-tp[0].x+=(mx-tp[0].x)*.4;tp[0].y+=(my-tp[0].y)*.4;
-trails.forEach((t,i)=>{t.style.left=tp[i].x-3+'px';t.style.top=tp[i].y-3+'px';t.style.opacity=(1-i/tc)*.6;t.style.transform=`scale(${1-i/tc})`});
+const TC=16,trs=[],tp=[];
+for(let i=0;i<TC;i++){const t=document.createElement('div');t.className='ct';const h=(i/TC)*360;
+t.style.cssText=`width:${6-i*.3}px;height:${6-i*.3}px;background:hsl(${h},100%,60%);opacity:0;box-shadow:0 0 ${8-i*.4}px hsl(${h},100%,60%)`;
+document.body.appendChild(t);trs.push(t);tp.push({x:0,y:0})}
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cI.style.left=mx-3+'px';cI.style.top=my-3+'px'});
+function aCur(){ox+=(mx-ox)*.1;oy+=(my-oy)*.1;cO.style.left=ox-25+'px';cO.style.top=oy-25+'px';
+for(let i=TC-1;i>0;i--){tp[i].x+=(tp[i-1].x-tp[i].x)*.25;tp[i].y+=(tp[i-1].y-tp[i].y)*.25}
+tp[0].x+=(mx-tp[0].x)*.35;tp[0].y+=(my-tp[0].y)*.35;
+trs.forEach((t,i)=>{t.style.left=tp[i].x-3+'px';t.style.top=tp[i].y-3+'px';t.style.opacity=((1-i/TC)*.5).toFixed(2)});
 requestAnimationFrame(aCur)}aCur();
 
-// HERO CANVAS — Wormhole
-const hC=document.getElementById('hC'),hx=hC.getContext('2d');
-function rHC(){hC.width=innerWidth;hC.height=innerHeight}rHC();addEventListener('resize',rHC);
-class WP{constructor(){this.reset()}reset(){this.a=Math.random()*Math.PI*2;this.r=Math.random()*2;this.s=Math.random()*.02+.005;this.rs=Math.random()*2+.5;this.h=Math.random()*360;this.sz=Math.random()*2+.5;this.o=Math.random()*.8+.2}
-update(){this.a+=this.s;this.r+=this.rs;this.h+=.5;if(this.r>Math.max(hC.width,hC.height)*.7)this.reset()}
-draw(c){const cx=hC.width/2,cy=hC.height/2,x=cx+Math.cos(this.a)*this.r,y=cy+Math.sin(this.a)*this.r,d=this.r/(Math.max(hC.width,hC.height)*.7);c.beginPath();c.arc(x,y,this.sz*(1+d*3),0,Math.PI*2);c.fillStyle=`hsla(${this.h%360},100%,60%,${this.o*(1-d*.5)})`;c.fill()}}
-const wps=Array.from({length:300},()=>new WP());let ht=0;
-function aH(){hx.fillStyle='rgba(7,3,15,0.08)';hx.fillRect(0,0,hC.width,hC.height);ht+=.003;
-const cx=hC.width/2,cy=hC.height/2;
-// Sacred geometry
-for(let i=0;i<6;i++){const r=100+i*60+Math.sin(ht*2+i)*20;hx.beginPath();hx.arc(cx,cy,r,0,Math.PI*2);hx.strokeStyle=`hsla(${(ht*50+i*60)%360},100%,60%,0.03)`;hx.lineWidth=1;hx.stroke()}
-// Fibonacci spiral
-hx.beginPath();let sr=2;for(let a=0;a<Math.PI*12;a+=.05){sr=2*Math.pow(1.08,a);const sx=cx+Math.cos(a+ht)*sr,sy=cy+Math.sin(a+ht)*sr;a===0?hx.moveTo(sx,sy):hx.lineTo(sx,sy)}
-hx.strokeStyle=`hsla(${(ht*30)%360},100%,70%,0.05)`;hx.lineWidth=1.5;hx.stroke();
-wps.forEach(p=>{p.update();p.draw(hx)});requestAnimationFrame(aH)}aH();
+// ═══════════════════════════════════════
+// WEBGL PSYCHEDELIC SHADER
+// ═══════════════════════════════════════
+const gl=document.getElementById('glBg');
+const G=gl.getContext('webgl')||gl.getContext('experimental-webgl');
+if(G){
+function rGL(){gl.width=innerWidth;gl.height=innerHeight;G.viewport(0,0,gl.width,gl.height)}rGL();addEventListener('resize',rGL);
+const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
+const fs=`precision mediump float;
+uniform float t;uniform vec2 r;uniform vec2 m;uniform float sc;
+vec3 hsv(float h,float s,float v){vec3 c=clamp(abs(mod(h*6.+vec3(0,4,2),6.)-3.)-1.,0.,1.);return v*mix(vec3(1),c,s);}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*r)/min(r.x,r.y);
+  uv+=vec2(sin(t*.1)*.1,cos(t*.13)*.1);
+  float scroll=sc*.0003;
+  // Fractal layer
+  vec2 z=uv*2.;vec2 c=vec2(-.8+sin(t*.05)*.15+scroll,sin(t*.07)*.15);
+  float it=0.;
+  for(int i=0;i<40;i++){z=vec2(z.x*z.x-z.y*z.y,2.*z.x*z.y)+c;if(dot(z,z)>4.)break;it+=1.;}
+  float f=it/40.;
+  // Mouse influence
+  vec2 md=(gl_FragCoord.xy/r-m)*2.;
+  float mi=1./(1.+dot(md,md)*8.);
+  // Color mapping
+  vec3 col=hsv(f*2.+t*.03+scroll*.5,.6+mi*.3,.15*f+mi*.08);
+  // Vignette
+  vec2 vig=uv*1.5;col*=1.-dot(vig,vig)*.4;
+  // Toxic green accents
+  col+=vec3(.05,.2,.02)*smoothstep(.3,.7,sin(uv.x*10.+t)*sin(uv.y*8.-t*.7))*.04;
+  gl_FragColor=vec4(col,1);
+}`;
+function mkS(t,s){const sh=G.createShader(t);G.shaderSource(sh,s);G.compileShader(sh);return sh}
+const pg=G.createProgram();G.attachShader(pg,mkS(G.VERTEX_SHADER,vs));G.attachShader(pg,mkS(G.FRAGMENT_SHADER,fs));G.linkProgram(pg);G.useProgram(pg);
+const buf=G.createBuffer();G.bindBuffer(G.ARRAY_BUFFER,buf);G.bufferData(G.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),G.STATIC_DRAW);
+const pl=G.getAttribLocation(pg,'p');G.enableVertexAttribArray(pl);G.vertexAttribPointer(pl,2,G.FLOAT,false,0,0);
+const ut=G.getUniformLocation(pg,'t'),ur=G.getUniformLocation(pg,'r'),um=G.getUniformLocation(pg,'m'),us=G.getUniformLocation(pg,'sc');
+let gmx=.5,gmy=.5;
+document.addEventListener('mousemove',e=>{gmx=e.clientX/innerWidth;gmy=1-e.clientY/innerHeight});
+let gt=0;
+function aGL(){gt+=.016;G.uniform1f(ut,gt);G.uniform2f(ur,gl.width,gl.height);G.uniform2f(um,gmx,gmy);G.uniform1f(us,window.scrollY||0);
+G.drawArrays(G.TRIANGLE_STRIP,0,4);requestAnimationFrame(aGL)}aGL();
+}
 
-// SECTION PARTICLES
-document.querySelectorAll('canvas.s-part').forEach(cv=>{
-const ctx=cv.getContext('2d'),col=cv.dataset.color,cnt=parseInt(cv.dataset.count)||50,pts=[];
-function rs(){const r=cv.parentElement.getBoundingClientRect();cv.width=r.width;cv.height=r.height}
-class FP{constructor(){this.x=Math.random()*cv.width;this.y=Math.random()*cv.height;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*2+.5;this.o=Math.random()*.5+.1;this.p=Math.random()*Math.PI*2}
-update(t){this.x+=this.vx+Math.sin(t*.001+this.p)*.2;this.y+=this.vy+Math.cos(t*.001+this.p)*.2;if(this.x<-10)this.x=cv.width+10;if(this.x>cv.width+10)this.x=-10;if(this.y<-10)this.y=cv.height+10;if(this.y>cv.height+10)this.y=-10}
-draw(c,t){const pl=Math.sin(t*.003+this.p)*.3+.7;c.beginPath();c.arc(this.x,this.y,this.r,0,Math.PI*2);c.fillStyle=col;c.globalAlpha=this.o*pl;c.fill();c.globalAlpha=1}}
-rs();addEventListener('resize',rs);for(let i=0;i<cnt;i++)pts.push(new FP());
-let run=false;function an(t){if(!run)return;ctx.clearRect(0,0,cv.width,cv.height);
-for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=col;ctx.globalAlpha=(1-d/100)*.06;ctx.lineWidth=.5;ctx.stroke();ctx.globalAlpha=1}}
-pts.forEach(p=>{p.update(t);p.draw(ctx,t)});requestAnimationFrame(an)}
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!run){run=true;an(0)}else if(!e.isIntersecting)run=false})},{threshold:.05});obs.observe(cv)});
+// ═══════════════════════════════════════
+// 3D MOLECULE RENDERER
+// ═══════════════════════════════════════
+const MOLS={
+  lsd:{atoms:[{x:0,y:-1.2,z:0,t:'C'},{x:1,y:-.6,z:.3,t:'C'},{x:1,y:.6,z:-.2,t:'C'},{x:0,y:1.2,z:.1,t:'C'},{x:-1,y:.6,z:.3,t:'C'},{x:-1,y:-.6,z:-.2,t:'C'},
+    {x:1.8,y:-.8,z:.5,t:'N',c:'#60A5FA'},{x:1.8,y:.8,z:-.1,t:'C'},{x:2.4,y:0,z:.2,t:'C'},{x:2.4,y:1.2,z:-.3,t:'C'},{x:1.8,y:1.8,z:.1,t:'C'},
+    {x:.6,y:2,z:-.2,t:'N',c:'#60A5FA'},{x:-.6,y:2,z:.3,t:'C'},{x:3.2,y:0,z:0,t:'O',c:'#F43F5E'},{x:3.2,y:1,z:.4,t:'N',c:'#60A5FA'},
+    {x:-.6,y:2.6,z:-.1,t:'C'},{x:-1.5,y:-1.2,z:.2,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,3],[2,7],[8,13],[8,14],[4,12],[12,15],[5,16]],col:'#8B5CF6'},
+  dmt:{atoms:[{x:0,y:-1,z:0,t:'C'},{x:.87,y:-.5,z:.2,t:'C'},{x:.87,y:.5,z:-.1,t:'C'},{x:0,y:1,z:.2,t:'C'},{x:-.87,y:.5,z:-.2,t:'C'},{x:-.87,y:-.5,z:.1,t:'C'},
+    {x:1.5,y:-.3,z:.3,t:'C'},{x:1.5,y:.7,z:-.2,t:'N',c:'#60A5FA'},{x:1.8,y:1.2,z:.1,t:'C'},
+    {x:2.5,y:1.5,z:-.1,t:'C'},{x:3.2,y:1.8,z:.2,t:'N',c:'#60A5FA'},{x:3.8,y:1.5,z:-.3,t:'C'},{x:3.8,y:2.2,z:.3,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[6,7],[7,2],[7,8],[8,9],[9,10],[10,11],[10,12]],col:'#D946EF'},
+  psilocybin:{atoms:[{x:0,y:-1,z:0,t:'C'},{x:.87,y:-.5,z:.2,t:'C'},{x:.87,y:.5,z:-.1,t:'C'},{x:0,y:1,z:.2,t:'C'},{x:-.87,y:.5,z:-.2,t:'C'},{x:-.87,y:-.5,z:.1,t:'C'},
+    {x:1.5,y:-.3,z:.3,t:'C'},{x:1.5,y:.7,z:-.2,t:'N',c:'#60A5FA'},{x:1.8,y:1.2,z:.1,t:'C'},
+    {x:2.5,y:1.5,z:-.1,t:'C'},{x:3.2,y:1.8,z:.2,t:'N',c:'#60A5FA'},
+    {x:-1.5,y:-1,z:.2,t:'O',c:'#F43F5E'},{x:-2.3,y:-.7,z:-.1,t:'P',c:'#F97316'},{x:-3,y:-1.2,z:.3,t:'O',c:'#F43F5E'},{x:-3,y:-.2,z:-.2,t:'O',c:'#F43F5E'},{x:-2.3,y:.2,z:.1,t:'O',c:'#F43F5E'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[6,7],[7,2],[7,8],[8,9],[9,10],[5,11],[11,12],[12,13],[12,14],[12,15]],col:'#A78BFA'},
+  thc:{atoms:[{x:-.87,y:-.5,z:0,t:'C'},{x:0,y:-1,z:.2,t:'C'},{x:.87,y:-.5,z:-.1,t:'C'},{x:.87,y:.5,z:.2,t:'C'},{x:0,y:1,z:-.2,t:'C'},{x:-.87,y:.5,z:.1,t:'C'},
+    {x:-1.5,y:-.8,z:-.2,t:'O',c:'#F43F5E'},{x:1.5,y:-.7,z:.3,t:'O',c:'#F43F5E'},{x:1.5,y:.7,z:-.1,t:'C'},
+    {x:2.2,y:0,z:.2,t:'C'},{x:2.8,y:.5,z:-.2,t:'C'},{x:2.8,y:-.5,z:.1,t:'C'},{x:0,y:1.8,z:.2,t:'C'},
+    {x:-1.5,y:1,z:-.1,t:'C'},{x:-2.2,y:.5,z:.2,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6],[2,7],[7,8],[8,3],[8,9],[9,10],[10,11],[11,7],[4,12],[5,13],[13,14]],col:'#39FF14'},
+  mescaline:{atoms:[{x:0,y:-.87,z:0,t:'C'},{x:.75,y:-.43,z:.2,t:'C'},{x:.75,y:.43,z:-.1,t:'C'},{x:0,y:.87,z:.2,t:'C'},{x:-.75,y:.43,z:-.2,t:'C'},{x:-.75,y:-.43,z:.1,t:'C'},
+    {x:-1.4,y:-.8,z:.2,t:'O',c:'#F43F5E'},{x:-2.1,y:-.5,z:-.1,t:'C'},{x:-1.4,y:.8,z:-.2,t:'O',c:'#F43F5E'},{x:-2.1,y:1.1,z:.1,t:'C'},
+    {x:0,y:1.6,z:.3,t:'O',c:'#F43F5E'},{x:-.5,y:2.2,z:-.1,t:'C'},{x:0,y:-1.6,z:-.2,t:'C'},{x:.5,y:-2.2,z:.2,t:'C'},{x:.5,y:-3,z:-.1,t:'N',c:'#60A5FA'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[5,6],[6,7],[4,8],[8,9],[3,10],[10,11],[0,12],[12,13],[13,14]],col:'#F43F5E'},
+  ibogaine:{atoms:[{x:-.87,y:-.5,z:0,t:'C'},{x:0,y:-1,z:.2,t:'C'},{x:.87,y:-.5,z:-.1,t:'C'},{x:.87,y:.5,z:.2,t:'C'},{x:0,y:1,z:-.2,t:'C'},{x:-.87,y:.5,z:.1,t:'C'},
+    {x:1.5,y:-.3,z:.3,t:'N',c:'#60A5FA'},{x:1.5,y:.7,z:-.2,t:'C'},{x:2.2,y:0,z:.1,t:'C'},
+    {x:2.8,y:.5,z:-.3,t:'C'},{x:2.8,y:1.3,z:.2,t:'C'},{x:2.2,y:1.8,z:-.1,t:'N',c:'#60A5FA'},
+    {x:3.5,y:.2,z:.1,t:'C'},{x:3.5,y:1,z:-.2,t:'C'},{x:1.5,y:2.2,z:.3,t:'C'},{x:.8,y:1.8,z:-.1,t:'C'},
+    {x:-1.5,y:.8,z:.2,t:'O',c:'#F43F5E'},{x:-2.2,y:1.2,z:-.1,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[2,6],[6,7],[7,3],[6,8],[8,9],[9,10],[10,11],[11,14],[14,15],[15,4],[9,12],[12,13],[13,10],[5,16],[16,17]],col:'#4F46E5'},
+  meodmt:{atoms:[{x:0,y:-1,z:0,t:'C'},{x:.87,y:-.5,z:.2,t:'C'},{x:.87,y:.5,z:-.1,t:'C'},{x:0,y:1,z:.2,t:'C'},{x:-.87,y:.5,z:-.2,t:'C'},{x:-.87,y:-.5,z:.1,t:'C'},
+    {x:1.5,y:-.3,z:.3,t:'C'},{x:1.5,y:.7,z:-.2,t:'N',c:'#60A5FA'},{x:1.8,y:1.2,z:.1,t:'C'},
+    {x:2.5,y:1.5,z:-.1,t:'C'},{x:3.2,y:1.8,z:.2,t:'N',c:'#60A5FA'},{x:3.8,y:1.5,z:-.3,t:'C'},{x:3.8,y:2.2,z:.3,t:'C'},
+    {x:-1.5,y:.8,z:.2,t:'O',c:'#F43F5E'},{x:-2.2,y:1.2,z:-.1,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[6,7],[7,2],[7,8],[8,9],[9,10],[10,11],[10,12],[4,13],[13,14]],col:'#E0E7FF'},
+  mdma:{atoms:[{x:0,y:-.87,z:0,t:'C'},{x:.75,y:-.43,z:.2,t:'C'},{x:.75,y:.43,z:-.1,t:'C'},{x:0,y:.87,z:.2,t:'C'},{x:-.75,y:.43,z:-.2,t:'C'},{x:-.75,y:-.43,z:.1,t:'C'},
+    {x:-1.3,y:-.9,z:.2,t:'O',c:'#F43F5E'},{x:-1.3,y:.9,z:-.2,t:'O',c:'#F43F5E'},{x:-1.7,y:0,z:.1,t:'C'},
+    {x:1.4,y:-.7,z:.3,t:'C'},{x:2.1,y:-.3,z:-.1,t:'C'},{x:2.8,y:-.6,z:.2,t:'N',c:'#60A5FA'},{x:3.4,y:-.3,z:-.2,t:'C'},
+    {x:2.1,y:.5,z:.2,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[5,6],[6,8],[8,7],[7,4],[1,9],[9,10],[10,11],[11,12],[10,13]],col:'#F43F5E'},
+  ketamine:{atoms:[{x:0,y:-.87,z:0,t:'C'},{x:.75,y:-.43,z:.2,t:'C'},{x:.75,y:.43,z:-.1,t:'C'},{x:0,y:.87,z:.2,t:'C'},{x:-.75,y:.43,z:-.2,t:'C'},{x:-.75,y:-.43,z:.1,t:'C'},
+    {x:0,y:-1.6,z:-.2,t:'C'},{x:.75,y:-1.8,z:.1,t:'C'},{x:1.3,y:-1.3,z:-.2,t:'C'},{x:1.3,y:-.7,z:.2,t:'C'},{x:.75,y:-.2,z:-.1,t:'C'},{x:0,y:-.7,z:.2,t:'C'},
+    {x:-1.4,y:-.8,z:.2,t:'Cl',c:'#39FF14'},{x:1.3,y:.8,z:.3,t:'O',c:'#F43F5E'},
+    {x:0,y:1.6,z:-.2,t:'N',c:'#60A5FA'},{x:-.5,y:2.2,z:.1,t:'C'}],
+    bonds:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,6],[6,7],[7,8],[8,9],[9,1],[5,12],[2,13],[3,14],[14,15]],col:'#A78BFA'}
+};
 
+document.querySelectorAll('.mol3d').forEach(cv=>{
+  const ctx=cv.getContext('2d'),mol=MOLS[cv.dataset.mol];if(!mol)return;
+  const W=cv.width,H=cv.height,cx=W/2,cy=H/2,S=55;
+  let rx=0,ry=0,arx=0,ary=0,dragging=false,dx=0,dy=0;
+  const parent=cv.parentElement;
+  parent.addEventListener('mousedown',()=>dragging=true);
+  addEventListener('mouseup',()=>dragging=false);
+  addEventListener('mousemove',e=>{if(dragging){arx+=e.movementY*.008;ary+=e.movementX*.008}});
+  let t=Math.random()*100;
+  function rot(x,y,z,ax,ay){
+    let y1=y*Math.cos(ax)-z*Math.sin(ax),z1=y*Math.sin(ax)+z*Math.cos(ax);
+    let x1=x*Math.cos(ay)+z1*Math.sin(ay);z1=-x*Math.sin(ay)+z1*Math.cos(ay);
+    return{x:x1,y:y1,z:z1}}
+  function draw(){
+    t+=.008;ctx.clearRect(0,0,W,H);
+    rx+=(arx-rx)*.05;ry+=(ary-ry)*.05;
+    if(!dragging){arx+=.003;ary+=.005}
+    const projected=mol.atoms.map(a=>{
+      const r=rot(a.x,a.y,a.z+Math.sin(t+a.x)*0.15,rx,ry);
+      const scale=1/(1-r.z*.15);
+      return{x:cx+r.x*S*scale,y:cy+r.y*S*scale,z:r.z,s:scale,t:a.t,c:a.c||null}});
+    // Sort by z for depth
+    const sortedBonds=[...mol.bonds].sort((a,b)=>{
+      const za=(projected[a[0]].z+projected[a[1]].z)/2;
+      const zb=(projected[b[0]].z+projected[b[1]].z)/2;return za-zb});
+    // Draw bonds with glow
+    sortedBonds.forEach(([i,j])=>{
+      const a=projected[i],b=projected[j];
+      const alpha=.3+((a.z+b.z)/2+2)*.15;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+      ctx.strokeStyle=mol.col;ctx.globalAlpha=alpha;ctx.lineWidth=2*((a.s+b.s)/2);ctx.stroke();
+      // Glow
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+      ctx.strokeStyle=mol.col;ctx.globalAlpha=alpha*.3;ctx.lineWidth=6*((a.s+b.s)/2);ctx.stroke();
+      ctx.globalAlpha=1});
+    // Draw atoms sorted by z
+    const sortedAtoms=[...projected].sort((a,b)=>a.z-b.z);
+    sortedAtoms.forEach(a=>{
+      const r=a.t==='C'?3*a.s:a.t==='P'?7*a.s:5.5*a.s;
+      const col=a.c||'rgba(248,245,255,.6)';
+      // Outer glow
+      const grd=ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,r*4);
+      grd.addColorStop(0,col+'40');grd.addColorStop(1,'transparent');
+      ctx.beginPath();ctx.arc(a.x,a.y,r*4,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+      // Atom
+      ctx.beginPath();ctx.arc(a.x,a.y,r,0,Math.PI*2);ctx.fillStyle=col;ctx.globalAlpha=.6+a.z*.15;ctx.fill();ctx.globalAlpha=1;
+      // Label
+      if(a.t!=='C'){ctx.font=`${Math.round(9*a.s)}px "Fira Code"`;ctx.fillStyle=col;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(a.t,a.x,a.y)}
+    });
+    requestAnimationFrame(draw)}
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)draw()})},{threshold:.1});obs.observe(cv)});
+
+// ═══════════════════════════════════════
+// SECTION PARTICLE BACKGROUNDS
+// ═══════════════════════════════════════
+document.querySelectorAll('canvas.bg').forEach(cv=>{
+  const ctx=cv.getContext('2d'),rgb=cv.dataset.c,n=parseInt(cv.dataset.n)||60,pts=[];
+  function rs(){const r=cv.parentElement.getBoundingClientRect();cv.width=r.width;cv.height=r.height}
+  class P{constructor(){this.x=Math.random()*cv.width;this.y=Math.random()*cv.height;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.r=Math.random()*2.5+.5;this.o=Math.random()*.4+.1;this.p=Math.random()*Math.PI*2}
+  update(t){this.x+=this.vx+Math.sin(t*.0008+this.p)*.3;this.y+=this.vy+Math.cos(t*.001+this.p)*.3;if(this.x<-20)this.x=cv.width+20;if(this.x>cv.width+20)this.x=-20;if(this.y<-20)this.y=cv.height+20;if(this.y>cv.height+20)this.y=-20}
+  draw(c,t){const pl=Math.sin(t*.002+this.p)*.3+.7;c.beginPath();c.arc(this.x,this.y,this.r,0,Math.PI*2);c.fillStyle=`rgba(${rgb},${(this.o*pl).toFixed(2)})`;c.fill()}}
+  rs();addEventListener('resize',rs);for(let i=0;i<n;i++)pts.push(new P());
+  let run=false;function an(t){if(!run)return;ctx.clearRect(0,0,cv.width,cv.height);
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+  if(d<120){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(${rgb},${((1-d/120)*.05).toFixed(3)})`;ctx.lineWidth=.5;ctx.stroke()}}
+  pts.forEach(p=>{p.update(t);p.draw(ctx,t)});requestAnimationFrame(an)}
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!run){run=true;an(0)}else if(!e.isIntersecting)run=false})},{threshold:.02});obs.observe(cv)});
+
+// ═══════════════════════════════════════
 // SCROLL REVEAL
-const rvs=document.querySelectorAll('.rv');
-const rO=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.15,rootMargin:'0px 0px -50px 0px'});
-rvs.forEach(e=>rO.observe(e));
+// ═══════════════════════════════════════
+const rO=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.s-n,.s-nm,.s-lt,.s-d,.s-m').forEach(e=>rO.observe(e));
 
-// NAV DOTS
-document.querySelectorAll('.mol-d').forEach(d=>{d.addEventListener('click',()=>{const t=document.getElementById(d.dataset.target);if(t)t.scrollIntoView({behavior:'smooth'})})});
-const secs=document.querySelectorAll('.s-sec,.hof-sec,[id=breathwork]');
-const nO=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.mol-d').forEach(d=>d.classList.remove('active'));const a=document.querySelector(`.mol-d[data-target="${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:.3});
+// NAV
+document.querySelectorAll('.md').forEach(d=>{d.addEventListener('click',()=>{const t=document.getElementById(d.dataset.t);if(t)t.scrollIntoView({behavior:'smooth'})})});
+const secs=document.querySelectorAll('.sec,.bw,.hof');
+const nO=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.md').forEach(d=>d.classList.remove('on'));const a=document.querySelector(`.md[data-t="${e.target.id}"]`);if(a)a.classList.add('on')}})},{threshold:.25});
 secs.forEach(s=>nO.observe(s));
 
-// PARALLAX
-let scrollY=0;
-addEventListener('scroll',()=>{scrollY=window.scrollY;
-const hero=document.querySelector('.hero-ct');
-if(hero){hero.style.transform=`translateY(${scrollY*.3}px)`;hero.style.opacity=1-scrollY/(innerHeight*.8)}
-// Parallax on toxic splatters
-document.querySelectorAll('.splat').forEach((s,i)=>{s.style.transform=`translateY(${scrollY*(i%2===0?-.1:.15)}px)`})});
+// SCROLL PARALLAX
+addEventListener('scroll',()=>{const sy=scrollY;
+const hc=document.querySelector('.hero-ct');
+if(hc){hc.style.transform=`translateY(${sy*.4}px)`;hc.style.opacity=Math.max(0,1-sy/(innerHeight*.7))}
+document.querySelectorAll('.sp').forEach((s,i)=>{const r=s.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){s.style.transform=`translateY(${(sy-s.offsetTop)*(i%2===0?-.12:.18)}px) scale(${1+Math.sin(sy*.001+i)*.1})`}})});
 
 // AUDIO
 const aT=document.getElementById('aT');let aC=null,aP=false,dG;
 aT.addEventListener('click',()=>{
 if(!aC){aC=new(window.AudioContext||window.webkitAudioContext)();dG=aC.createGain();dG.gain.value=0;dG.connect(aC.destination);
-const o1=aC.createOscillator();o1.type='sine';o1.frequency.value=55;o1.connect(dG);o1.start();
-const o2=aC.createOscillator();o2.type='sine';o2.frequency.value=82.5;const g2=aC.createGain();g2.gain.value=.4;o2.connect(g2);g2.connect(dG);o2.start();
-const o3=aC.createOscillator();o3.type='triangle';o3.frequency.value=220;const g3=aC.createGain();g3.gain.value=.08;o3.connect(g3);g3.connect(dG);o3.start();
-const lfo=aC.createOscillator();lfo.type='sine';lfo.frequency.value=.1;const lg=aC.createGain();lg.gain.value=15;lfo.connect(lg);lg.connect(o3.frequency);lfo.start()}
-aP=!aP;dG.gain.linearRampToValueAtTime(aP?.15:0,aC.currentTime+(aP?2:1));aT.classList.toggle('playing',aP)});
+[55,82.5,110,165].forEach((f,i)=>{const o=aC.createOscillator();o.type=i<2?'sine':'triangle';o.frequency.value=f;const g=aC.createGain();g.gain.value=[.12,.06,.03,.02][i];o.connect(g);g.connect(dG);o.start();
+if(i>1){const lfo=aC.createOscillator();lfo.frequency.value=.05+i*.03;const lg=aC.createGain();lg.gain.value=f*.05;lfo.connect(lg);lg.connect(o.frequency);lfo.start()}})}
+aP=!aP;dG.gain.linearRampToValueAtTime(aP?.12:0,aC.currentTime+(aP?3:1.5));aT.classList.toggle('pl',aP)});
 
 // KONAMI
 const kc=[38,38,40,40,37,39,37,39,66,65];let ki=0;
-document.addEventListener('keydown',e=>{if(e.keyCode===kc[ki]){ki++;if(ki===kc.length){ki=0;document.body.style.animation='lsdM .5s ease infinite';
-const s=document.createElement('style');s.textContent='@keyframes lsdM{0%{filter:hue-rotate(0) saturate(2)}25%{filter:hue-rotate(90deg) saturate(3)}50%{filter:hue-rotate(180deg) saturate(2)}75%{filter:hue-rotate(270deg) saturate(3)}100%{filter:hue-rotate(360deg) saturate(2)}}';
-document.head.appendChild(s);setTimeout(()=>document.body.style.animation='',10000)}}else ki=0});
+document.addEventListener('keydown',e=>{if(e.keyCode===kc[ki]){ki++;if(ki===kc.length){ki=0;
+const s=document.createElement('style');s.textContent='body{animation:lM .4s ease infinite!important}@keyframes lM{0%{filter:hue-rotate(0) saturate(3) brightness(1.1)}25%{filter:hue-rotate(90deg) saturate(4) brightness(1.2)}50%{filter:hue-rotate(180deg) saturate(3) brightness(1.1)}75%{filter:hue-rotate(270deg) saturate(4) brightness(1.3)}100%{filter:hue-rotate(360deg) saturate(3) brightness(1.1)}}';
+document.head.appendChild(s);setTimeout(()=>s.remove(),12000)}}else ki=0});
 
 // HOVER
-document.querySelectorAll('a,button,.mol-d,.m-card,.bday,.au-tog,.bw-card,.lang-btn').forEach(el=>{
-el.addEventListener('mouseenter',()=>{cO.style.transform='scale(2)';cO.style.borderColor='var(--toxic)';cI.style.transform='scale(.5)'});
-el.addEventListener('mouseleave',()=>{cO.style.transform='scale(1)';cO.style.borderColor='var(--rose)';cI.style.transform='scale(1)'})});
+document.querySelectorAll('a,button,.md,.mc,.bd,.at,.bwc,.lb').forEach(el=>{
+el.addEventListener('mouseenter',()=>{cO.style.width='70px';cO.style.height='70px';cO.style.borderColor='var(--t)';cI.style.boxShadow='0 0 20px var(--t),0 0 40px var(--t)'});
+el.addEventListener('mouseleave',()=>{cO.style.width='50px';cO.style.height='50px';cO.style.borderColor='var(--r)';cI.style.boxShadow='0 0 10px var(--t),0 0 20px var(--t)'})});
 
-console.log('%c🚲 BICYCLE DAY — APRIL 19, 1943','font-size:20px;font-weight:bold;background:linear-gradient(90deg,#8B5CF6,#F43F5E,#39FF14);-webkit-background-clip:text;-webkit-text-fill-color:transparent');
+console.log('%c🚲 BICYCLE DAY','font-size:24px;font-weight:900;background:linear-gradient(90deg,#8B5CF6,#F43F5E,#39FF14);-webkit-background-clip:text;-webkit-text-fill-color:transparent');
 </script>
-</body>
-</html>
+</body></html>
