@@ -4,91 +4,145 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{background:#0a0012;color:#fff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
-canvas#hyperspace{position:fixed;inset:0;z-index:0}
-.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(217,70,239,.4);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
-.back:hover{color:#D946EF;text-shadow:0 0 20px rgba(217,70,239,.5)}
+canvas#hyperspace{position:fixed;inset:0;z-index:0;opacity:.75}
+.canvas-overlay{position:fixed;inset:0;z-index:0;background:linear-gradient(to bottom,rgba(10,0,18,.4) 0%,rgba(10,0,18,.15) 50%,rgba(10,0,18,.4) 100%);pointer-events:none}
+.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(217,70,239,.6);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+.back:hover{color:#D946EF;text-shadow:0 0 20px rgba(217,70,239,.6)}
+.lang-sw{position:fixed;top:20px;right:20px;z-index:100;display:flex;gap:4px}
+.lb{background:transparent;border:1px solid rgba(217,70,239,.2);color:rgba(217,70,239,.45);padding:4px 10px;font-size:.55rem;letter-spacing:2px;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .3s;border-radius:4px}
+.lb.active{border-color:rgba(217,70,239,.5);color:rgba(217,70,239,.85)}
+.lb:hover{border-color:rgba(217,70,239,.5);color:rgba(217,70,239,.7)}
+[data-l]{display:none}
+[data-l].s{display:inline}
 .content{position:relative;z-index:1}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
 .hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(5rem,18vw,14rem);font-weight:900;color:#D946EF;text-shadow:0 0 80px rgba(217,70,239,.6),0 0 160px rgba(217,70,239,.3);animation:dmtPulse 2s ease-in-out infinite}
 @keyframes dmtPulse{0%,100%{text-shadow:0 0 80px rgba(217,70,239,.6),0 0 160px rgba(217,70,239,.3)}50%{text-shadow:0 0 120px rgba(217,70,239,.9),0 0 240px rgba(217,70,239,.5),0 0 360px rgba(217,70,239,.2)}}
-.hero .sub{font-size:.75rem;letter-spacing:15px;text-transform:uppercase;color:rgba(217,70,239,.3);margin-top:1rem}
-.hero .flash{font-size:clamp(.8rem,1.5vw,1.1rem);color:rgba(255,255,255,.2);margin-top:2rem;max-width:500px;text-align:center;line-height:2}
-.sacred-geo{position:relative;width:100%;display:flex;justify-content:center;padding:6rem 0}
+.hero .sub{font-size:.75rem;letter-spacing:15px;text-transform:uppercase;color:rgba(217,70,239,.65);margin-top:1rem}
+.hero .flash{font-size:clamp(.85rem,1.5vw,1.1rem);color:rgba(255,255,255,.62);margin-top:2rem;max-width:500px;text-align:center;line-height:2}
+.hero .flash em{color:rgba(217,70,239,.9);font-style:normal}
+.sacred-geo{position:relative;width:100%;display:flex;justify-content:center;padding:4rem 0}
 .sacred-geo canvas{width:min(500px,90vw);height:min(500px,90vw)}
 .panel{max-width:900px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
 .panel.reverse{direction:rtl}.panel.reverse>*{direction:ltr}
-.panel h2{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,4vw,3rem);color:#D946EF;text-shadow:0 0 30px rgba(217,70,239,.3);margin-bottom:1rem}
-.panel p{font-size:.9rem;line-height:2.2;color:rgba(255,255,255,.35)}
-.panel p em{color:rgba(217,70,239,.7);font-style:normal}
+.panel h2{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,4vw,3rem);color:#D946EF;text-shadow:0 0 30px rgba(217,70,239,.4);margin-bottom:1rem}
+.panel p{font-size:.9rem;line-height:2.2;color:rgba(255,255,255,.62)}
+.panel p em{color:rgba(217,70,239,.9);font-style:normal}
 .entities{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:4rem 2rem;max-width:1000px;margin:0 auto}
-.entity{aspect-ratio:1;border:1px solid rgba(217,70,239,.08);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;position:relative;overflow:hidden;transition:all .8s cubic-bezier(.34,1.56,.64,1)}
+.entity{aspect-ratio:1;border:1px solid rgba(217,70,239,.1);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;position:relative;overflow:hidden;transition:all .8s cubic-bezier(.34,1.56,.64,1);cursor:default}
 .entity::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 0deg,transparent,rgba(217,70,239,.2),transparent,rgba(167,139,250,.2),transparent);animation:entitySpin 8s linear infinite}
 @keyframes entitySpin{to{transform:rotate(360deg)}}
-.entity:hover{transform:scale(1.1);border-color:rgba(217,70,239,.3);box-shadow:0 0 60px rgba(217,70,239,.15)}
+.entity:hover{transform:scale(1.1);border-color:rgba(217,70,239,.4);box-shadow:0 0 60px rgba(217,70,239,.2)}
 .entity .sym{font-size:2.5rem;margin-bottom:.5rem;filter:hue-rotate(0deg);animation:entityHue 4s ease infinite}
 @keyframes entityHue{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(60deg)}}
-.entity .name{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(217,70,239,.5)}
-.entity .desc{font-size:.65rem;color:rgba(255,255,255,.2);margin-top:.3rem;line-height:1.6}
+.entity .name{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(217,70,239,.7)}
+.entity .desc{font-size:.65rem;color:rgba(255,255,255,.52);margin-top:.3rem;line-height:1.6}
 .data-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:800px;margin:3rem auto;padding:0 2rem}
-.data-cell{padding:1.5rem;border:1px solid rgba(217,70,239,.06);border-radius:12px;text-align:center;background:rgba(217,70,239,.02);backdrop-filter:blur(10px)}
+.data-cell{padding:1.5rem;border:1px solid rgba(217,70,239,.1);border-radius:12px;text-align:center;background:rgba(217,70,239,.03);backdrop-filter:blur(10px);transition:all .4s}
+.data-cell:hover{border-color:rgba(217,70,239,.35);box-shadow:0 0 30px rgba(217,70,239,.1);transform:translateY(-3px)}
 .data-cell .v{font-size:1.5rem;font-weight:700;color:#D946EF}
-.data-cell .l{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;opacity:.3;margin-top:.3rem}
+.data-cell .l{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;opacity:.55;margin-top:.3rem}
 .breakthrough{min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem}
 .breakthrough h2{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,6vw,5rem);background:linear-gradient(135deg,#D946EF,#A78BFA,#fff,#D946EF);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:hueShift 4s linear infinite}
 @keyframes hueShift{0%{background-position:0%}100%{background-position:300%}}
-.breakthrough p{max-width:600px;margin:1.5rem auto 0;font-size:.95rem;line-height:2.2;color:rgba(255,255,255,.25)}
+.breakthrough p{max-width:600px;margin:1.5rem auto 0;font-size:.95rem;line-height:2.2;color:rgba(255,255,255,.6)}
+.mol-formula{font-family:'Cinzel Decorative',serif;font-size:2rem;color:rgba(217,70,239,.4);line-height:2}
+.mol-label{font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.3);margin-top:1rem}
 footer{text-align:center;padding:3rem;position:relative;z-index:1}
-footer a{color:rgba(217,70,239,.2);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
-footer a:hover{color:rgba(217,70,239,.6)}
-@media(max-width:768px){.panel{grid-template-columns:1fr}.entities{grid-template-columns:1fr}.data-grid{grid-template-columns:repeat(2,1fr)}}
+footer a{color:rgba(217,70,239,.35);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:rgba(217,70,239,.8)}
+
+@media(max-width:768px){
+  .hero h1{font-size:clamp(3.5rem,18vw,7rem)}
+  .hero .sub{letter-spacing:8px;font-size:.65rem}
+  .panel{grid-template-columns:1fr;padding:3rem 1.5rem;gap:2rem}
+  .panel.reverse{direction:ltr}
+  .entities{grid-template-columns:1fr;padding:2rem 1.5rem;max-width:360px}
+  .entity{aspect-ratio:auto;border-radius:16px;padding:1.5rem}
+  .data-grid{grid-template-columns:repeat(2,1fr);padding:0 1.5rem}
+  .breakthrough{min-height:50vh;padding:3rem 1.5rem}
+  .sacred-geo{padding:2rem 0}
+  .lang-sw{top:14px;right:14px}
+  .back{top:14px;left:14px;font-size:.6rem;letter-spacing:2px}
+}
+@media(max-width:480px){
+  .hero{padding:1.5rem 1rem}
+  .hero h1{font-size:clamp(3rem,22vw,5rem)}
+  .panel{padding:2rem 1rem}
+  .data-grid{grid-template-columns:1fr 1fr;padding:0 1rem;gap:.75rem}
+  .entities{padding:1.5rem 1rem}
+  .breakthrough{padding:2rem 1rem}
+  .breakthrough h2{font-size:clamp(1.8rem,8vw,3rem)}
+  .data-cell{padding:1rem .75rem}
+  .data-cell .v{font-size:1.2rem}
+}
 </style></head><body>
 <a href="index.html" class="back">Pharmacopoeia</a>
+<div class="lang-sw"><button class="lb active" data-lang="nl">NL</button><button class="lb" data-lang="en">EN</button><button class="lb" data-lang="de">DE</button></div>
 <canvas id="hyperspace"></canvas>
+<div class="canvas-overlay"></div>
 <div class="content">
 <section class="hero">
   <h1>DMT</h1>
   <div class="sub">N,N-Dimethyltryptamine</div>
-  <div class="flash">30 seconden. Dat is alles wat je nodig hebt om de deur naar een andere dimensie te openen. Geen trip — een <em style="color:rgba(217,70,239,.7)">doorbraak</em>.</div>
+  <div class="flash">
+    <span data-l="nl" class="s">30 seconden. Dat is alles wat je nodig hebt om de deur naar een andere dimensie te openen. Geen trip — een <em>doorbraak</em>.</span>
+    <span data-l="en">30 seconds. That is all you need to open the door to another dimension. Not a trip — a <em>breakthrough</em>.</span>
+    <span data-l="de">30 Sekunden. Das ist alles, was du brauchst, um die Tür zu einer anderen Dimension zu öffnen. Kein Trip — ein <em>Durchbruch</em>.</span>
+  </div>
 </section>
 <div class="data-grid">
-  <div class="data-cell"><div class="v">30s</div><div class="l">Onset</div></div>
-  <div class="data-cell"><div class="v">5-20m</div><div class="l">Duration</div></div>
+  <div class="data-cell"><div class="v">30s</div><div class="l"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="de">Beginn</span></div></div>
+  <div class="data-cell"><div class="v">5-20m</div><div class="l"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div></div>
   <div class="data-cell"><div class="v">188.27</div><div class="l">g/mol</div></div>
-  <div class="data-cell"><div class="v">Endogeen</div><div class="l">In je brein</div></div>
+  <div class="data-cell"><div class="v"><span data-l="nl" class="s">Endogeen</span><span data-l="en">Endogenous</span><span data-l="de">Endogen</span></div><div class="l"><span data-l="nl" class="s">In je brein</span><span data-l="en">In your brain</span><span data-l="de">In deinem Gehirn</span></div></div>
 </div>
 <div class="panel">
   <div>
-    <h2>Het Geest-molecuul</h2>
-    <p>DMT is het krachtigste natuurlijke psychedelicum. Het wordt <em>geproduceerd in je eigen brein</em> — door de pijnappelklier, het "derde oog" van de oude mystici. Het komt voor in honderden plantensoorten, in het gif van de Bufo alvarius pad, en in het menselijk cerebrospinaal vocht.</p>
-    <p>Rick Strassman's baanbrekend onderzoek (1990-1995) bij de Universiteit van New Mexico was het eerste goedgekeurde psychedelisch onderzoek in 20 jaar. Zijn proefpersonen rapporteerden consistent: <em>contact met niet-menselijke intelligentie</em>.</p>
+    <h2><span data-l="nl" class="s">Het Geest-molecuul</span><span data-l="en">The Spirit Molecule</span><span data-l="de">Das Geist-Molekül</span></h2>
+    <p><span data-l="nl" class="s">DMT is het krachtigste natuurlijke psychedelicum. Het wordt <em>geproduceerd in je eigen brein</em> — door de pijnappelklier, het "derde oog" van de oude mystici. Het komt voor in honderden plantensoorten, in het gif van de Bufo alvarius pad, en in het menselijk cerebrospinaal vocht.</span><span data-l="en">DMT is the most powerful natural psychedelic. It is <em>produced in your own brain</em> — by the pineal gland, the "third eye" of the ancient mystics. It is found in hundreds of plant species, in the venom of the Bufo alvarius toad, and in human cerebrospinal fluid.</span><span data-l="de">DMT ist das wirksamste natürliche Psychedelikum. Es wird <em>im eigenen Gehirn produziert</em> — von der Zirbeldrüse, dem "dritten Auge" der alten Mystiker. Es kommt in Hunderten von Pflanzenarten vor, im Gift der Bufo-alvarius-Kröte und in der menschlichen Zerebrospinalflüssigkeit.</span></p>
+    <p><span data-l="nl" class="s">Rick Strassman's baanbrekend onderzoek (1990-1995) bij de Universiteit van New Mexico was het eerste goedgekeurde psychedelisch onderzoek in 20 jaar. Zijn proefpersonen rapporteerden consistent: <em>contact met niet-menselijke intelligentie</em>.</span><span data-l="en">Rick Strassman's groundbreaking research (1990-1995) at the University of New Mexico was the first approved psychedelic study in 20 years. His subjects consistently reported: <em>contact with non-human intelligence</em>.</span><span data-l="de">Rick Strassmans bahnbrechende Forschung (1990-1995) an der University of New Mexico war die erste genehmigte psychedelische Studie seit 20 Jahren. Seine Probanden berichteten konsistent: <em>Kontakt mit nicht-menschlicher Intelligenz</em>.</span></p>
   </div>
   <div class="sacred-geo"><canvas id="sgCanvas" width="400" height="400"></canvas></div>
 </div>
 <div class="entities">
-  <div class="entity"><div class="sym">&#x25C8;</div><div class="name">Machine Elfen</div><div class="desc">Zelfstransformerende entiteiten die objecten tonen gemaakt van taal</div></div>
-  <div class="entity"><div class="sym">&#x2742;</div><div class="name">Geometrische Kathedralen</div><div class="desc">Onmogelijke architectuur van licht en wiskundige perfectie</div></div>
-  <div class="entity"><div class="sym">&#x2726;</div><div class="name">De Wachtkamer</div><div class="desc">De ruimte tussen dimensies waar de reiziger wordt ontvangen</div></div>
+  <div class="entity">
+    <div class="sym">&#x25C8;</div>
+    <div class="name"><span data-l="nl" class="s">Machine Elfen</span><span data-l="en">Machine Elves</span><span data-l="de">Maschinenelfen</span></div>
+    <div class="desc"><span data-l="nl" class="s">Zelfstransformerende entiteiten die objecten tonen gemaakt van taal</span><span data-l="en">Self-transforming entities that present objects made of language</span><span data-l="de">Selbst-transformierende Entitäten, die aus Sprache geformte Objekte zeigen</span></div>
+  </div>
+  <div class="entity">
+    <div class="sym">&#x2742;</div>
+    <div class="name"><span data-l="nl" class="s">Geometrische Kathedralen</span><span data-l="en">Geometric Cathedrals</span><span data-l="de">Geometrische Kathedralen</span></div>
+    <div class="desc"><span data-l="nl" class="s">Onmogelijke architectuur van licht en wiskundige perfectie</span><span data-l="en">Impossible architecture of light and mathematical perfection</span><span data-l="de">Unmögliche Architektur aus Licht und mathematischer Vollkommenheit</span></div>
+  </div>
+  <div class="entity">
+    <div class="sym">&#x2726;</div>
+    <div class="name"><span data-l="nl" class="s">De Wachtkamer</span><span data-l="en">The Waiting Room</span><span data-l="de">Der Warteraum</span></div>
+    <div class="desc"><span data-l="nl" class="s">De ruimte tussen dimensies waar de reiziger wordt ontvangen</span><span data-l="en">The space between dimensions where the traveller is received</span><span data-l="de">Der Raum zwischen den Dimensionen, wo der Reisende empfangen wird</span></div>
+  </div>
 </div>
 <div class="panel reverse">
   <div>
     <h2>Ayahuasca</h2>
-    <p>De inheemse volkeren van het Amazonegebied ontdekten dat DMT oraal actief wordt wanneer het gecombineerd wordt met <em>MAO-remmers</em> — planten die het enzym blokkeren dat DMT normaal afbreekt in de maag.</p>
-    <p>Ayahuasca — "de wijnstok der zielen" — combineert de DMT-bevattende Psychotria viridis met de MAO-remmende Banisteriopsis caapi. Het resultaat: <em>4-6 uur</em> in de geometrische kathedralen van het bewustzijn.</p>
+    <p><span data-l="nl" class="s">De inheemse volkeren van het Amazonegebied ontdekten dat DMT oraal actief wordt wanneer het gecombineerd wordt met <em>MAO-remmers</em> — planten die het enzym blokkeren dat DMT normaal afbreekt in de maag.</span><span data-l="en">The indigenous peoples of the Amazon discovered that DMT becomes orally active when combined with <em>MAO inhibitors</em> — plants that block the enzyme that normally breaks down DMT in the stomach.</span><span data-l="de">Die indigenen Völker des Amazonasbeckens entdeckten, dass DMT oral aktiv wird, wenn es mit <em>MAO-Hemmern</em> kombiniert wird — Pflanzen, die das Enzym blockieren, das DMT normalerweise im Magen abbaut.</span></p>
+    <p><span data-l="nl" class="s">Ayahuasca — "de wijnstok der zielen" — combineert de DMT-bevattende Psychotria viridis met de MAO-remmende Banisteriopsis caapi. Het resultaat: <em>4-6 uur</em> in de geometrische kathedralen van het bewustzijn.</span><span data-l="en">Ayahuasca — "the vine of souls" — combines the DMT-containing Psychotria viridis with the MAO-inhibiting Banisteriopsis caapi. The result: <em>4-6 hours</em> inside the geometric cathedrals of consciousness.</span><span data-l="de">Ayahuasca — "die Weinrebe der Seelen" — kombiniert die DMT-haltige Psychotria viridis mit dem MAO-hemmenden Banisteriopsis caapi. Das Ergebnis: <em>4-6 Stunden</em> in den geometrischen Kathedralen des Bewusstseins.</span></p>
   </div>
   <div style="text-align:center;padding:2rem">
-    <div style="font-family:'Cinzel Decorative',serif;font-size:2rem;color:rgba(217,70,239,.2);line-height:2">C&#x2081;&#x2082;H&#x2081;&#x2086;N&#x2082;</div>
-    <div style="font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.1);margin-top:1rem">INDOLE RING SYSTEM<br>2 RINGS &middot; SIMPLEST TRYPTAMINE</div>
+    <div class="mol-formula">C&#x2081;&#x2082;H&#x2081;&#x2086;N&#x2082;</div>
+    <div class="mol-label">INDOLE RING SYSTEM<br>2 RINGS &middot; SIMPLEST TRYPTAMINE</div>
   </div>
 </div>
 <section class="breakthrough">
   <div>
-    <h2>De Doorbraak</h2>
-    <p>Voorbij de chrysanthemum — het draaiende geometrische patroon dat verschijnt bij het sluiten van de ogen — ligt de doorbraak. De grenzen van het zelf lossen op. Je bent niet langer een waarnemer. Je bent het waargenomene. De entiteiten verwelkomen je alsof ze je verwacht hebben.</p>
+    <h2><span data-l="nl" class="s">De Doorbraak</span><span data-l="en">The Breakthrough</span><span data-l="de">Der Durchbruch</span></h2>
+    <p><span data-l="nl" class="s">Voorbij de chrysanthemum — het draaiende geometrische patroon dat verschijnt bij het sluiten van de ogen — ligt de doorbraak. De grenzen van het zelf lossen op. Je bent niet langer een waarnemer. Je bent het waargenomene. De entiteiten verwelkomen je alsof ze je verwacht hebben.</span><span data-l="en">Beyond the chrysanthemum — the spinning geometric pattern that appears upon closing the eyes — lies the breakthrough. The boundaries of the self dissolve. You are no longer an observer. You are the observed. The entities welcome you as though they have been expecting you.</span><span data-l="de">Jenseits der Chrysantheme — dem rotierenden geometrischen Muster, das beim Schließen der Augen erscheint — liegt der Durchbruch. Die Grenzen des Selbst lösen sich auf. Du bist nicht länger ein Beobachter. Du bist das Beobachtete. Die Entitäten begrüßen dich, als hätten sie auf dich gewartet.</span></p>
   </div>
 </section>
 </div>
-<footer><a href="index.html">Terug naar Hofmann's Pharmacopoeia</a></footer>
+<footer><a href="index.html"><span data-l="nl" class="s">Terug naar Hofmann's Pharmacopoeia</span><span data-l="en">Back to Hofmann's Pharmacopoeia</span><span data-l="de">Zurück zu Hofmann's Pharmacopoeia</span></a></footer>
 <script>
 // HYPERSPACE - sacred geometry tunnel
 const C=document.getElementById('hyperspace'),X=C.getContext('2d');
@@ -119,7 +173,6 @@ function drawHyper(){
   t+=.01;
   X.fillStyle='rgba(10,0,18,.12)';X.fillRect(0,0,W,H);
   const cx=W/2,cy=H/2;
-  // Sacred geometry rings
   for(let r=0;r<6;r++){
     const radius=100+r*80+Math.sin(t+r*.5)*20;
     const sides=6+r;
@@ -132,7 +185,6 @@ function drawHyper(){
     }
     X.strokeStyle=`hsla(${280+r*15},100%,50%,.${4-Math.floor(r*.5)})`;
     X.lineWidth=1;X.stroke();
-    // Inner connections
     for(let i=0;i<sides;i++){
       const a1=(i/sides)*Math.PI*2+t*.1*(r%2===0?1:-1);
       const a2=((i+Math.floor(sides/2))/sides)*Math.PI*2+t*.1*(r%2===0?1:-1);
@@ -152,7 +204,6 @@ let st=0;
 function drawSG(){
   st+=.005;SX.clearRect(0,0,400,400);
   const cx=200,cy=200;
-  // Flower of Life
   const r=50;
   for(let ring=0;ring<3;ring++){
     const n=ring===0?1:ring*6;
@@ -166,7 +217,6 @@ function drawSG(){
       SX.lineWidth=.8;SX.stroke();
     }
   }
-  // Metatron's cube overlay
   const pts=[];
   for(let i=0;i<6;i++){
     const a=(i/6)*Math.PI*2+st*2;
@@ -175,7 +225,7 @@ function drawSG(){
   for(let i=0;i<pts.length;i++){
     for(let j=i+1;j<pts.length;j++){
       SX.beginPath();SX.moveTo(pts[i].x,pts[i].y);SX.lineTo(pts[j].x,pts[j].y);
-      SX.strokeStyle='rgba(217,70,239,.1)';SX.lineWidth=.5;SX.stroke();
+      SX.strokeStyle='rgba(217,70,239,.12)';SX.lineWidth=.5;SX.stroke();
     }
   }
   requestAnimationFrame(drawSG);
@@ -184,4 +234,12 @@ drawSG();
 // Scroll reveals
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0) scale(1)'}})},{threshold:.15});
 document.querySelectorAll('.panel>div,.entity,.data-cell,.breakthrough>div').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(40px) scale(.95)';el.style.transition='all 1s cubic-bezier(.4,0,.2,1)';obs.observe(el)});
+const langBtns=document.querySelectorAll('.lb');
+function setLang(lang){
+  document.querySelectorAll('[data-l]').forEach(el=>{el.classList.toggle('s',el.dataset.l===lang)});
+  langBtns.forEach(b=>{b.classList.toggle('active',b.dataset.lang===lang)});
+  localStorage.setItem('hofmann-lang',lang);
+}
+langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+setLang(localStorage.getItem('hofmann-lang')||'nl');
 </script></body></html>

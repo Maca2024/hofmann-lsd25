@@ -4,76 +4,148 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{background:#020D08;color:#E8F5E9;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
-canvas#mycelium{position:fixed;inset:0;z-index:0}
-.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(167,139,250,.4);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
-.back:hover{color:#A78BFA}
+canvas#mycelium{position:fixed;inset:0;z-index:0;opacity:.75}
+.canvas-overlay{position:fixed;inset:0;z-index:0;background:linear-gradient(to bottom,rgba(2,13,8,.45) 0%,rgba(2,13,8,.15) 50%,rgba(2,13,8,.45) 100%);pointer-events:none}
+.back{position:fixed;top:20px;left:20px;z-index:100;color:rgba(167,139,250,.6);text-decoration:none;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;transition:all .3s}
+.back:hover{color:#A78BFA;text-shadow:0 0 12px rgba(167,139,250,.5)}
+.lang-sw{position:fixed;top:20px;right:20px;z-index:100;display:flex;gap:4px}
+.lb{background:transparent;border:1px solid rgba(167,139,250,.2);color:rgba(167,139,250,.45);padding:4px 10px;font-size:.55rem;letter-spacing:2px;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .3s;border-radius:4px}
+.lb.active{border-color:rgba(167,139,250,.5);color:rgba(167,139,250,.85)}
+.lb:hover{border-color:rgba(167,139,250,.5);color:rgba(167,139,250,.7)}
+[data-l]{display:none}
+[data-l].s{display:inline}
 .ct{position:relative;z-index:1}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
 .hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(3rem,12vw,9rem);font-weight:900;background:linear-gradient(180deg,#C084FC,#A78BFA,#7C3AED,#4C1D95);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 40px rgba(167,139,250,.3));animation:mushroomBreathe 6s ease-in-out infinite}
 @keyframes mushroomBreathe{0%,100%{transform:scale(1);filter:drop-shadow(0 0 40px rgba(167,139,250,.3))}50%{transform:scale(1.03);filter:drop-shadow(0 0 80px rgba(167,139,250,.5))}}
-.hero .ancient{font-size:.65rem;letter-spacing:15px;text-transform:uppercase;color:rgba(167,139,250,.25);margin-top:1.5rem}
-.hero .mol{font-size:1.3rem;color:rgba(167,139,250,.12);margin-top:1rem;letter-spacing:2px}
+.hero .ancient{font-size:.65rem;letter-spacing:15px;text-transform:uppercase;color:rgba(167,139,250,.6);margin-top:1.5rem}
+.hero .mol{font-size:1.3rem;color:rgba(167,139,250,.35);margin-top:1rem;letter-spacing:2px}
 .mushroom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;max-width:1200px;margin:0 auto;padding:4rem 2rem}
-.mush-card{padding:2.5rem 2rem;border:1px solid rgba(167,139,250,.06);border-radius:24px;background:rgba(2,13,8,.8);backdrop-filter:blur(20px);position:relative;overflow:hidden;transition:all .8s cubic-bezier(.34,1.56,.64,1)}
-.mush-card::after{content:'';position:absolute;bottom:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(167,139,250,.03),transparent 70%);animation:cardGlow 8s ease-in-out infinite;pointer-events:none}
+.mush-card{padding:2.5rem 2rem;border:1px solid rgba(167,139,250,.08);border-radius:24px;background:rgba(2,13,8,.85);backdrop-filter:blur(20px);position:relative;overflow:hidden;transition:all .8s cubic-bezier(.34,1.56,.64,1);cursor:default}
+.mush-card::after{content:'';position:absolute;bottom:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(167,139,250,.04),transparent 70%);animation:cardGlow 8s ease-in-out infinite;pointer-events:none}
 @keyframes cardGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(5%,-5%)}}
-.mush-card:hover{transform:translateY(-8px);border-color:rgba(167,139,250,.2);box-shadow:0 20px 60px rgba(167,139,250,.08)}
+.mush-card:hover{transform:translateY(-8px);border-color:rgba(167,139,250,.28);box-shadow:0 20px 60px rgba(167,139,250,.12)}
 .mush-card h3{font-family:'Cinzel Decorative',serif;font-size:1.2rem;color:#C084FC;margin-bottom:.8rem}
-.mush-card p{font-size:.82rem;line-height:2;color:rgba(232,245,233,.35)}
-.mush-card .num{font-size:3rem;font-weight:700;color:rgba(167,139,250,.08);position:absolute;top:1rem;right:1.5rem;font-family:'Cinzel Decorative',serif}
+.mush-card p{font-size:.82rem;line-height:2;color:rgba(232,245,233,.6)}
+.mush-card .num{font-size:3rem;font-weight:700;color:rgba(167,139,250,.1);position:absolute;top:1rem;right:1.5rem;font-family:'Cinzel Decorative',serif}
 .wide-section{max-width:900px;margin:0 auto;padding:6rem 2rem}
 .wide-section h2{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,5vw,3.5rem);background:linear-gradient(135deg,#C084FC,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem}
-.wide-section p{font-size:.95rem;line-height:2.4;color:rgba(232,245,233,.35);margin-bottom:1.5rem}
-.wide-section p strong{color:rgba(192,132,252,.7);font-weight:400}
+.wide-section p{font-size:.95rem;line-height:2.4;color:rgba(232,245,233,.62);margin-bottom:1.5rem}
+.wide-section p strong{color:rgba(192,132,252,.85);font-weight:600}
 .species-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin:2rem 0}
-.species{padding:.4rem 1rem;border:1px solid rgba(167,139,250,.1);border-radius:99px;font-size:.65rem;letter-spacing:1px;color:rgba(167,139,250,.4);transition:all .3s}
-.species:hover{border-color:rgba(167,139,250,.4);color:rgba(167,139,250,.8);background:rgba(167,139,250,.05)}
+.species{padding:.4rem 1rem;border:1px solid rgba(167,139,250,.15);border-radius:99px;font-size:.65rem;letter-spacing:1px;color:rgba(167,139,250,.6);transition:all .3s;cursor:default}
+.species:hover{border-color:rgba(167,139,250,.5);color:rgba(167,139,250,.9);background:rgba(167,139,250,.07)}
 .stat-row{display:flex;justify-content:center;gap:3rem;padding:4rem 2rem;flex-wrap:wrap}
 .big-stat{text-align:center}
 .big-stat .v{font-family:'Cinzel Decorative',serif;font-size:clamp(2.5rem,6vw,4rem);background:linear-gradient(135deg,#C084FC,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.big-stat .l{font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:rgba(167,139,250,.25);margin-top:.3rem}
+.big-stat .l{font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:rgba(167,139,250,.5);margin-top:.3rem}
 .quote-block{max-width:700px;margin:0 auto;padding:6rem 2rem;text-align:center}
-.quote-block blockquote{font-size:1rem;line-height:2.2;color:rgba(232,245,233,.25);font-style:italic;position:relative;padding:0 2rem}
-.quote-block blockquote::before,.quote-block blockquote::after{content:'"';font-family:'Cinzel Decorative',serif;font-size:3rem;color:rgba(167,139,250,.15);position:absolute}
+.quote-block blockquote{font-size:1rem;line-height:2.2;color:rgba(232,245,233,.62);font-style:italic;position:relative;padding:0 2rem}
+.quote-block blockquote::before,.quote-block blockquote::after{content:'"';font-family:'Cinzel Decorative',serif;font-size:3rem;color:rgba(167,139,250,.2);position:absolute}
 .quote-block blockquote::before{top:-.5rem;left:0}
 .quote-block blockquote::after{bottom:-1.5rem;right:0}
-.quote-block cite{display:block;margin-top:1.5rem;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:rgba(167,139,250,.3);font-style:normal}
+.quote-block cite{display:block;margin-top:1.5rem;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:rgba(167,139,250,.5);font-style:normal}
 footer{text-align:center;padding:3rem;position:relative;z-index:1}
-footer a{color:rgba(167,139,250,.15);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
-footer a:hover{color:rgba(167,139,250,.5)}
+footer a{color:rgba(167,139,250,.3);text-decoration:none;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
+footer a:hover{color:rgba(167,139,250,.75)}
+
+@media(max-width:768px){
+  .hero h1{font-size:clamp(2.5rem,14vw,6rem)}
+  .hero .ancient{letter-spacing:8px;font-size:.6rem}
+  .mushroom-grid{grid-template-columns:1fr;padding:3rem 1.5rem;gap:1.5rem}
+  .wide-section{padding:4rem 1.5rem}
+  .wide-section h2{font-size:clamp(1.6rem,7vw,2.5rem);margin-bottom:1.2rem}
+  .stat-row{gap:2rem;padding:3rem 1.5rem}
+  .quote-block{padding:4rem 1.5rem}
+  .quote-block blockquote{font-size:.9rem;padding:0 1.5rem}
+  .lang-sw{top:14px;right:14px}
+  .back{top:14px;left:14px;font-size:.6rem;letter-spacing:2px}
+  .mush-card{padding:2rem 1.5rem}
+}
+@media(max-width:480px){
+  .hero{padding:1.5rem 1rem}
+  .hero h1{font-size:clamp(2rem,16vw,4rem)}
+  .stat-row{gap:1.5rem;padding:2.5rem 1rem;justify-content:space-around}
+  .big-stat .v{font-size:clamp(1.8rem,8vw,2.8rem)}
+  .mushroom-grid{padding:2rem 1rem}
+  .wide-section{padding:3rem 1rem}
+  .quote-block{padding:3rem 1rem}
+  .quote-block blockquote{padding:0 1rem;font-size:.85rem}
+  .species-bar{gap:.35rem}
+  .species{font-size:.6rem;padding:.3rem .75rem}
+}
 </style></head><body>
 <a href="index.html" class="back">Pharmacopoeia</a>
+<div class="lang-sw"><button class="lb active" data-lang="nl">NL</button><button class="lb" data-lang="en">EN</button><button class="lb" data-lang="de">DE</button></div>
 <canvas id="mycelium"></canvas>
+<div class="canvas-overlay"></div>
 <div class="ct">
 <section class="hero">
   <h1>Psilocybin</h1>
-  <div class="ancient">Teonanacatl — Vlees der Goden</div>
+  <div class="ancient"><span data-l="nl" class="s">Teonanacatl — Vlees der Goden</span><span data-l="en">Teonanacatl — Flesh of the Gods</span><span data-l="de">Teonanacatl — Fleisch der Götter</span></div>
   <div class="mol">C&#x2081;&#x2082;H&#x2081;&#x2087;N&#x2082;O&#x2084;P</div>
 </section>
 <div class="stat-row">
-  <div class="big-stat"><div class="v">200+</div><div class="l">Soorten</div></div>
-  <div class="big-stat"><div class="v">4-6 h</div><div class="l">Duur</div></div>
-  <div class="big-stat"><div class="v">7000</div><div class="l">Jaar gebruik</div></div>
-  <div class="big-stat"><div class="v">1958</div><div class="l">Geisoleerd</div></div>
+  <div class="big-stat">
+    <div class="v">200+</div>
+    <div class="l"><span data-l="nl" class="s">Soorten</span><span data-l="en">Species</span><span data-l="de">Arten</span></div>
+  </div>
+  <div class="big-stat">
+    <div class="v">4-6 h</div>
+    <div class="l"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div>
+  </div>
+  <div class="big-stat">
+    <div class="v">7000</div>
+    <div class="l"><span data-l="nl" class="s">Jaar gebruik</span><span data-l="en">Years of use</span><span data-l="de">Jahre Nutzung</span></div>
+  </div>
+  <div class="big-stat">
+    <div class="v">1958</div>
+    <div class="l"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="de">Isoliert</span></div>
+  </div>
 </div>
 <div class="wide-section">
-  <h2>Het Oudste Sacrament</h2>
-  <p>In de grotten van Tassili n'Ajjer in Algerije staan 7.000 jaar oude rotstekeningen van <strong>dansende figuren met paddenstoelen in hun handen</strong>. De Azteken noemden ze "teonanacatl" — vlees der goden. De Mazateken bewaarden de kennis in het geheim, generatie na generatie, tot curandera <strong>Maria Sabina</strong> in 1955 haar velada deelde met R. Gordon Wasson.</p>
-  <p>Hofmann isoleerde psilocybine in 1958 in zijn laboratorium in Basel — dezelfde man die LSD ontdekte. De fosfaatgroep op positie 4 maakt het tot een <strong>prodrug</strong>: in het lichaam wordt het omgezet naar het actieve psilocine door defosforylering.</p>
+  <h2><span data-l="nl" class="s">Het Oudste Sacrament</span><span data-l="en">The Oldest Sacrament</span><span data-l="de">Das älteste Sakrament</span></h2>
+  <p><span data-l="nl" class="s">In de grotten van Tassili n'Ajjer in Algerije staan 7.000 jaar oude rotstekeningen van <strong>dansende figuren met paddenstoelen in hun handen</strong>. De Azteken noemden ze "teonanacatl" — vlees der goden. De Mazateken bewaarden de kennis in het geheim, generatie na generatie, tot curandera <strong>Maria Sabina</strong> in 1955 haar velada deelde met R. Gordon Wasson.</span><span data-l="en">In the caves of Tassili n'Ajjer in Algeria, 7,000-year-old rock paintings depict <strong>dancing figures holding mushrooms</strong>. The Aztecs called them "teonanacatl" — flesh of the gods. The Mazatec people preserved the knowledge in secret, generation after generation, until curandera <strong>Maria Sabina</strong> shared her velada with R. Gordon Wasson in 1955.</span><span data-l="de">In den Höhlen von Tassili n'Ajjer in Algerien befinden sich 7.000 Jahre alte Felszeichnungen von <strong>tanzenden Figuren mit Pilzen in den Händen</strong>. Die Azteken nannten sie "teonanacatl" — Fleisch der Götter. Die Mazateken bewahrten das Wissen im Geheimen, Generation für Generation, bis Curandera <strong>Maria Sabina</strong> 1955 ihre Velada mit R. Gordon Wasson teilte.</span></p>
+  <p><span data-l="nl" class="s">Hofmann isoleerde psilocybine in 1958 in zijn laboratorium in Basel — dezelfde man die LSD ontdekte. De fosfaatgroep op positie 4 maakt het tot een <strong>prodrug</strong>: in het lichaam wordt het omgezet naar het actieve psilocine door defosforylering.</span><span data-l="en">Hofmann isolated psilocybin in 1958 in his Basel laboratory — the same man who discovered LSD. The phosphate group at position 4 makes it a <strong>prodrug</strong>: inside the body it is converted to the active psilocin through dephosphorylation.</span><span data-l="de">Hofmann isolierte Psilocybin 1958 in seinem Basler Labor — derselbe Mann, der LSD entdeckte. Die Phosphatgruppe an Position 4 macht es zu einem <strong>Prodrug</strong>: Im Körper wird es durch Dephosphorylierung in das aktive Psilocin umgewandelt.</span></p>
 </div>
 <div class="mushroom-grid">
-  <div class="mush-card"><div class="num">01</div><h3>Johns Hopkins</h3><p>80% van de proefpersonen beoordeelde hun psilocybine-ervaring als een van de top 5 meest betekenisvolle ervaringen van hun leven. 67% noemde het DE meest betekenisvolle.</p></div>
-  <div class="mush-card"><div class="num">02</div><h3>Default Mode Network</h3><p>Psilocybine vermindert de activiteit in het DMN — het netwerk verantwoordelijk voor het "verhaal van het zelf." Dezelfde patronen die gezien worden bij ervaren mediteerders na 10.000+ uur oefening.</p></div>
-  <div class="mush-card"><div class="num">03</div><h3>Neuroplasticiteit</h3><p>Eén enkele dosis verhoogt de dendritische dichtheid met 10% binnen 24 uur. Nieuwe synaptische verbindingen die ten minste een maand blijven bestaan. Het brein herschrijft zichzelf.</p></div>
-  <div class="mush-card"><div class="num">04</div><h3>Depressie</h3><p>COMPASS Pathways Fase 2b: 25mg psilocybine produceerde 36.7% remissie na 3 weken bij behandelresistente depressie. Significant beter dan SSRI's na 6 weken.</p></div>
-  <div class="mush-card"><div class="num">05</div><h3>Verslaving</h3><p>Johns Hopkins toonde 80% abstinentie bij rokers na 6 maanden — vergeleken met 35% voor de beste bestaande behandeling. Eén magische paddenstoel-sessie.</p></div>
-  <div class="mush-card"><div class="num">06</div><h3>Einde-van-leven angst</h3><p>Bij terminale kankerpatienten produceerde een enkele hoge dosis significante en blijvende vermindering van existentiele angst en depressie tot 4.5 jaar later.</p></div>
+  <div class="mush-card">
+    <div class="num">01</div>
+    <h3>Johns Hopkins</h3>
+    <p><span data-l="nl" class="s">80% van de proefpersonen beoordeelde hun psilocybine-ervaring als een van de top 5 meest betekenisvolle ervaringen van hun leven. 67% noemde het DE meest betekenisvolle.</span><span data-l="en">80% of participants rated their psilocybin experience as one of the top 5 most meaningful experiences of their lives. 67% named it THE most meaningful.</span><span data-l="de">80 % der Probanden bewerteten ihre Psilocybin-Erfahrung als eine der 5 bedeutungsvollsten Erfahrungen ihres Lebens. 67 % nannten sie DIE bedeutungsvollste.</span></p>
+  </div>
+  <div class="mush-card">
+    <div class="num">02</div>
+    <h3>Default Mode Network</h3>
+    <p><span data-l="nl" class="s">Psilocybine vermindert de activiteit in het DMN — het netwerk verantwoordelijk voor het "verhaal van het zelf." Dezelfde patronen die gezien worden bij ervaren mediteerders na 10.000+ uur oefening.</span><span data-l="en">Psilocybin reduces activity in the DMN — the network responsible for the "narrative of the self." The same patterns seen in experienced meditators after 10,000+ hours of practice.</span><span data-l="de">Psilocybin reduziert die Aktivität im DMN — dem Netzwerk, das für die "Geschichte des Selbst" verantwortlich ist. Dieselben Muster, die bei erfahrenen Meditierenden nach 10.000+ Übungsstunden beobachtet werden.</span></p>
+  </div>
+  <div class="mush-card">
+    <div class="num">03</div>
+    <h3><span data-l="nl" class="s">Neuroplasticiteit</span><span data-l="en">Neuroplasticity</span><span data-l="de">Neuroplastizität</span></h3>
+    <p><span data-l="nl" class="s">Eén enkele dosis verhoogt de dendritische dichtheid met 10% binnen 24 uur. Nieuwe synaptische verbindingen die ten minste een maand blijven bestaan. Het brein herschrijft zichzelf.</span><span data-l="en">A single dose increases dendritic density by 10% within 24 hours. New synaptic connections that persist for at least a month. The brain rewrites itself.</span><span data-l="de">Eine einzige Dosis erhöht die dendritische Dichte innerhalb von 24 Stunden um 10 %. Neue synaptische Verbindungen, die mindestens einen Monat bestehen. Das Gehirn schreibt sich selbst neu.</span></p>
+  </div>
+  <div class="mush-card">
+    <div class="num">04</div>
+    <h3><span data-l="nl" class="s">Depressie</span><span data-l="en">Depression</span><span data-l="de">Depression</span></h3>
+    <p><span data-l="nl" class="s">COMPASS Pathways Fase 2b: 25mg psilocybine produceerde 36.7% remissie na 3 weken bij behandelresistente depressie. Significant beter dan SSRI's na 6 weken.</span><span data-l="en">COMPASS Pathways Phase 2b: 25 mg psilocybin produced 36.7% remission after 3 weeks in treatment-resistant depression. Significantly better than SSRIs at 6 weeks.</span><span data-l="de">COMPASS Pathways Phase 2b: 25 mg Psilocybin erzielte nach 3 Wochen bei behandlungsresistenter Depression eine Remissionsrate von 36,7 %. Signifikant besser als SSRIs nach 6 Wochen.</span></p>
+  </div>
+  <div class="mush-card">
+    <div class="num">05</div>
+    <h3><span data-l="nl" class="s">Verslaving</span><span data-l="en">Addiction</span><span data-l="de">Sucht</span></h3>
+    <p><span data-l="nl" class="s">Johns Hopkins toonde 80% abstinentie bij rokers na 6 maanden — vergeleken met 35% voor de beste bestaande behandeling. Eén magische paddenstoel-sessie.</span><span data-l="en">Johns Hopkins demonstrated 80% abstinence in smokers at 6 months — compared with 35% for the best existing treatment. One magic mushroom session.</span><span data-l="de">Johns Hopkins zeigte 80 % Abstinenz bei Rauchern nach 6 Monaten — verglichen mit 35 % bei der besten bestehenden Behandlung. Eine einzige Magic-Mushroom-Sitzung.</span></p>
+  </div>
+  <div class="mush-card">
+    <div class="num">06</div>
+    <h3><span data-l="nl" class="s">Einde-van-leven angst</span><span data-l="en">End-of-life anxiety</span><span data-l="de">Angst am Lebensende</span></h3>
+    <p><span data-l="nl" class="s">Bij terminale kankerpatiënten produceerde een enkele hoge dosis significante en blijvende vermindering van existentiële angst en depressie tot 4,5 jaar later.</span><span data-l="en">In terminal cancer patients, a single high dose produced significant and lasting reductions in existential anxiety and depression up to 4.5 years later.</span><span data-l="de">Bei Patienten mit terminalem Krebs bewirkte eine einzige hohe Dosis eine signifikante und anhaltende Verringerung existenzieller Angst und Depression bis zu 4,5 Jahre später.</span></p>
+  </div>
 </div>
 <div class="wide-section">
-  <h2>Het Mycelium Netwerk</h2>
-  <p>Onder de bosgrond strekt zich een onzichtbaar netwerk uit — het <strong>mycelium</strong>. Schimmels verbinden bomen met elkaar in een "Wood Wide Web" dat voedingsstoffen en waarschuwingssignalen transporteert. Het myceliumnetwerk van een enkele paddenstoel kan zich uitstrekken over hectares.</p>
-  <p>Paul Stamets noemt paddenstoelen <strong>"de internet van de natuur."</strong> Ze zijn ouder dan planten. Ze waren er voordat bomen bestonden. En nu, 7.000 jaar na de eerste rotstekeningen, herontdekken we wat de oude volkeren altijd al wisten.</p>
+  <h2><span data-l="nl" class="s">Het Mycelium Netwerk</span><span data-l="en">The Mycelium Network</span><span data-l="de">Das Myzel-Netzwerk</span></h2>
+  <p><span data-l="nl" class="s">Onder de bosgrond strekt zich een onzichtbaar netwerk uit — het <strong>mycelium</strong>. Schimmels verbinden bomen met elkaar in een "Wood Wide Web" dat voedingsstoffen en waarschuwingssignalen transporteert. Het myceliumnetwerk van een enkele paddenstoel kan zich uitstrekken over hectares.</span><span data-l="en">Beneath the forest floor stretches an invisible network — the <strong>mycelium</strong>. Fungi connect trees to one another in a "Wood Wide Web" that transports nutrients and warning signals. The mycelial network of a single mushroom can extend across hectares.</span><span data-l="de">Unter dem Waldboden erstreckt sich ein unsichtbares Netzwerk — das <strong>Myzel</strong>. Pilze verbinden Bäume miteinander in einem "Wood Wide Web", das Nährstoffe und Warnsignale transportiert. Das Myzel-Netzwerk eines einzigen Pilzes kann sich über Hektar erstrecken.</span></p>
+  <p><span data-l="nl" class="s">Paul Stamets noemt paddenstoelen <strong>"het internet van de natuur."</strong> Ze zijn ouder dan planten. Ze waren er voordat bomen bestonden. En nu, 7.000 jaar na de eerste rotstekeningen, herontdekken we wat de oude volkeren altijd al wisten.</span><span data-l="en">Paul Stamets calls mushrooms <strong>"the internet of nature."</strong> They are older than plants. They existed before trees. And now, 7,000 years after the first rock paintings, we are rediscovering what ancient peoples always knew.</span><span data-l="de">Paul Stamets nennt Pilze <strong>"das Internet der Natur."</strong> Sie sind älter als Pflanzen. Sie existierten, bevor es Bäume gab. Und jetzt, 7.000 Jahre nach den ersten Felszeichnungen, entdecken wir wieder, was die alten Völker schon immer wussten.</span></p>
   <div class="species-bar">
     <span class="species">P. cubensis</span><span class="species">P. semilanceata</span><span class="species">P. cyanescens</span>
     <span class="species">P. azurescens</span><span class="species">P. mexicana</span><span class="species">P. tampanensis</span>
@@ -82,10 +154,10 @@ footer a:hover{color:rgba(167,139,250,.5)}
 </div>
 <div class="quote-block">
   <blockquote>There is a world beyond ours, a world that is far away, nearby, and invisible. And there is where God lives, where the dead live, the spirits and the saints, a world where everything has already happened and everything is known.</blockquote>
-  <cite>Maria Sabina, Mazateekse curandera</cite>
+  <cite><span data-l="nl" class="s">Maria Sabina, Mazateekse curandera</span><span data-l="en">Maria Sabina, Mazatec curandera</span><span data-l="de">Maria Sabina, Mazatekische Curandera</span></cite>
 </div>
 </div>
-<footer><a href="index.html">Terug naar Hofmann's Pharmacopoeia</a></footer>
+<footer><a href="index.html"><span data-l="nl" class="s">Terug naar Hofmann's Pharmacopoeia</span><span data-l="en">Back to Hofmann's Pharmacopoeia</span><span data-l="de">Zurück zu Hofmann's Pharmacopoeia</span></a></footer>
 <script>
 // MYCELIUM NETWORK - organic bioluminescent growth
 const C=document.getElementById('mycelium'),X=C.getContext('2d');
@@ -102,7 +174,6 @@ class Tendril{
     this.y+=Math.sin(this.angle)*this.speed;
     this.points.push({x:this.x,y:this.y});
     if(this.points.length>80)this.points.shift();
-    // Branch
     if(Math.random()<.008&&this.branches.length<3){
       this.branches.push(new Tendril(this.x,this.y,this.angle+(Math.random()-.5)*1.5));
     }
@@ -118,7 +189,6 @@ class Tendril{
     }
     c.strokeStyle=`hsla(${this.hue},60%,50%,${alpha})`;
     c.lineWidth=this.thickness*(1-this.age/this.life);c.stroke();
-    // Glow at tip
     if(this.age<this.life){
       const grd=c.createRadialGradient(this.x,this.y,0,this.x,this.y,8);
       grd.addColorStop(0,`hsla(${this.hue},100%,70%,${alpha})`);
@@ -144,12 +214,10 @@ function draw(){
   X.fillStyle='rgba(2,13,8,.04)';X.fillRect(0,0,W,H);
   tendrils.forEach(t=>t.grow());
   tendrils.forEach(t=>t.draw(X));
-  // Remove dead tendrils, spawn new
   for(let i=tendrils.length-1;i>=0;i--){
     if(tendrils[i].age>=tendrils[i].life){tendrils.splice(i,1);spawnTendril()}
   }
   if(tendrils.length<20&&Math.random()<.02)spawnTendril();
-  // Spore particles
   for(let i=0;i<2;i++){
     const x=Math.random()*W,y=Math.random()*H;
     const sz=Math.random()*2;
@@ -163,4 +231,12 @@ draw();
 // Scroll reveals
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
 document.querySelectorAll('.mush-card,.wide-section h2,.wide-section p,.big-stat,.quote-block').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(40px)';el.style.transition='all 1s cubic-bezier(.4,0,.2,1)';obs.observe(el)});
+const langBtns=document.querySelectorAll('.lb');
+function setLang(lang){
+  document.querySelectorAll('[data-l]').forEach(el=>{el.classList.toggle('s',el.dataset.l===lang)});
+  langBtns.forEach(b=>{b.classList.toggle('active',b.dataset.lang===lang)});
+  localStorage.setItem('hofmann-lang',lang);
+}
+langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+setLang(localStorage.getItem('hofmann-lang')||'nl');
 </script></body></html>

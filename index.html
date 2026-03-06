@@ -44,7 +44,7 @@ body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;
 @keyframes charIn{to{opacity:1;transform:translateY(0) rotateX(0)}}
 .hero-t .word{display:inline-block;background:linear-gradient(135deg,#fff,var(--p),var(--r),var(--t),var(--v));background-size:400% 400%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 8s ease infinite;filter:drop-shadow(0 0 60px rgba(139,92,246,.3))}
 @keyframes heroG{0%,100%{background-position:0% 50%}25%{background-position:100% 0%}50%{background-position:100% 100%}75%{background-position:0% 100%}}
-.hero-q{font-style:italic;font-size:clamp(.9rem,1.8vw,1.2rem);max-width:650px;color:rgba(248,245,255,.4);line-height:2;margin:0 auto;opacity:0;animation:fadeSlideUp 1.5s 2s forwards}
+.hero-q{font-style:italic;font-size:clamp(.9rem,1.8vw,1.2rem);max-width:650px;color:rgba(248,245,255,.6);line-height:2;margin:0 auto;opacity:0;animation:fadeSlideUp 1.5s 2s forwards}
 .hero-q b{color:var(--g);font-style:normal;font-weight:500}
 @keyframes fadeSlideUp{to{opacity:1;transform:translateY(0)}}
 .hero-q,.hero-sub{transform:translateY(30px)}
@@ -70,17 +70,17 @@ body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;
 .mol-ct{position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center;cursor:grab}
 .mol-ct:active{cursor:grabbing}
 .mol-ct canvas{width:100%;height:100%;max-width:400px;max-height:400px}
-.mol-label{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'Fira Code',monospace;font-size:.65rem;color:rgba(248,245,255,.15);letter-spacing:1px;text-align:center;white-space:nowrap}
+.mol-label{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'Fira Code',monospace;font-size:.65rem;color:rgba(248,245,255,.35);letter-spacing:1px;text-align:center;white-space:nowrap}
 
 /* ═══ INFO ═══ */
 .s-info{padding:2rem 0}
 .s-n{font-family:'Fira Code',monospace;font-size:.65rem;letter-spacing:6px;text-transform:uppercase;opacity:0;transform:translateX(-20px);transition:all .8s}
-.s-n.vis{opacity:.35;transform:translateX(0)}
+.s-n.vis{opacity:.5;transform:translateX(0)}
 .s-nm{font-family:'Cinzel Decorative',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;line-height:1.1;margin:.5rem 0;opacity:0;transform:translateY(40px);transition:all .8s .1s}
 .s-nm.vis{opacity:1;transform:translateY(0)}
 .s-lt{font-family:'Fira Code',monospace;font-size:.7rem;opacity:0;transform:translateY(20px);transition:all .8s .2s;letter-spacing:.5px}
-.s-lt.vis{opacity:.3;transform:translateY(0)}
-.s-d{font-size:.92rem;line-height:2;color:rgba(248,245,255,.5);margin:1.5rem 0 2rem;max-width:520px;opacity:0;transform:translateY(30px);transition:all .8s .3s}
+.s-lt.vis{opacity:.45;transform:translateY(0)}
+.s-d{font-size:.92rem;line-height:2;color:rgba(248,245,255,.65);margin:1.5rem 0 2rem;max-width:520px;opacity:0;transform:translateY(30px);transition:all .8s .3s}
 .s-d.vis{opacity:1;transform:translateY(0)}
 .s-m{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;opacity:0;transform:translateY(20px);transition:all .8s .4s}
 .s-m.vis{opacity:1;transform:translateY(0)}
@@ -110,7 +110,7 @@ body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;
 .bw{min-height:100vh;position:relative;overflow:hidden;padding:6rem 2rem;z-index:1}
 .bw-hd{text-align:center;max-width:800px;margin:0 auto 3rem;position:relative;z-index:2}
 .bw-t{font-family:'Cinzel Decorative',serif;font-size:clamp(2rem,4.5vw,3.5rem);background:linear-gradient(135deg,var(--g),#FBBF24,#fff,var(--g));background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 6s ease infinite;margin-bottom:1rem}
-.bw-p{font-size:.95rem;line-height:2;color:rgba(248,245,255,.4);max-width:600px;margin:0 auto}
+.bw-p{font-size:.95rem;line-height:2;color:rgba(248,245,255,.6);max-width:600px;margin:0 auto}
 .bw-g{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;position:relative;z-index:2}
 @media(max-width:900px){.bw-g{grid-template-columns:1fr}}
 .bwc{background:rgba(255,215,0,.02);border:1px solid rgba(255,215,0,.08);border-radius:20px;padding:2rem;backdrop-filter:blur(20px);transition:all .6s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden}
@@ -119,7 +119,7 @@ body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;
 .bwc:hover{border-color:rgba(255,215,0,.2);transform:translateY(-8px) scale(1.01);box-shadow:0 20px 60px rgba(255,215,0,.08)}
 .bwc-n{font-family:'Cinzel Decorative',serif;font-size:1.15rem;color:var(--g);margin-bottom:.3rem}
 .bwc-s{font-family:'Fira Code',monospace;font-size:.6rem;letter-spacing:2px;opacity:.3;margin-bottom:.8rem}
-.bwc-d{font-size:.82rem;line-height:1.9;color:rgba(248,245,255,.45)}
+.bwc-d{font-size:.82rem;line-height:1.9;color:rgba(248,245,255,.6)}
 .br{position:absolute;border-radius:50%;border:1px solid rgba(255,215,0,.04);animation:br 6s ease-in-out infinite;pointer-events:none;z-index:0}
 @keyframes br{0%,100%{transform:translate(-50%,-50%) scale(.7);opacity:.03}50%{transform:translate(-50%,-50%) scale(1.4);opacity:.12}}
 
@@ -128,7 +128,7 @@ body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;
 .hof-ct{position:relative;z-index:2;max-width:750px}
 .hof-y{font-family:'Fira Code',monospace;font-size:.9rem;letter-spacing:10px;color:var(--p);opacity:.5}
 .hof-n{font-family:'Cinzel Decorative',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;margin:1rem 0 2rem;background:linear-gradient(135deg,#fff 0%,var(--g) 40%,#fff 60%,var(--g) 100%);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:heroG 5s ease infinite}
-.hof-q{font-size:1.05rem;line-height:2.2;color:rgba(248,245,255,.35);margin-bottom:3rem}
+.hof-q{font-size:1.05rem;line-height:2.2;color:rgba(248,245,255,.55);margin-bottom:3rem}
 .bd{display:inline-block;padding:1rem 3rem;border:1px solid rgba(139,92,246,.3);border-radius:999px;font-family:'Cinzel Decorative',serif;font-size:.8rem;letter-spacing:5px;color:var(--v);transition:all .6s;position:relative;overflow:hidden}
 .bd::before{content:'';position:absolute;inset:-2px;background:conic-gradient(from var(--bd-angle,0deg),transparent,var(--p),var(--r),var(--t),var(--p),transparent);opacity:0;transition:opacity .4s;border-radius:inherit;z-index:-1}
 .bd:hover{color:#fff;border-color:transparent;box-shadow:0 0 60px rgba(139,92,246,.3)}
@@ -160,10 +160,36 @@ body{background:var(--bg);color:var(--w);font-family:'Space Grotesk',sans-serif;
 
 /* ═══ FOOTER ═══ */
 footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(248,245,255,.03);position:relative;z-index:1}
-footer p{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,255,.12)}
-footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-width:550px;margin-left:auto;margin-right:auto;line-height:1.8;text-transform:none}
+footer p{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,255,.3)}
+footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.2);max-width:550px;margin-left:auto;margin-right:auto;line-height:1.8;text-transform:none}
 
-@media(max-width:768px){.mn{display:none}.s-m{grid-template-columns:1fr}.sec{padding:3rem 1rem}.sec-ct{gap:2rem}}
+@media(max-width:768px){
+.mn{display:none}
+.s-m{grid-template-columns:1fr}
+.sec{padding:3rem 1rem;min-height:auto}
+.sec-ct{gap:2rem}
+.hero-t{font-size:clamp(2.5rem,12vw,5rem)}
+.hero-q{font-size:.9rem;padding:0 1rem}
+.bw-g{grid-template-columns:1fr}
+.bw{padding:3rem 1rem}
+.hof{padding:3rem 1rem}
+.ls{top:auto;bottom:16px;left:50%;transform:translateX(-50%);right:auto}
+.at{bottom:16px;left:auto;right:60px}
+.mol-ct canvas{max-width:280px;max-height:280px}
+.mol-label{font-size:.5rem}
+.s-d{font-size:.85rem}
+body{cursor:auto}
+#cO,#cI{display:none}
+}
+@media(max-width:480px){
+.hero-t{font-size:clamp(2rem,10vw,3.5rem)}
+.s-nm{font-size:clamp(1.8rem,8vw,2.5rem)}
+.sec{padding:2rem .8rem}
+.bwc{padding:1.5rem}
+.mc{padding:.6rem}
+.mv{font-size:.85rem}
+.s-explore{font-size:.5rem;letter-spacing:2px}
+}
 </style>
 </head>
 <body>
@@ -173,7 +199,7 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
 <!-- LOADING -->
 <div class="ld" id="LD">
   <canvas id="ldC" width="300" height="300"></canvas>
-  <div class="ld-t"><span data-l="nl" class="s">BEWUSTZIJN SYNTHETISEREN</span><span data-l="en">SYNTHESIZING CONSCIOUSNESS</span><span data-l="fi">TIETOISUUTTA SYNTETISOIDAAN</span></div>
+  <div class="ld-t"><span data-l="nl" class="s">BEWUSTZIJN SYNTHETISEREN</span><span data-l="en">SYNTHESIZING CONSCIOUSNESS</span><span data-l="de">BEWUSSTSEIN SYNTHETISIEREN</span></div>
   <div class="ld-b"><div class="ld-f" id="LF"></div></div>
 </div>
 
@@ -181,7 +207,7 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
 <div id="cO"></div><div id="cI"></div>
 
 <!-- LANG -->
-<div class="ls"><button class="lb on" data-lang="nl">NL</button><button class="lb" data-lang="en">EN</button><button class="lb" data-lang="fi">FI</button></div>
+<div class="ls"><button class="lb on" data-lang="nl">NL</button><button class="lb" data-lang="en">EN</button><button class="lb" data-lang="de">DE</button></div>
 
 <!-- NAV -->
 <nav class="mn" id="MN">
@@ -216,7 +242,7 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
     </p>
   </div>
   <div class="scroll-i">
-    <span><span data-l="nl" class="s">Betreed de ervaring</span><span data-l="en">Enter the experience</span><span data-l="fi">Astu kokemukseen</span></span>
+    <span><span data-l="nl" class="s">Betreed de ervaring</span><span data-l="en">Enter the experience</span><span data-l="de">Erlebe die Erfahrung</span></span>
     <div class="scroll-a"></div>
   </div>
 </section>
@@ -227,14 +253,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sec-ct">
     <div class="mol-ct"><canvas class="mol3d" data-mol="lsd" width="400" height="400"></canvas><div class="mol-label">C₂₀H₂₅N₃O · 323.43 g/mol · Ergoline · 4 rings</div></div>
     <div class="s-info">
-      <div class="s-n"><span data-l="nl" class="s">001 — HET PROBLEEMKIND</span><span data-l="en">001 — THE PROBLEM CHILD</span><span data-l="fi">001 — ONGELMALAPSI</span></div>
+      <div class="s-n"><span data-l="nl" class="s">001 — HET PROBLEEMKIND</span><span data-l="en">001 — THE PROBLEM CHILD</span><span data-l="de">001 — DAS SORGENKIND</span></div>
       <h2 class="s-nm glitch" data-text="LSD-25">LSD-25</h2>
       <div class="s-lt">Lysergic acid diethylamide · CAS 50-37-3</div>
-      <p class="s-d"><span data-l="nl" class="s">Gesynthetiseerd uit moederkoorenalkaloïden door Albert Hofmann op 16 november 1938 in Basel. De psychoactieve eigenschappen werden per toeval ontdekt op 16 april 1943 — bevestigd op de legendarische Fietsdag, 19 april, toen Hofmann 250μg innam en op zijn fiets door de oplossende straten van Basel reed. Het meest potente psychedelicum ooit ontdekt — actief in microgrammen.</span><span data-l="en">Synthesized from ergot alkaloids by Albert Hofmann on November 16, 1938 in Basel. Its psychoactive properties were discovered accidentally on April 16, 1943 — confirmed on the legendary Bicycle Day, April 19, when Hofmann ingested 250μg and rode his bicycle through the dissolving streets of Basel. The most potent psychedelic ever discovered — active in micrograms.</span><span data-l="fi">Albert Hofmann syntetisoi torajyväalkaloideista 16. marraskuuta 1938 Baselissa. Psykoaktiiviset ominaisuudet löydettiin vahingossa 16. huhtikuuta 1943 — vahvistettu legendaarisena Polkupyöräpäivänä 19. huhtikuuta, kun Hofmann otti 250μg ja pyöräili Baselin liukenevien katujen halki. Kaikkein voimakkain koskaan löydetty psykedeeli — aktiivinen mikrogrammoissa.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Gesynthetiseerd uit moederkoorenalkaloïden door Albert Hofmann op 16 november 1938 in Basel. De psychoactieve eigenschappen werden per toeval ontdekt op 16 april 1943 — bevestigd op de legendarische Fietsdag, 19 april, toen Hofmann 250μg innam en op zijn fiets door de oplossende straten van Basel reed. Het meest potente psychedelicum ooit ontdekt — actief in microgrammen.</span><span data-l="en">Synthesized from ergot alkaloids by Albert Hofmann on November 16, 1938 in Basel. Its psychoactive properties were discovered accidentally on April 16, 1943 — confirmed on the legendary Bicycle Day, April 19, when Hofmann ingested 250μg and rode his bicycle through the dissolving streets of Basel. The most potent psychedelic ever discovered — active in micrograms.</span><span data-l="de">Albert Hofmann syntetisoi torajyväalkaloideista 16. marraskuuta 1938 Baselissa. Psykoaktiiviset ominaisuudet löydettiin vahingossa 16. huhtikuuta 1943 — vahvistettu legendaarisena Polkupyöräpäivänä 19. huhtikuuta, kun Hofmann otti 250μg ja pyöräili Baselin liukenevien katujen halki. Kaikkein voimakkain koskaan löydetty psykedeeli — aktiivinen mikrogrammoissa.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Drempel</span><span data-l="en">Threshold</span><span data-l="fi">Kynnysannos</span></div><div class="mv" style="color:var(--p)">25 μg</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--r)">8–14 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Ontdekt</span><span data-l="en">Discovered</span><span data-l="fi">Löydetty</span></div><div class="mv" style="color:var(--t)">1943</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Drempel</span><span data-l="en">Threshold</span><span data-l="de">Schwelle</span></div><div class="mv" style="color:var(--p)">25 μg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:var(--r)">8–14 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Ontdekt</span><span data-l="en">Discovered</span><span data-l="de">Entdeckt</span></div><div class="mv" style="color:var(--t)">1943</div></div>
       </div>
       <a href="lsd.html" class="s-explore">Explore LSD-25 →</a>
     </div>
@@ -247,14 +273,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sp" style="width:300px;height:300px;bottom:20%;left:5%;background:var(--f);opacity:.04"></div>
   <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-n"><span data-l="nl" class="s">002 — HET GEESTMOLECUUL</span><span data-l="en">002 — THE SPIRIT MOLECULE</span><span data-l="fi">002 — HENKIMOLEKYYLI</span></div>
+      <div class="s-n"><span data-l="nl" class="s">002 — HET GEESTMOLECUUL</span><span data-l="en">002 — THE SPIRIT MOLECULE</span><span data-l="de">002 — DAS GEISTMOLEKÜL</span></div>
       <h2 class="s-nm glitch" data-text="DMT">DMT</h2>
       <div class="s-lt">N,N-Dimethyltryptamine · CAS 61-50-7</div>
-      <p class="s-d"><span data-l="nl" class="s">Het krachtigste natuurlijke psychedelicum. Aanwezig in het menselijk brein, honderden plantensoorten en het gif van de Bufo alvarius pad. Ayahuasca combineert DMT met MAO-remmers: een reis van 4-6 uur door geometrische kathedralen van licht en contact met wat velen beschrijven als niet-menselijke intelligentie. De eenvoudigste tryptamine — twee ringen, oneindig bewustzijn.</span><span data-l="en">The most powerful natural psychedelic. Found in the human brain, hundreds of plant species, and the Bufo alvarius toad. Ayahuasca combines DMT with MAO inhibitors: a 4-6 hour journey through geometric cathedrals of light and contact with what many describe as non-human intelligence. The simplest tryptamine — two rings, infinite consciousness.</span><span data-l="fi">Voimakkain luonnollinen psykedeeli. Löytyy ihmisaivoista, sadoista kasvilajeista ja Bufo alvarius -sammakosta. Ayahuasca yhdistää DMT:n MAO-estäjiin: 4-6 tunnin matka geometristen valokatedraalien läpi ja kontakti ei-inhimilliseen älykkyyteen. Yksinkertaisin tryptamiini — kaksi rengasta, ääretön tietoisuus.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Het krachtigste natuurlijke psychedelicum. Aanwezig in het menselijk brein, honderden plantensoorten en het gif van de Bufo alvarius pad. Ayahuasca combineert DMT met MAO-remmers: een reis van 4-6 uur door geometrische kathedralen van licht en contact met wat velen beschrijven als niet-menselijke intelligentie. De eenvoudigste tryptamine — twee ringen, oneindig bewustzijn.</span><span data-l="en">The most powerful natural psychedelic. Found in the human brain, hundreds of plant species, and the Bufo alvarius toad. Ayahuasca combines DMT with MAO inhibitors: a 4-6 hour journey through geometric cathedrals of light and contact with what many describe as non-human intelligence. The simplest tryptamine — two rings, infinite consciousness.</span><span data-l="de">Voimakkain luonnollinen psykedeeli. Löytyy ihmisaivoista, sadoista kasvilajeista ja Bufo alvarius -sammakosta. Ayahuasca yhdistää DMT:n MAO-estäjiin: 4-6 tunnin matka geometristen valokatedraalien läpi ja kontakti ei-inhimilliseen älykkyyteen. Yksinkertaisin tryptamiini — kaksi rengasta, ääretön tietoisuus.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Alku</span></div><div class="mv" style="color:var(--f)">30 sec</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--v)">5–20 min</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Endogeen</span><span data-l="en">Endogenous</span><span data-l="fi">Endogeeninen</span></div><div class="mv" style="color:var(--p)">✓</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="de">Beginn</span></div><div class="mv" style="color:var(--f)">30 sec</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:var(--v)">5–20 min</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Endogeen</span><span data-l="en">Endogenous</span><span data-l="de">Endogeeninen</span></div><div class="mv" style="color:var(--p)">✓</div></div>
       </div>
       <a href="dmt.html" class="s-explore">Explore DMT →</a>
     </div>
@@ -268,14 +294,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sec-ct">
     <div class="mol-ct"><canvas class="mol3d" data-mol="psilocybin" width="400" height="400"></canvas><div class="mol-label">C₁₂H₁₇N₂O₄P · 284.25 g/mol · Phosphotryptamine · 2 rings</div></div>
     <div class="s-info">
-      <div class="s-n"><span data-l="nl" class="s">003 — TEONANÁCATL</span><span data-l="en">003 — TEONANÁCATL</span><span data-l="fi">003 — TEONANÁCATL</span></div>
+      <div class="s-n"><span data-l="nl" class="s">003 — TEONANÁCATL</span><span data-l="en">003 — TEONANÁCATL</span><span data-l="de">003 — TEONANÁCATL</span></div>
       <h2 class="s-nm glitch" data-text="Psilocybin">Psilocybin</h2>
       <div class="s-lt">4-PO-DMT · CAS 520-52-5</div>
-      <p class="s-d"><span data-l="nl" class="s">Heilige paddenstoelen, 7.000 jaar oud. María Sabina deelde de velada in 1955. Hofmann isoleerde psilocybine in 1958. Johns Hopkins toont nu opmerkelijke werkzaamheid bij depressie en verslaving — één dosis produceert blijvende persoonlijkheidsveranderingen richting openheid. De fosfaatgroep op positie 4 maakt het tot een prodrug: in het lichaam wordt het omgezet naar het actieve psilocine.</span><span data-l="en">Sacred mushrooms, 7,000 years old. María Sabina shared the velada in 1955. Hofmann isolated psilocybin in 1958. Johns Hopkins now shows remarkable efficacy for depression and addiction — a single dose produces lasting personality changes toward openness. The phosphate group at position 4 makes it a prodrug: in the body it converts to active psilocin.</span><span data-l="fi">Pyhät sienet, 7 000 vuotta vanhat. María Sabina jakoi veladan 1955. Hofmann eristi psilosybiinin 1958. Johns Hopkins osoittaa nyt merkittävää tehoa masennukseen ja riippuvuuksiin — yksi annos tuottaa pysyviä persoonallisuusmuutoksia avoimuuteen. Fosfaattiryhmä positiossa 4 tekee siitä prodrugin: elimistössä se muuttuu aktiiviseksi psilosiiniksi.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Heilige paddenstoelen, 7.000 jaar oud. María Sabina deelde de velada in 1955. Hofmann isoleerde psilocybine in 1958. Johns Hopkins toont nu opmerkelijke werkzaamheid bij depressie en verslaving — één dosis produceert blijvende persoonlijkheidsveranderingen richting openheid. De fosfaatgroep op positie 4 maakt het tot een prodrug: in het lichaam wordt het omgezet naar het actieve psilocine.</span><span data-l="en">Sacred mushrooms, 7,000 years old. María Sabina shared the velada in 1955. Hofmann isolated psilocybin in 1958. Johns Hopkins now shows remarkable efficacy for depression and addiction — a single dose produces lasting personality changes toward openness. The phosphate group at position 4 makes it a prodrug: in the body it converts to active psilocin.</span><span data-l="de">Pyhät sienet, 7 000 vuotta vanhat. María Sabina jakoi veladan 1955. Hofmann eristi psilosybiinin 1958. Johns Hopkins osoittaa nyt merkittävää tehoa masennukseen ja riippuvuuksiin — yksi annos tuottaa pysyviä persoonallisuusmuutoksia avoimuuteen. Fosfaattiryhmä positiossa 4 tekee siitä prodrugin: elimistössä se muuttuu aktiiviseksi psilosiiniksi.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Soorten</span><span data-l="en">Species</span><span data-l="fi">Lajit</span></div><div class="mv" style="color:var(--v)">200+</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--p)">4–6 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="mv" style="color:var(--r)">1958</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Soorten</span><span data-l="en">Species</span><span data-l="de">Lajit</span></div><div class="mv" style="color:var(--v)">200+</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:var(--p)">4–6 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="de">Eristetty</span></div><div class="mv" style="color:var(--r)">1958</div></div>
       </div>
       <a href="psilocybin.html" class="s-explore">Explore Psilocybin →</a>
     </div>
@@ -288,14 +314,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sp" style="width:350px;height:350px;top:20%;right:0;background:var(--t);opacity:.04"></div>
   <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-n"><span data-l="nl" class="s">004 — DE OUDE GENEZER</span><span data-l="en">004 — THE ANCIENT HEALER</span><span data-l="fi">004 — MUINAINEN PARANTAJA</span></div>
+      <div class="s-n"><span data-l="nl" class="s">004 — DE OUDE GENEZER</span><span data-l="en">004 — THE ANCIENT HEALER</span><span data-l="de">004 — DER ALTE HEILER</span></div>
       <h2 class="s-nm glitch" data-text="Cannabis">Cannabis</h2>
       <div class="s-lt">Δ⁹-THC · CAS 1972-08-3</div>
-      <p class="s-d"><span data-l="nl" class="s">De oudste psychoactieve plant — 12.000 jaar bewijs. Uniek: geen stikstof in de moleculaire structuur (tricyclisch dibenzopyran). 140+ cannabinoïden werken samen in het entourage-effect via het endocannabinoïde systeem. Van Scythische rituele tenten tot moderne medicinale cannabis — de meest veelzijdige plant op aarde.</span><span data-l="en">Humanity's oldest psychoactive plant — 12,000 years of evidence. Unique: no nitrogen in the molecular structure (tricyclic dibenzopyran). 140+ cannabinoids work together in the entourage effect via the endocannabinoid system. From Scythian ritual tents to modern medicinal cannabis — the most versatile plant on earth.</span><span data-l="fi">Ihmiskunnan vanhin psykoaktiivinen kasvi — 12 000 vuotta todisteita. Ainutlaatuinen: ei typpeä molekyylirakenteessa (trisyklinen dibentsopyraani). 140+ kannabinoidia toimivat yhdessä entourage-vaikutuksessa endokannabinoidijärjestelmän kautta.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">De oudste psychoactieve plant — 12.000 jaar bewijs. Uniek: geen stikstof in de moleculaire structuur (tricyclisch dibenzopyran). 140+ cannabinoïden werken samen in het entourage-effect via het endocannabinoïde systeem. Van Scythische rituele tenten tot moderne medicinale cannabis — de meest veelzijdige plant op aarde.</span><span data-l="en">Humanity's oldest psychoactive plant — 12,000 years of evidence. Unique: no nitrogen in the molecular structure (tricyclic dibenzopyran). 140+ cannabinoids work together in the entourage effect via the endocannabinoid system. From Scythian ritual tents to modern medicinal cannabis — the most versatile plant on earth.</span><span data-l="de">Ihmiskunnan vanhin psykoaktiivinen kasvi — 12 000 vuotta todisteita. Ainutlaatuinen: ei typpeä molekyylirakenteessa (trisyklinen dibentsopyraani). 140+ kannabinoidia toimivat yhdessä entourage-vaikutuksessa endokannabinoidijärjestelmän kautta.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Cannabinoïden</span><span data-l="en">Cannabinoids</span><span data-l="fi">Kannabinoidit</span></div><div class="mv" style="color:var(--t)">140+</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:#A3E635">2–4 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Eerste gebruik</span><span data-l="en">First Use</span><span data-l="fi">Ensikäyttö</span></div><div class="mv" style="color:var(--t)">~10000 BC</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Cannabinoïden</span><span data-l="en">Cannabinoids</span><span data-l="de">Kannabinoidit</span></div><div class="mv" style="color:var(--t)">140+</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:#A3E635">2–4 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Eerste gebruik</span><span data-l="en">First Use</span><span data-l="de">Ensikäyttö</span></div><div class="mv" style="color:var(--t)">~10000 BC</div></div>
       </div>
       <a href="cannabis.html" class="s-explore">Explore Cannabis →</a>
     </div>
@@ -309,14 +335,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sec-ct">
     <div class="mol-ct"><canvas class="mol3d" data-mol="mescaline" width="400" height="400"></canvas><div class="mol-label">C₁₁H₁₇NO₃ · 211.26 g/mol · Phenethylamine · 1 ring</div></div>
     <div class="s-info">
-      <div class="s-n"><span data-l="nl" class="s">005 — DE WOESTIJNLERAAR</span><span data-l="en">005 — THE DESERT TEACHER</span><span data-l="fi">005 — AAVIKON OPETTAJA</span></div>
+      <div class="s-n"><span data-l="nl" class="s">005 — DE WOESTIJNLERAAR</span><span data-l="en">005 — THE DESERT TEACHER</span><span data-l="de">005 — DER WÜSTENLEHRER</span></div>
       <h2 class="s-nm glitch" data-text="Mescaline">Mescaline</h2>
       <div class="s-lt">3,4,5-Trimethoxyphenethylamine · CAS 54-04-6</div>
-      <p class="s-d"><span data-l="nl" class="s">Het eenvoudigste psychedelicum — slechts één ring. 5.700 jaar gebruikt via peyote en San Pedro. Eerste psychedelicum ooit geïsoleerd (Heffter, 1897). Huxley's "Doors of Perception" veranderde de wereld. De geometrische visioenen — form constants — weerspiegelen de wiskundige structuur van het bewustzijn.</span><span data-l="en">The simplest psychedelic — just one ring. 5,700 years of use via peyote and San Pedro. First psychedelic ever isolated (Heffter, 1897). Huxley's "Doors of Perception" changed the world. The geometric visions — form constants — mirror the mathematical structure of consciousness.</span><span data-l="fi">Yksinkertaisin psykedeeli — vain yksi rengas. 5 700 vuotta käyttöä peyoten ja San Pedron kautta. Ensimmäinen koskaan eristetty psykedeeli (Heffter, 1897). Huxleyn "Havainnon ovet" muutti maailman. Geometriset visiot heijastavat tietoisuuden matemaattista rakennetta.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Het eenvoudigste psychedelicum — slechts één ring. 5.700 jaar gebruikt via peyote en San Pedro. Eerste psychedelicum ooit geïsoleerd (Heffter, 1897). Huxley's "Doors of Perception" veranderde de wereld. De geometrische visioenen — form constants — weerspiegelen de wiskundige structuur van het bewustzijn.</span><span data-l="en">The simplest psychedelic — just one ring. 5,700 years of use via peyote and San Pedro. First psychedelic ever isolated (Heffter, 1897). Huxley's "Doors of Perception" changed the world. The geometric visions — form constants — mirror the mathematical structure of consciousness.</span><span data-l="de">Yksinkertaisin psykedeeli — vain yksi rengas. 5 700 vuotta käyttöä peyoten ja San Pedron kautta. Ensimmäinen koskaan eristetty psykedeeli (Heffter, 1897). Huxleyn "Havainnon ovet" muutti maailman. Geometriset visiot heijastavat tietoisuuden matemaattista rakennetta.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Alku</span></div><div class="mv" style="color:var(--r)">1–2 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:#FB923C">8–12 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="mv" style="color:var(--r)">1897</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="de">Beginn</span></div><div class="mv" style="color:var(--r)">1–2 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:#FB923C">8–12 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="de">Eristetty</span></div><div class="mv" style="color:var(--r)">1897</div></div>
       </div>
       <a href="mescaline.html" class="s-explore">Explore Mescaline →</a>
     </div>
@@ -328,14 +354,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <canvas class="bg" data-c="79,70,229" data-n="55"></canvas>
   <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-n"><span data-l="nl" class="s">006 — DE WORTEL VAN WAARHEID</span><span data-l="en">006 — THE ROOT OF TRUTH</span><span data-l="fi">006 — TOTUUDEN JUURI</span></div>
+      <div class="s-n"><span data-l="nl" class="s">006 — DE WORTEL VAN WAARHEID</span><span data-l="en">006 — THE ROOT OF TRUTH</span><span data-l="de">006 — DIE WURZEL DER WAHRHEIT</span></div>
       <h2 class="s-nm glitch" data-text="Ibogaine">Ibogaine</h2>
       <div class="s-lt">12-Methoxyibogamine · CAS 83-74-9</div>
-      <p class="s-d"><span data-l="nl" class="s">Het meest complexe molecuul — vijf versmolten ringen. Uit de wortelbast van de iboga-struik, centraal in Gabons Bwiti-traditie. Uniek vermogen: één dosis doorbreekt opiaat- en alcoholverslaving door beloningscircuits te resetten. 24-36 uur panoramisch levensoverzicht — elk geheugen onderzocht zonder emotionele lading.</span><span data-l="en">The most complex molecule — five fused rings. From the root bark of the iboga shrub, central to Gabon's Bwiti tradition. Unique ability: a single dose interrupts opioid and alcohol addiction by resetting reward circuits. 24-36 hour panoramic life review — every memory examined without emotional charge.</span><span data-l="fi">Monimutkaisin molekyyli — viisi fuusioitunutta rengasta. Iboga-pensaan juurikuoresta, Gabonin Bwiti-perinteen ytimestä. Ainutlaatuinen kyky: yksi annos katkaisee opioidi- ja alkoholiriippuvuuden nollaamalla palkitsemisreitit. 24-36 tunnin panoraaminen elämänkatsaus.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Het meest complexe molecuul — vijf versmolten ringen. Uit de wortelbast van de iboga-struik, centraal in Gabons Bwiti-traditie. Uniek vermogen: één dosis doorbreekt opiaat- en alcoholverslaving door beloningscircuits te resetten. 24-36 uur panoramisch levensoverzicht — elk geheugen onderzocht zonder emotionele lading.</span><span data-l="en">The most complex molecule — five fused rings. From the root bark of the iboga shrub, central to Gabon's Bwiti tradition. Unique ability: a single dose interrupts opioid and alcohol addiction by resetting reward circuits. 24-36 hour panoramic life review — every memory examined without emotional charge.</span><span data-l="de">Monimutkaisin molekyyli — viisi fuusioitunutta rengasta. Iboga-pensaan juurikuoresta, Gabonin Bwiti-perinteen ytimestä. Ainutlaatuinen kyky: yksi annos katkaisee opioidi- ja alkoholiriippuvuuden nollaamalla palkitsemisreitit. 24-36 tunnin panoraaminen elämänkatsaus.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--i)">24–36 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Oorsprong</span><span data-l="en">Origin</span><span data-l="fi">Alkuperä</span></div><div class="mv" style="color:#06B6D4">Gabon</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Anti-verslavend</span><span data-l="en">Anti-addictive</span><span data-l="fi">Riippuvuutta ehkäisevä</span></div><div class="mv" style="color:var(--t)">✓</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:var(--i)">24–36 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Oorsprong</span><span data-l="en">Origin</span><span data-l="de">Alkuperä</span></div><div class="mv" style="color:#06B6D4">Gabon</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Anti-verslavend</span><span data-l="en">Anti-addictive</span><span data-l="de">Riippuvuutta ehkäisevä</span></div><div class="mv" style="color:var(--t)">✓</div></div>
       </div>
       <a href="ibogaine.html" class="s-explore">Explore Ibogaine →</a>
     </div>
@@ -349,14 +375,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sec-ct">
     <div class="mol-ct"><canvas class="mol3d" data-mol="meodmt" width="400" height="400"></canvas><div class="mol-label">C₁₃H₁₈N₂O · 218.30 g/mol · 5-methoxy-indole · 2 rings</div></div>
     <div class="s-info">
-      <div class="s-n"><span data-l="nl" class="s">007 — HET GODSMOLECUUL</span><span data-l="en">007 — THE GOD MOLECULE</span><span data-l="fi">007 — JUMALAMOLEKYYLI</span></div>
+      <div class="s-n"><span data-l="nl" class="s">007 — HET GODSMOLECUUL</span><span data-l="en">007 — THE GOD MOLECULE</span><span data-l="de">007 — DAS GOTTESMOLEKÜL</span></div>
       <h2 class="s-nm glitch" data-text="5-MeO-DMT">5-MeO-DMT</h2>
       <div class="s-lt">5-Methoxy-N,N-dimethyltryptamine · MW 218.30</div>
-      <p class="s-d"><span data-l="nl" class="s">Het krachtigste psychedelicum per gewicht. 300-1000x selectiviteit voor 5-HT₁ₐ boven 5-HT₂ₐ — geen fractals maar totale ego-oplossing, een wit-out van puur non-duaal bewustzijn. Beckley Psytech Fase 2b (2025): 57,5% remissie therapieresistente depressie, 0% placebo. De Sonorawoestijnpad scheidt het af als verdedigingsmechanisme.</span><span data-l="en">The most potent psychedelic by weight. 300-1000x selectivity for 5-HT₁ₐ over 5-HT₂ₐ — no fractals but total ego dissolution, a white-out of pure non-dual awareness. Beckley Psytech Phase 2b (2025): 57.5% remission in treatment-resistant depression, 0% placebo. The Sonoran Desert toad secretes it as a defense mechanism.</span><span data-l="fi">Painoonsa nähden voimakkain psykedeeli. 300-1000x selektiivisyys 5-HT₁ₐ:lle — ei fraktaaleja vaan täydellinen egon liukeneminen. Beckley Psytech vaiheen 2b (2025): 57,5% remissio hoitoresistentissä masennuksessa.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Het krachtigste psychedelicum per gewicht. 300-1000x selectiviteit voor 5-HT₁ₐ boven 5-HT₂ₐ — geen fractals maar totale ego-oplossing, een wit-out van puur non-duaal bewustzijn. Beckley Psytech Fase 2b (2025): 57,5% remissie therapieresistente depressie, 0% placebo. De Sonorawoestijnpad scheidt het af als verdedigingsmechanisme.</span><span data-l="en">The most potent psychedelic by weight. 300-1000x selectivity for 5-HT₁ₐ over 5-HT₂ₐ — no fractals but total ego dissolution, a white-out of pure non-dual awareness. Beckley Psytech Phase 2b (2025): 57.5% remission in treatment-resistant depression, 0% placebo. The Sonoran Desert toad secretes it as a defense mechanism.</span><span data-l="de">Painoonsa nähden voimakkain psykedeeli. 300-1000x selektiivisyys 5-HT₁ₐ:lle — ei fraktaaleja vaan täydellinen egon liukeneminen. Beckley Psytech vaiheen 2b (2025): 57,5% remissio hoitoresistentissä masennuksessa.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:#E0E7FF">15–30 min</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Dosis</span><span data-l="en">Full Dose</span><span data-l="fi">Annos</span></div><div class="mv" style="color:var(--v)">8–12 mg</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="fi">Eristetty</span></div><div class="mv" style="color:#fff">1965</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:#E0E7FF">15–30 min</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Dosis</span><span data-l="en">Full Dose</span><span data-l="de">Annos</span></div><div class="mv" style="color:var(--v)">8–12 mg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Geïsoleerd</span><span data-l="en">Isolated</span><span data-l="de">Eristetty</span></div><div class="mv" style="color:#fff">1965</div></div>
       </div>
       <a href="meodmt.html" class="s-explore">Explore 5-MeO-DMT →</a>
     </div>
@@ -369,14 +395,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sp" style="width:200px;height:200px;top:30%;left:3%;background:var(--r);opacity:.04"></div>
   <div class="sec-ct" style="direction:rtl">
     <div class="s-info" style="direction:ltr">
-      <div class="s-n"><span data-l="nl" class="s">008 — DE HARTOPENER</span><span data-l="en">008 — THE HEART OPENER</span><span data-l="fi">008 — SYDÄMEN AVAAJA</span></div>
+      <div class="s-n"><span data-l="nl" class="s">008 — DE HARTOPENER</span><span data-l="en">008 — THE HEART OPENER</span><span data-l="de">008 — DER HERZÖFFNER</span></div>
       <h2 class="s-nm glitch" data-text="MDMA">MDMA</h2>
       <div class="s-lt">3,4-MDMA · midomafetamine · MW 193.25</div>
-      <p class="s-d"><span data-l="nl" class="s">Köllisch synthetiseerde het in 1912 bij Merck. Shulgin herontdekte het in 1976 — zijn "low-calorie martini." Overspoelt de synaps met serotonine + oxytocine = radicale empathie. MAPS Fase 3: 67% ernstige PTSS-patiënten hersteld na 3 sessies. Australië keurde MDMA-therapie goed in 2023. Shulgins 38-jarige missie gaat voort.</span><span data-l="en">Köllisch synthesized it at Merck in 1912. Shulgin rediscovered it in 1976 — his "low-calorie martini." Floods the synapse with serotonin + oxytocin = radical empathy. MAPS Phase 3: 67% of severe PTSD patients recovered after 3 sessions. Australia approved MDMA therapy in 2023.</span><span data-l="fi">Köllisch syntetisoi Merckillä 1912. Shulgin löysi uudelleen 1976. Tulvii synapsit serotoniinilla + oksitosiinilla = radikaali empatia. MAPS vaiheen 3: 67% vakavista PTSD-potilaista toipui 3 istunnon jälkeen. Australia hyväksyi MDMA-terapian 2023.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Köllisch synthetiseerde het in 1912 bij Merck. Shulgin herontdekte het in 1976 — zijn "low-calorie martini." Overspoelt de synaps met serotonine + oxytocine = radicale empathie. MAPS Fase 3: 67% ernstige PTSS-patiënten hersteld na 3 sessies. Australië keurde MDMA-therapie goed in 2023. Shulgins 38-jarige missie gaat voort.</span><span data-l="en">Köllisch synthesized it at Merck in 1912. Shulgin rediscovered it in 1976 — his "low-calorie martini." Floods the synapse with serotonin + oxytocin = radical empathy. MAPS Phase 3: 67% of severe PTSD patients recovered after 3 sessions. Australia approved MDMA therapy in 2023.</span><span data-l="de">Köllisch syntetisoi Merckillä 1912. Shulgin löysi uudelleen 1976. Tulvii synapsit serotoniinilla + oksitosiinilla = radikaali empatia. MAPS vaiheen 3: 67% vakavista PTSD-potilaista toipui 3 istunnon jälkeen. Australia hyväksyi MDMA-terapian 2023.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="fi">Kesto</span></div><div class="mv" style="color:var(--r)">4–6 h</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Therapeutisch</span><span data-l="en">Therapeutic</span><span data-l="fi">Terapeuttinen</span></div><div class="mv" style="color:var(--g)">75–125 mg</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Synthese</span><span data-l="en">Synthesized</span><span data-l="fi">Syntetisoitu</span></div><div class="mv" style="color:var(--r)">1912</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Duur</span><span data-l="en">Duration</span><span data-l="de">Dauer</span></div><div class="mv" style="color:var(--r)">4–6 h</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Therapeutisch</span><span data-l="en">Therapeutic</span><span data-l="de">Terapeuttinen</span></div><div class="mv" style="color:var(--g)">75–125 mg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Synthese</span><span data-l="en">Synthesized</span><span data-l="de">Syntetisoitu</span></div><div class="mv" style="color:var(--r)">1912</div></div>
       </div>
       <a href="mdma.html" class="s-explore">Explore MDMA →</a>
     </div>
@@ -390,14 +416,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="sec-ct">
     <div class="mol-ct"><canvas class="mol3d" data-mol="ketamine" width="400" height="400"></canvas><div class="mol-label">C₁₃H₁₆ClNO · 237.73 g/mol · Arylcyclohexylamine · 2 rings</div></div>
     <div class="s-info">
-      <div class="s-n"><span data-l="nl" class="s">009 — DE DISSOCIATIEVE GENEZER</span><span data-l="en">009 — THE DISSOCIATIVE HEALER</span><span data-l="fi">009 — DISSOSIATIIVINEN PARANTAJA</span></div>
+      <div class="s-n"><span data-l="nl" class="s">009 — DE DISSOCIATIEVE GENEZER</span><span data-l="en">009 — THE DISSOCIATIVE HEALER</span><span data-l="de">009 — DER DISSOZIATIVE HEILER</span></div>
       <h2 class="s-nm glitch" data-text="Ketamine">Ketamine</h2>
       <div class="s-lt">Arylcyclohexylamine · CAS 6740-88-1</div>
-      <p class="s-d"><span data-l="nl" class="s">Stevens synthetiseerde het in 1962 als PCP-alternatief. Yale ontdekte in 2000: één sub-anesthetische dosis tilt therapieresistente depressie binnen uren. Blokkeert NMDA-receptoren → BDNF-cascade → nieuwe synaptische verbindingen in één nacht. Esketamine (Spravato) FDA 2019. 100.000+ patiënten. $2,3 miljard markt.</span><span data-l="en">Stevens synthesized it in 1962 as a PCP alternative. Yale discovered in 2000: a single sub-anesthetic dose lifts treatment-resistant depression within hours. Blocks NMDA receptors → BDNF cascade → new synaptic connections overnight. Esketamine (Spravato) FDA 2019. 100,000+ patients. $2.3B market.</span><span data-l="fi">Stevens syntetisoi 1962 PCP-vaihtoehdoksi. Yale löysi 2000: yksi sub-anesteettinen annos lievittää hoitoresistenttiä masennusta tunneissa. Estää NMDA-reseptoreita → BDNF-kaskadi → uudet synaptiset yhteydet yhdessä yössä. Esketamiini (Spravato) FDA 2019.</span></p>
+      <p class="s-d"><span data-l="nl" class="s">Stevens synthetiseerde het in 1962 als PCP-alternatief. Yale ontdekte in 2000: één sub-anesthetische dosis tilt therapieresistente depressie binnen uren. Blokkeert NMDA-receptoren → BDNF-cascade → nieuwe synaptische verbindingen in één nacht. Esketamine (Spravato) FDA 2019. 100.000+ patiënten. $2,3 miljard markt.</span><span data-l="en">Stevens synthesized it in 1962 as a PCP alternative. Yale discovered in 2000: a single sub-anesthetic dose lifts treatment-resistant depression within hours. Blocks NMDA receptors → BDNF cascade → new synaptic connections overnight. Esketamine (Spravato) FDA 2019. 100,000+ patients. $2.3B market.</span><span data-l="de">Stevens syntetisoi 1962 PCP-vaihtoehdoksi. Yale löysi 2000: yksi sub-anesteettinen annos lievittää hoitoresistenttiä masennusta tunneissa. Estää NMDA-reseptoreita → BDNF-kaskadi → uudet synaptiset yhteydet yhdessä yössä. Esketamiini (Spravato) FDA 2019.</span></p>
       <div class="s-m">
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Dosis</span><span data-l="en">Dose</span><span data-l="fi">Annos</span></div><div class="mv" style="color:var(--v)">0.5 mg/kg</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="fi">Alku</span></div><div class="mv" style="color:#C7D2FE">Minuten</div></div>
-        <div class="mc"><div class="ml"><span data-l="nl" class="s">FDA</span><span data-l="en">FDA</span><span data-l="fi">FDA</span></div><div class="mv" style="color:var(--i)">2019</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Dosis</span><span data-l="en">Dose</span><span data-l="de">Annos</span></div><div class="mv" style="color:var(--v)">0.5 mg/kg</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">Aanvang</span><span data-l="en">Onset</span><span data-l="de">Beginn</span></div><div class="mv" style="color:#C7D2FE">Minuten</div></div>
+        <div class="mc"><div class="ml"><span data-l="nl" class="s">FDA</span><span data-l="en">FDA</span><span data-l="de">FDA</span></div><div class="mv" style="color:var(--i)">2019</div></div>
       </div>
       <a href="ketamine.html" class="s-explore">Explore Ketamine →</a>
     </div>
@@ -411,15 +437,15 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="br" style="width:400px;height:400px;top:50%;left:50%;animation-delay:1.2s"></div>
   <div class="br" style="width:500px;height:500px;top:50%;left:50%;animation-delay:1.8s"></div>
   <div class="bw-hd">
-    <div class="s-n" style="text-align:center"><span data-l="nl" class="s">010 — DE ADEM VAN HET BEWUSTZIJN</span><span data-l="en">010 — THE BREATH OF CONSCIOUSNESS</span><span data-l="fi">010 — TIETOISUUDEN HENGITYS</span></div>
-    <h2 class="bw-t"><span data-l="nl" class="s">Ademwerk</span><span data-l="en">Breathwork</span><span data-l="fi">Hengitystyö</span></h2>
-    <p class="bw-p"><span data-l="nl" class="s">De oudste psychedelische technologie vereist geen molecuul — alleen adem. Deze technieken veranderen het bewustzijn door gecontroleerde ademhalingspatronen, waarmee de endogene neurochemie wordt geactiveerd.</span><span data-l="en">The most ancient psychedelic technology requires no molecule — only breath. These techniques alter consciousness through controlled breathing patterns, activating endogenous neurochemistry.</span><span data-l="fi">Vanhin psykedeelinen teknologia ei vaadi molekyyliä — ainoastaan hengityksen. Nämä tekniikat muuttavat tietoisuutta kontrolloiduilla hengityskaavoilla aktivoimalla elimistön omaa neurokemiaa.</span></p>
+    <div class="s-n" style="text-align:center"><span data-l="nl" class="s">010 — DE ADEM VAN HET BEWUSTZIJN</span><span data-l="en">010 — THE BREATH OF CONSCIOUSNESS</span><span data-l="de">010 — DER ATEM DES BEWUSSTSEINS</span></div>
+    <h2 class="bw-t"><span data-l="nl" class="s">Ademwerk</span><span data-l="en">Breathwork</span><span data-l="de">Hengitystyö</span></h2>
+    <p class="bw-p"><span data-l="nl" class="s">De oudste psychedelische technologie vereist geen molecuul — alleen adem. Deze technieken veranderen het bewustzijn door gecontroleerde ademhalingspatronen, waarmee de endogene neurochemie wordt geactiveerd.</span><span data-l="en">The most ancient psychedelic technology requires no molecule — only breath. These techniques alter consciousness through controlled breathing patterns, activating endogenous neurochemistry.</span><span data-l="de">Vanhin psykedeelinen teknologia ei vaadi molekyyliä — ainoastaan hengityksen. Nämä tekniikat muuttavat tietoisuutta kontrolloiduilla hengityskaavoilla aktivoimalla elimistön omaa neurokemiaa.</span></p>
   </div>
   <div class="bw-g">
-    <div class="bwc"><div class="bwc-n"><span data-l="nl" class="s">Holotropisch Ademwerk</span><span data-l="en">Holotropic Breathwork</span><span data-l="fi">Holotrooppinen hengitystyö</span></div><div class="bwc-s">Stanislav Grof · 1976</div><p class="bwc-d"><span data-l="nl" class="s">Grofin non-farmacologisch alternatief voor LSD-therapie. Versnelde ademhaling + evocatieve muziek → respiratoire alkalose → cerebrale hypoxie → diepgaand veranderde bewustzijnstoestanden. PLOS One (2025): amygdala/hippocampus-activatie vergelijkbaar met psychedelische ervaringen. 11.000 patiënten in MAPS klinische rapportage.</span><span data-l="en">Grof's non-pharmacological alternative to LSD therapy. Accelerated breathing + evocative music → respiratory alkalosis → cerebral hypoxia → profoundly altered states. PLOS One (2025): amygdala/hippocampus activation comparable to psychedelic experiences. 11,000 patients in MAPS clinical reporting.</span><span data-l="fi">Grofin ei-farmakologinen vaihtoehto LSD-terapialle. Kiihdytetty hengitys + musiikki → respiratorinen alkaloosi → aivojen hypoksia → syvästi muuntuneet tajunnantilat. PLOS One (2025): amygdalan/hippokampuksen aktivaatio verrattavissa psykedeelisiin kokemuksiin.</span></p></div>
-    <div class="bwc"><div class="bwc-n"><span data-l="nl" class="s">Wim Hof Methode</span><span data-l="en">Wim Hof Method</span><span data-l="fi">Wim Hof -menetelmä</span></div><div class="bwc-s">Wim Hof · Netherlands</div><p class="bwc-d"><span data-l="nl" class="s">Hyperventilatie + koude + meditatie. Radboud/PNAS (2014): bewijs dat mensen willekeurig hun immuunsysteem moduleren. PET: ~20% CB1 endocannabinoïde receptorbinding toename. Enorme adrenalinesurge. PAG-gemedieerde opioïde/endocannabinoïde afgifte.</span><span data-l="en">Hyperventilation + cold + meditation. Radboud/PNAS (2014): proof that humans can voluntarily modulate their immune system. PET: ~20% CB1 endocannabinoid receptor binding increase. Massive adrenaline surge. PAG-mediated opioid/endocannabinoid release.</span><span data-l="fi">Hyperventilaatio + kylmä + meditaatio. Radboud/PNAS (2014): todiste ihmisten kyvystä tahdonalaisesti moduloida immuunijärjestelmää. PET: ~20% CB1-endokannabinoidreseptorisitoutumisen lisäys.</span></p></div>
-    <div class="bwc"><div class="bwc-n">Pranayama</div><div class="bwc-s">Yogic tradition · 5000+ years</div><p class="bwc-d"><span data-l="nl" class="s">8+ technieken, elk met unieke autonome effecten. Streeter (Boston): verhoogde GABA-niveaus. Afwisselende neusgat-ademhaling balanceert EEG tussen hersenhelften. Kundalini-effecten: prefrontale activatie, DMN-onderdrukking. 2024 survey: 45% van de bevolking heeft niet-farmacologische veranderde bewustzijnstoestanden ervaren.</span><span data-l="en">8+ techniques each with unique autonomic effects. Streeter (Boston): elevated brain GABA levels. Alternate nostril breathing balances EEG between hemispheres. Kundalini effects: prefrontal activation, DMN suppression. 2024 survey: 45% of the population has experienced non-drug altered states.</span><span data-l="fi">8+ tekniikkaa, kullakin ainutlaatuiset autonomiset vaikutukset. Streeter (Boston): kohonneet aivojen GABA-tasot. Vuorotteleva sierainten hengitys tasapainottaa EEG:tä aivopuoliskojen välillä. 2024 tutkimus: 45% väestöstä on kokenut ei-farmakologisia muuntuneita tajunnantiloja.</span></p></div>
-    <div class="bwc"><div class="bwc-n">Tummo</div><div class="bwc-s">Tibetan inner fire · g-Tummo</div><p class="bwc-d"><span data-l="nl" class="s">Tibetaanse "innerlijk vuur" — vaasademhaling + visualisatie. Harvard: 8,3°C perifere temperatuurstijging. Kozhevnikov (PLOS One, 2013): onderscheid somatische en neurocognitieve componenten. EEG alfa-temperatuur correlatie. Poort naar helder-licht meditatie en diepere lagen van bewustzijn.</span><span data-l="en">Tibetan "inner fire" — vase breathing + visualization. Harvard: 8.3°C peripheral temperature increase. Kozhevnikov (PLOS One, 2013): distinguished somatic and neurocognitive components. EEG alpha-temperature correlation. Gateway to clear light meditation and deeper layers of consciousness.</span><span data-l="fi">Tiibetiläinen "sisäinen tuli" — vaasihengitys + visualisointi. Harvard: 8,3°C perifeerinen lämpötilannousu. Kozhevnikov (PLOS One, 2013): somaattisten ja neurokognitiivisten komponenttien erottelu. EEG alfa-lämpötila -korrelaatio. Portti kirkkaan valon meditaatioon.</span></p></div>
+    <div class="bwc"><div class="bwc-n"><span data-l="nl" class="s">Holotropisch Ademwerk</span><span data-l="en">Holotropic Breathwork</span><span data-l="de">Holotrooppinen hengitystyö</span></div><div class="bwc-s">Stanislav Grof · 1976</div><p class="bwc-d"><span data-l="nl" class="s">Grofin non-farmacologisch alternatief voor LSD-therapie. Versnelde ademhaling + evocatieve muziek → respiratoire alkalose → cerebrale hypoxie → diepgaand veranderde bewustzijnstoestanden. PLOS One (2025): amygdala/hippocampus-activatie vergelijkbaar met psychedelische ervaringen. 11.000 patiënten in MAPS klinische rapportage.</span><span data-l="en">Grof's non-pharmacological alternative to LSD therapy. Accelerated breathing + evocative music → respiratory alkalosis → cerebral hypoxia → profoundly altered states. PLOS One (2025): amygdala/hippocampus activation comparable to psychedelic experiences. 11,000 patients in MAPS clinical reporting.</span><span data-l="de">Grofin ei-farmakologinen vaihtoehto LSD-terapialle. Kiihdytetty hengitys + musiikki → respiratorinen alkaloosi → aivojen hypoksia → syvästi muuntuneet tajunnantilat. PLOS One (2025): amygdalan/hippokampuksen aktivaatio verrattavissa psykedeelisiin kokemuksiin.</span></p></div>
+    <div class="bwc"><div class="bwc-n"><span data-l="nl" class="s">Wim Hof Methode</span><span data-l="en">Wim Hof Method</span><span data-l="de">Wim Hof -menetelmä</span></div><div class="bwc-s">Wim Hof · Netherlands</div><p class="bwc-d"><span data-l="nl" class="s">Hyperventilatie + koude + meditatie. Radboud/PNAS (2014): bewijs dat mensen willekeurig hun immuunsysteem moduleren. PET: ~20% CB1 endocannabinoïde receptorbinding toename. Enorme adrenalinesurge. PAG-gemedieerde opioïde/endocannabinoïde afgifte.</span><span data-l="en">Hyperventilation + cold + meditation. Radboud/PNAS (2014): proof that humans can voluntarily modulate their immune system. PET: ~20% CB1 endocannabinoid receptor binding increase. Massive adrenaline surge. PAG-mediated opioid/endocannabinoid release.</span><span data-l="de">Hyperventilaatio + kylmä + meditaatio. Radboud/PNAS (2014): todiste ihmisten kyvystä tahdonalaisesti moduloida immuunijärjestelmää. PET: ~20% CB1-endokannabinoidreseptorisitoutumisen lisäys.</span></p></div>
+    <div class="bwc"><div class="bwc-n">Pranayama</div><div class="bwc-s">Yogic tradition · 5000+ years</div><p class="bwc-d"><span data-l="nl" class="s">8+ technieken, elk met unieke autonome effecten. Streeter (Boston): verhoogde GABA-niveaus. Afwisselende neusgat-ademhaling balanceert EEG tussen hersenhelften. Kundalini-effecten: prefrontale activatie, DMN-onderdrukking. 2024 survey: 45% van de bevolking heeft niet-farmacologische veranderde bewustzijnstoestanden ervaren.</span><span data-l="en">8+ techniques each with unique autonomic effects. Streeter (Boston): elevated brain GABA levels. Alternate nostril breathing balances EEG between hemispheres. Kundalini effects: prefrontal activation, DMN suppression. 2024 survey: 45% of the population has experienced non-drug altered states.</span><span data-l="de">8+ tekniikkaa, kullakin ainutlaatuiset autonomiset vaikutukset. Streeter (Boston): kohonneet aivojen GABA-tasot. Vuorotteleva sierainten hengitys tasapainottaa EEG:tä aivopuoliskojen välillä. 2024 tutkimus: 45% väestöstä on kokenut ei-farmakologisia muuntuneita tajunnantiloja.</span></p></div>
+    <div class="bwc"><div class="bwc-n">Tummo</div><div class="bwc-s">Tibetan inner fire · g-Tummo</div><p class="bwc-d"><span data-l="nl" class="s">Tibetaanse "innerlijk vuur" — vaasademhaling + visualisatie. Harvard: 8,3°C perifere temperatuurstijging. Kozhevnikov (PLOS One, 2013): onderscheid somatische en neurocognitieve componenten. EEG alfa-temperatuur correlatie. Poort naar helder-licht meditatie en diepere lagen van bewustzijn.</span><span data-l="en">Tibetan "inner fire" — vase breathing + visualization. Harvard: 8.3°C peripheral temperature increase. Kozhevnikov (PLOS One, 2013): distinguished somatic and neurocognitive components. EEG alpha-temperature correlation. Gateway to clear light meditation and deeper layers of consciousness.</span><span data-l="de">Tiibetiläinen "sisäinen tuli" — vaasihengitys + visualisointi. Harvard: 8,3°C perifeerinen lämpötilannousu. Kozhevnikov (PLOS One, 2013): somaattisten ja neurokognitiivisten komponenttien erottelu. EEG alfa-lämpötila -korrelaatio. Portti kirkkaan valon meditaatioon.</span></p></div>
   </div>
 </section>
 
@@ -429,14 +455,14 @@ footer .dc{margin-top:.8rem;font-size:.55rem;color:rgba(248,245,255,.08);max-wid
   <div class="hof-ct">
     <div class="hof-y">1906 — 2008</div>
     <h2 class="hof-n">Dr. Albert Hofmann</h2>
-    <p class="hof-q"><span data-l="nl" class="s">"Ik denk dat het in de menselijke evolutie nooit zo noodzakelijk is geweest om deze stof LSD te hebben. Het is slechts een werktuig om ons te maken tot wat we behoren te zijn."<br><br>Vader van LSD. Pionier van psilocybinesynthese. Voorvechter van bewustzijnsonderzoek. Hij werd 102 en noemde LSD zijn "probleemkind" — een geschenk dat werd misverstaan, gevreesd, en uiteindelijk door de wetenschap gerehabiliteerd.</span><span data-l="en">"I think that in human evolution it has never been as necessary to have this substance LSD. It is just a tool to turn us into what we are supposed to be."<br><br>Father of LSD. Pioneer of psilocybin synthesis. Champion of consciousness research. He lived to 102, calling LSD his "problem child" — a gift that was misunderstood, feared, and ultimately vindicated by science.</span><span data-l="fi">"Uskon, että ihmisen evoluutiossa ei ole koskaan ollut yhtä välttämätöntä saada tämä aine LSD. Se on vain työkalu muuttamaan meidät siksi, mitä meidän pitäisi olla."<br><br>LSD:n isä. Psilosybiinisynteesin pioneeri. Tietoisuustutkimuksen puolestapuhuja. Hän eli 102-vuotiaaksi kutsuen LSD:tä "ongelmalapsekseen."</span></p>
-    <div class="bd"><span data-l="nl" class="s">FIETSDAG — 19 APRIL 1943</span><span data-l="en">BICYCLE DAY — APRIL 19, 1943</span><span data-l="fi">POLKUPYÖRÄPÄIVÄ — 19.4.1943</span></div>
+    <p class="hof-q"><span data-l="nl" class="s">"Ik denk dat het in de menselijke evolutie nooit zo noodzakelijk is geweest om deze stof LSD te hebben. Het is slechts een werktuig om ons te maken tot wat we behoren te zijn."<br><br>Vader van LSD. Pionier van psilocybinesynthese. Voorvechter van bewustzijnsonderzoek. Hij werd 102 en noemde LSD zijn "probleemkind" — een geschenk dat werd misverstaan, gevreesd, en uiteindelijk door de wetenschap gerehabiliteerd.</span><span data-l="en">"I think that in human evolution it has never been as necessary to have this substance LSD. It is just a tool to turn us into what we are supposed to be."<br><br>Father of LSD. Pioneer of psilocybin synthesis. Champion of consciousness research. He lived to 102, calling LSD his "problem child" — a gift that was misunderstood, feared, and ultimately vindicated by science.</span><span data-l="de">"Uskon, että ihmisen evoluutiossa ei ole koskaan ollut yhtä välttämätöntä saada tämä aine LSD. Se on vain työkalu muuttamaan meidät siksi, mitä meidän pitäisi olla."<br><br>LSD:n isä. Psilosybiinisynteesin pioneeri. Tietoisuustutkimuksen puolestapuhuja. Hän eli 102-vuotiaaksi kutsuen LSD:tä "ongelmalapsekseen."</span></p>
+    <div class="bd"><span data-l="nl" class="s">FIETSDAG — 19 APRIL 1943</span><span data-l="en">BICYCLE DAY — APRIL 19, 1943</span><span data-l="de">POLKUPYÖRÄPÄIVÄ — 19.4.1943</span></div>
   </div>
 </section>
 
 <footer>
   <p>Hofmann's Pharmacopoeia</p>
-  <p class="dc"><span data-l="nl" class="s">Educatief en artistiek eerbetoon aan psychedelisch onderzoek. Bedoeld voor schadebeperking en wetenschappelijke geletterdheid. Respecteer lokale wetgeving.</span><span data-l="en">Educational and artistic tribute to psychedelic research. For harm reduction and scientific literacy. Respect local laws.</span><span data-l="fi">Opetuksellinen ja taiteellinen kunnianosoitus psykedeelitutkimukselle. Haittojen vähentämiseen ja tieteelliseen lukutaitoon. Kunnioita paikallista lainsäädäntöä.</span></p>
+  <p class="dc"><span data-l="nl" class="s">Educatief en artistiek eerbetoon aan psychedelisch onderzoek. Bedoeld voor schadebeperking en wetenschappelijke geletterdheid. Respecteer lokale wetgeving.</span><span data-l="en">Educational and artistic tribute to psychedelic research. For harm reduction and scientific literacy. Respect local laws.</span><span data-l="de">Opetuksellinen ja taiteellinen kunnianosoitus psykedeelitutkimukselle. Haittojen vähentämiseen ja tieteelliseen lukutaitoon. Kunnioita paikallista lainsäädäntöä.</span></p>
 </footer>
 <script>
 // ═══════════════════════════════════════
